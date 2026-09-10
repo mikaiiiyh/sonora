@@ -1,0 +1,6101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SONORA° — Música que pensa em dados</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background: #e8e4dc;
+            color: #332c29;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --fundo: #e8e4dc;
+            --creme: #f5f1e9;
+            --marrom: #59463d;
+            --marrom-escuro: #332c29;
+            --azul: #a9c9d8;
+            --rosa: #dcaeb5;
+            --amarelo: #e6c979;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        /* =====================================================
+           FUNDO
+        ===================================================== */
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: .45;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .orb1 {
+            width: 300px;
+            height: 300px;
+            background: var(--azul);
+            top: 80px;
+            left: -100px;
+            animation: float1 8s infinite ease-in-out;
+        }
+
+        .orb2 {
+            width: 260px;
+            height: 260px;
+            background: var(--rosa);
+            right: -80px;
+            top: 450px;
+            animation: float2 10s infinite ease-in-out;
+        }
+
+        .orb3 {
+            width: 220px;
+            height: 220px;
+            background: var(--amarelo);
+            left: 45%;
+            bottom: -100px;
+            animation: float3 9s infinite ease-in-out;
+        }
+
+        @keyframes float1 {
+
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(60px, 40px);
+            }
+        }
+
+        @keyframes float2 {
+
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-50px, -40px);
+            }
+        }
+
+        @keyframes float3 {
+
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(30px, -50px);
+            }
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        nav {
+            width: 100%;
+            padding: 25px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: absolute;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: "Space Grotesk";
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            background: var(--rosa);
+            border-radius: 50%;
+            margin-left: 5px;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 600;
+            opacity: .7;
+            transition: .3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        .nav-button {
+            background: var(--marrom);
+            color: white;
+            padding: 11px 19px;
+            border-radius: 30px;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            min-height: 100vh;
+            padding: 150px 7% 80px;
+            display: grid;
+            grid-template-columns: 1fr .85fr;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .mini-label {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .mini-label::before {
+            content: "";
+            width: 30px;
+            height: 2px;
+            background: var(--marrom);
+        }
+
+        h1 {
+            font-family: "Space Grotesk";
+            font-size: clamp(55px, 7vw, 95px);
+            line-height: .95;
+            letter-spacing: -5px;
+            margin-bottom: 30px;
+        }
+
+        h1 span {
+            color: var(--marrom);
+        }
+
+        .hero-description {
+            max-width: 550px;
+            font-size: 18px;
+            line-height: 1.7;
+            opacity: .72;
+            margin-bottom: 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .primary-button {
+            background: var(--marrom);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 35px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(89, 70, 61, .22);
+        }
+
+        .secondary-button {
+            padding: 15px 25px;
+            border: 1px solid rgba(51, 44, 41, .2);
+            border-radius: 35px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           CARD MUSICAL
+        ===================================================== */
+
+        .visual-area {
+            display: flex;
+            justify-content: center;
+            perspective: 1000px;
+        }
+        .card-scene {
+            width: 390px;
+            height: 640px;
+            perspective: 1400px;
+        }
+
+        .music-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform .75s cubic-bezier(.2,.8,.2,1);
+            transform: rotate(3deg);
+        }
+
+        .music-card:hover {
+            transform: rotate(0deg) translateY(-10px);
+        }
+
+        .music-card.flipped {
+            transform: rotateY(180deg) rotate(0deg) translateY(-4px);
+        }
+
+        .card-face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            width: 100%;
+            height: 100%;
+            padding: 25px;
+            border-radius: 30px;
+            background: rgba(245, 241, 233, .86);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 30px 80px rgba(51, 44, 41, .13);
+            overflow: hidden;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .album {
+            height: 285px;
+            border-radius: 22px;
+            background: var(--azul);
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,.22);
+        }
+
+        .album img#heroCover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            image-rendering: auto;
+            transform: scale(1.015);
+            transition: transform .8s ease;
+        }
+
+        .music-card:hover .album img#heroCover {
+            transform: scale(1.045);
+        }
+
+        .album-shade {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(51,44,41,.05) 20%,
+                rgba(51,44,41,.5) 100%
+            );
+            pointer-events: none;
+        }
+
+        .status {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(245, 241, 233, .82);
+            color: var(--marrom-escuro);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+            z-index: 2;
+            backdrop-filter: blur(8px);
+        }
+
+        .play-button {
+            position: absolute;
+            left: 50%;
+            bottom: 18px;
+            transform: translateX(-50%);
+            width: 58px;
+            height: 58px;
+            border: 0;
+            border-radius: 50%;
+            background: var(--creme);
+            color: var(--marrom-escuro);
+            box-shadow: 0 12px 30px rgba(51,44,41,.22);
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 3;
+            transition: .25s;
+        }
+
+        .play-button:hover {
+            transform: translateX(-50%) scale(1.07);
+        }
+
+        .play-button.is-playing {
+            background: var(--rosa);
+        }
+
+        .cover-note {
+            position: absolute;
+            right: 15px;
+            bottom: 22px;
+            color: var(--creme);
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 1.4px;
+            z-index: 2;
+        }
+
+        .song-info {
+            padding: 18px 4px 4px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .song-copy {
+            min-width: 0;
+        }
+
+        .song-info h3 {
+            font-family: "Space Grotesk";
+            font-size: 22px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .song-info p {
+            font-size: 13px;
+            opacity: .58;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 3px;
+        }
+
+        .song-info small {
+            display: block;
+            font-size: 10px;
+            opacity: .43;
+            margin-top: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .flip-button {
+            border: 0;
+            background: transparent;
+            color: var(--marrom);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .7px;
+            cursor: pointer;
+            white-space: nowrap;
+            padding: 5px 0;
+        }
+
+        .wave {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            opacity: .35;
+        }
+
+        .wave span {
+            width: 4px;
+            height: 30px;
+            border-radius: 10px;
+            background: var(--marrom);
+            animation: wave 1s infinite ease-in-out;
+            animation-play-state: paused;
+        }
+
+        .music-card.is-playing .wave span {
+            animation-play-state: running;
+        }
+
+        .player-line {
+            padding: 0 3px 12px;
+        }
+
+        .progress-track {
+            height: 4px;
+            background: rgba(89,70,61,.12);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--marrom);
+            border-radius: inherit;
+            transition: width .08s linear;
+        }
+
+        .time-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 9px;
+            opacity: .45;
+        }
+
+        .back-topline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            opacity: .58;
+        }
+
+        .back-cover {
+            width: 125px;
+            height: 125px;
+            object-fit: cover;
+            border-radius: 22px;
+            margin: 24px auto 15px;
+            box-shadow: 0 18px 35px rgba(51,44,41,.15);
+        }
+
+        .back-song {
+            text-align: center;
+        }
+
+        .back-song h3 {
+            font-family: "Space Grotesk";
+            font-size: 21px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .back-song p {
+            font-size: 12px;
+            opacity: .55;
+            margin-top: 4px;
+        }
+
+        .mini-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .mini-stats > div {
+            background: rgba(232,228,220,.72);
+            border-radius: 15px;
+            padding: 12px;
+        }
+
+        .mini-stats small {
+            display: block;
+            font-size: 8px;
+            opacity: .5;
+            font-weight: 800;
+            letter-spacing: .6px;
+        }
+
+        .mini-stats strong {
+            display: block;
+            font-family: "Space Grotesk";
+            font-size: 14px;
+            margin-top: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .popularity-wrap {
+            margin-top: 13px;
+        }
+
+        .popularity-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            opacity: .5;
+            margin-bottom: 6px;
+        }
+
+        .popularity-track {
+            height: 6px;
+            border-radius: 10px;
+            background: rgba(89,70,61,.11);
+            overflow: hidden;
+        }
+
+        .popularity-track div {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--azul), var(--rosa), var(--amarelo));
+            transition: width .5s ease;
+        }
+
+        .mini-chart {
+            height: 45px;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            gap: 4px;
+            margin-top: 15px;
+            opacity: .65;
+        }
+
+        .mini-chart span {
+            width: 8px;
+            height: 20%;
+            border-radius: 8px 8px 2px 2px;
+            background: var(--marrom);
+            transition: height .5s ease;
+        }
+
+        .mini-chart span:nth-child(2) { height: 55%; }
+        .mini-chart span:nth-child(3) { height: 34%; }
+        .mini-chart span:nth-child(4) { height: 72%; }
+        .mini-chart span:nth-child(5) { height: 45%; }
+        .mini-chart span:nth-child(6) { height: 82%; }
+        .mini-chart span:nth-child(7) { height: 58%; }
+        .mini-chart span:nth-child(8) { height: 92%; }
+        .mini-chart span:nth-child(9) { height: 63%; }
+        .mini-chart span:nth-child(10) { height: 75%; }
+        .mini-chart span:nth-child(11) { height: 42%; }
+        .mini-chart span:nth-child(12) { height: 68%; }
+
+        .back-note {
+            margin-top: auto;
+            font-size: 9px;
+            line-height: 1.45;
+            text-align: center;
+            opacity: .43;
+        }
+
+        .audio-hint {
+            text-align: center;
+            font-size: 10px;
+            opacity: .5;
+            margin-top: 4px;
+        }
+
+
+
+        .status {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+
+            background: rgba(255, 255, 255, .75);
+
+            padding: 8px 12px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            z-index: 2;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .metric {
+            background: rgba(232, 228, 220, .8);
+            padding: 12px;
+            border-radius: 15px;
+        }
+
+        .metric small {
+            display: block;
+            font-size: 9px;
+            opacity: .5;
+            font-weight: 700;
+        }
+
+        .metric strong {
+            display: block;
+            font-size: 15px;
+            margin-top: 4px;
+        }
+
+        /* =====================================================
+           DADOS REAIS DA FAIXA SELECIONADA
+        ===================================================== */
+
+        .artist-source-line { display:flex; align-items:center; gap:10px; margin-top:14px; font-size:10px; }
+.artist-source-line span { font-size:9px; font-weight:800; letter-spacing:1.2px; opacity:.5; }
+.artist-source-line a { color:var(--creme); text-decoration:underline; text-underline-offset:3px; opacity:.85; }
+
+.selected-track-line {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        .selected-track-line span {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            opacity: .55;
+        }
+
+        .selected-track-line strong {
+            font-family: "Space Grotesk";
+            font-size: 18px;
+            color: var(--creme);
+        }
+
+        .selected-track-line em {
+            font-size: 12px;
+            font-style: normal;
+            opacity: .65;
+        }
+
+        .real-track-stats .stat-card {
+            min-height: 118px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .real-track-stats .stat-card strong {
+            font-family: "Space Grotesk";
+            font-size: 22px;
+            margin-top: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .real-track-stats .stat-card span {
+            display: block;
+            font-size: 9px;
+            opacity: .42;
+            margin-top: 5px;
+        }
+
+
+
+        /* =====================================================
+           ANÁLISES INTERATIVAS
+        ===================================================== */
+
+        .interactive-analysis-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interactive-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 11px;
+            border-radius: 20px;
+            background: rgba(220,174,181,.28);
+            color: var(--marrom);
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .artist-profile-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.45fr;
+            gap: 18px;
+            margin-top: 22px;
+        }
+
+        .artist-profile-main {
+            min-height: 260px;
+            padding: 28px;
+            border-radius: 28px;
+            background: linear-gradient(145deg, rgba(169,201,216,.34), rgba(220,174,181,.25), rgba(230,201,121,.22));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .artist-profile-label {
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            opacity: .5;
+        }
+
+        .artist-profile-main h4 {
+            font-family: "Space Grotesk";
+            font-size: 30px;
+            margin: 8px 0 6px;
+            line-height: 1.05;
+        }
+
+        .artist-profile-main > p {
+            font-size: 11px;
+            line-height: 1.5;
+            opacity: .58;
+            max-width: 360px;
+            margin: 0;
+        }
+
+        .artist-score-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 24px;
+        }
+
+        .artist-score {
+            width: 92px;
+            height: 92px;
+            border-radius: 50%;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            background: var(--creme);
+            border: 6px solid rgba(169,201,216,.55);
+            box-shadow: 0 18px 38px rgba(51,44,41,.12);
+        }
+
+        .artist-score strong {
+            font-family: "Space Grotesk";
+            font-size: 28px;
+            line-height: 1;
+            margin-top: 30px;
+        }
+
+        .artist-score span {
+            font-size: 9px;
+            opacity: .5;
+        }
+
+        .artist-score-row small {
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: .9px;
+            opacity: .48;
+        }
+
+        .artist-score-row p {
+            font-size: 10px;
+            opacity: .6;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+
+        .artist-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .artist-stat {
+            background: rgba(232,228,220,.72);
+            border-radius: 18px;
+            padding: 17px;
+            min-height: 83px;
+        }
+
+        .artist-stat small {
+            display: block;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: .8px;
+            opacity: .45;
+        }
+
+        .artist-stat strong {
+            display: block;
+            font-family: "Space Grotesk";
+            font-size: 17px;
+            margin-top: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .artist-genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 14px;
+        }
+
+        .artist-genre-pill {
+            padding: 7px 10px;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 700;
+            background: rgba(169,201,216,.35);
+        }
+
+        .interactive-map-container {
+            height: 390px;
+            margin-top: 20px;
+        }
+
+        .map-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 12px;
+            font-size: 9px;
+            opacity: .52;
+            font-weight: 700;
+        }
+
+        .legend-dot {
+            display: inline-block;
+            border-radius: 50%;
+            background: var(--rosa);
+            vertical-align: middle;
+            margin-right: 4px;
+        }
+
+        .legend-dot.small { width: 7px; height: 7px; }
+        .legend-dot.large { width: 13px; height: 13px; }
+
+        /* =====================================================
+           INTRO
+        ===================================================== */
+
+        .intro {
+            padding: 110px 7%;
+            text-align: center;
+        }
+
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            font-weight: 800;
+            opacity: .55;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .intro h2 {
+            font-family: "Space Grotesk";
+            font-size: clamp(35px, 5vw, 62px);
+            line-height: 1.05;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .intro h2 span {
+            color: var(--marrom);
+        }
+
+
+        /* =====================================================
+           PESQUISA
+        ===================================================== */
+
+        .search-section {
+            padding: 70px 7% 120px;
+        }
+
+        .search-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .search-header h2 {
+            font-family: "Space Grotesk";
+            font-size: clamp(40px, 5vw, 65px);
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .search-header p {
+            max-width: 650px;
+            margin: auto;
+            opacity: .65;
+            line-height: 1.7;
+        }
+
+        .search-box {
+            max-width: 800px;
+            margin: 0 auto 20px;
+
+            display: flex;
+            gap: 10px;
+
+            background: rgba(245, 241, 233, .85);
+
+            padding: 10px;
+
+            border-radius: 50px;
+
+            box-shadow: 0 20px 50px rgba(51, 44, 41, .1);
+        }
+
+        .search-box input {
+            flex: 1;
+
+            border: none;
+
+            background: transparent;
+
+            outline: none;
+
+            padding: 16px 22px;
+
+            font-size: 16px;
+
+            color: var(--marrom-escuro);
+        }
+
+        .search-box button {
+            border: none;
+
+            background: var(--marrom);
+
+            color: white;
+
+            padding: 15px 28px;
+
+            border-radius: 40px;
+
+            cursor: pointer;
+
+            font-weight: 700;
+        }
+
+        .search-box button:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .search-status {
+            max-width: 800px;
+            margin: 0 auto 30px;
+
+            text-align: center;
+
+            font-size: 13px;
+
+            min-height: 20px;
+
+            opacity: .65;
+        }
+
+        .suggestions {
+            max-width: 800px;
+
+            margin: 0 auto 45px;
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+        }
+
+        .suggestion {
+            border: 1px solid rgba(51, 44, 41, .15);
+
+            background: rgba(245, 241, 233, .5);
+
+            padding: 8px 14px;
+
+            border-radius: 30px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            transition: .2s;
+        }
+
+        .suggestion:hover {
+            background: var(--azul);
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =====================================================
+           LOADING
+        ===================================================== */
+
+        .loading {
+            display: none;
+
+            text-align: center;
+
+            padding: 30px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .loader {
+            width: 35px;
+            height: 35px;
+
+            border: 4px solid rgba(89, 70, 61, .2);
+
+            border-top-color: var(--marrom);
+
+            border-radius: 50%;
+
+            animation: spin .8s linear infinite;
+
+            margin: auto auto 15px;
+        }
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        /* =====================================================
+           RESULTADOS
+        ===================================================== */
+
+        .results {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .result-title {
+            font-family: "Space Grotesk";
+            font-size: 30px;
+            margin-bottom: 25px;
+        }
+
+        .song-results {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 60px;
+        }
+
+        .song-result {
+            background: var(--creme);
+
+            padding: 20px;
+
+            border-radius: 22px;
+
+            display: flex;
+
+            gap: 15px;
+
+            align-items: center;
+
+            transition: .3s;
+        }
+
+        .song-result:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 15px 35px rgba(51, 44, 41, .1);
+        }
+
+        .song-result img {
+            width: 75px;
+            height: 75px;
+
+            object-fit: cover;
+
+            border-radius: 14px;
+
+            flex-shrink: 0;
+        }
+
+        .song-result h4 {
+            font-family: "Space Grotesk";
+            margin-bottom: 5px;
+        }
+
+        .song-result p {
+            font-size: 12px;
+            opacity: .6;
+            line-height: 1.5;
+        }
+
+
+        function obterBaseAnalise() {
+            return Array.isArray(musicas) ? musicas.filter(m => m && m.trackName) : [];
+        }
+
+        function normalizarTexto(texto) {
+            return String(texto || "")
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, " ")
+                .trim();
+        }
+
+
+        /* =====================================================
+           DASHBOARD
+        ===================================================== */
+
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-header {
+            background: var(--marrom-escuro);
+
+            color: var(--creme);
+
+            padding: 40px;
+
+            border-radius: 30px;
+
+            margin-bottom: 20px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 30px;
+        }
+
+        .dashboard-header h2 {
+            font-family: "Space Grotesk";
+            font-size: 38px;
+        }
+
+        .dashboard-header p {
+            opacity: .65;
+            margin-top: 8px;
+        }
+
+        .data-badge {
+            background: var(--azul);
+
+            color: var(--marrom-escuro);
+
+            padding: 12px 18px;
+
+            border-radius: 30px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           ESTATÍSTICAS
+        ===================================================== */
+
+        .stat-grid {
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: var(--creme);
+
+            padding: 25px;
+
+            border-radius: 22px;
+        }
+
+        .stat-card small {
+            opacity: .55;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            font-weight: 700;
+        }
+
+        .stat-card strong {
+            display: block;
+
+            font-family: "Space Grotesk";
+
+            font-size: 32px;
+
+            margin-top: 8px;
+        }
+
+
+        /* =====================================================
+           ANÁLISES
+        ===================================================== */
+
+        .analysis-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+        .analysis-card {
+            background: var(--creme);
+
+            padding: 30px;
+
+            border-radius: 25px;
+
+            min-height: 350px;
+        }
+
+        .analysis-card.full {
+            grid-column: 1 / -1;
+        }
+
+        .analysis-card h3 {
+            font-family: "Space Grotesk";
+
+            font-size: 23px;
+
+            margin-bottom: 8px;
+        }
+
+        .analysis-card .description {
+            font-size: 13px;
+
+            opacity: .6;
+
+            margin-bottom: 25px;
+
+            line-height: 1.5;
+        }
+
+        .chart-container {
+            height: 250px;
+        }
+
+        .analysis-number {
+            font-family: "Space Grotesk";
+
+            font-size: 50px;
+
+            margin-top: 30px;
+        }
+
+        .analysis-result {
+            padding: 15px;
+
+            border-radius: 15px;
+
+            background: rgba(169, 201, 216, .3);
+
+            margin-top: 15px;
+
+            line-height: 1.6;
+        }
+
+        .analysis-result strong {
+            color: var(--marrom);
+        }
+
+        .analysis-insight {
+            display:grid;
+            grid-template-columns:repeat(3, minmax(0,1fr));
+            gap:10px;
+            margin-top:14px;
+        }
+
+        .analysis-insight-item {
+            background:rgba(255,255,255,.62);
+            border:1px solid rgba(74,55,47,.08);
+            border-radius:16px;
+            padding:12px 14px;
+        }
+
+        .analysis-insight-item small {
+            display:block;
+            font-size:9px;
+            font-weight:800;
+            letter-spacing:1px;
+            opacity:.5;
+            margin-bottom:5px;
+        }
+
+        .analysis-insight-item strong {
+            display:block;
+            font-family:"Space Grotesk";
+            font-size:18px;
+        }
+
+        .analysis-explanation {
+            margin-top:12px;
+            font-size:12px;
+            line-height:1.6;
+            opacity:.72;
+        }
+
+        @media (max-width: 700px) {
+            .analysis-insight { grid-template-columns:1fr; }
+        }
+
+
+        /* =====================================================
+           TEMAS
+        ===================================================== */
+
+        .topics {
+            padding: 80px 7% 120px;
+        }
+
+        .topics-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: end;
+
+            margin-bottom: 45px;
+
+            gap: 30px;
+        }
+
+        .topics-header h2 {
+            font-family: "Space Grotesk";
+
+            font-size: 50px;
+
+            line-height: 1;
+        }
+
+        .topics-header p {
+            max-width: 400px;
+
+            line-height: 1.6;
+
+            opacity: .65;
+        }
+
+        .topic-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+        .topic {
+            min-height: 260px;
+
+            border-radius: 25px;
+
+            padding: 28px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            transition: .4s;
+
+            border: 1px solid rgba(51, 44, 41, .08);
+        }
+
+        .topic:hover {
+            transform: translateY(-10px) rotate(-1deg);
+
+            box-shadow:
+                0 25px 45px rgba(51, 44, 41, .12);
+        }
+
+        .topic:nth-child(1) {
+            background: var(--azul);
+        }
+
+        .topic:nth-child(2) {
+            background: var(--rosa);
+        }
+
+        .topic:nth-child(3) {
+            background: var(--amarelo);
+        }
+
+        .topic:nth-child(4) {
+            background: var(--creme);
+        }
+
+        .topic:nth-child(5) {
+            background: #c8b9ad;
+        }
+
+        .topic:nth-child(6) {
+            background: #b7cbd0;
+        }
+
+        .topic:nth-child(7) {
+            background: #d4c5b7;
+        }
+
+        .topic:nth-child(8) {
+            background: #e1c4c9;
+        }
+
+        .topic:nth-child(9) {
+            background: #d7cda5;
+        }
+
+        .topic-number {
+            font-size: 11px;
+
+            font-weight: 800;
+
+            opacity: .5;
+        }
+
+        .topic h3 {
+            font-family: "Space Grotesk";
+
+            font-size: 25px;
+
+            margin-top: 50px;
+
+            margin-bottom: 12px;
+        }
+
+        .topic p {
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            max-width: 270px;
+
+            opacity: .7;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            padding: 30px 7%;
+
+            border-top:
+                1px solid rgba(51, 44, 41, .12);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 12px;
+
+            opacity: .6;
+        }
+
+
+        /* =====================================================
+           RESPONSIVO
+        ===================================================== */
+
+        @media (max-width: 850px) {
+            .artist-profile-layout { grid-template-columns: 1fr; }
+            .interactive-map-container { height: 320px; }
+        }
+
+        @media(max-width: 900px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .topic-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .song-results {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .analysis-card.full {
+                grid-column: auto;
+            }
+
+        }
+
+
+        @media(max-width: 600px) {
+
+            h1 {
+                font-size: 58px;
+            }
+
+            .card-scene {
+                width: min(390px, 100%);
+                height: 620px;
+            }
+
+            .topic-grid,
+            .song-results {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                border-radius: 25px;
+
+                flex-direction: column;
+
+                background: var(--creme);
+            }
+
+            .search-box button {
+                width: 100%;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .topics-header {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .topics-header h2 {
+                font-size: 40px;
+            }
+
+            footer {
+                flex-direction: column;
+
+                gap: 10px;
+            }
+
+        }
+
+    
+        .data-method-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 38px;
+        }
+        .method-card {
+            background: rgba(255,255,255,.58);
+            border: 1px solid rgba(89,70,61,.08);
+            border-radius: 22px;
+            padding: 24px;
+        }
+        .method-card span {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            opacity: .45;
+            font-weight: 800;
+        }
+        .method-card h3 {
+            margin: 12px 0 9px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 20px;
+        }
+        .method-card p {
+            margin: 0;
+            line-height: 1.65;
+            font-size: 13px;
+            opacity: .72;
+        }
+        .source-note {
+            margin-top: 24px;
+            font-size: 11px;
+            opacity: .5;
+            line-height: 1.6;
+        }
+        @media (max-width: 900px) {
+            .data-method-grid { grid-template-columns: 1fr; }
+        }
+
+        .data-method-section {
+            padding-top: 90px;
+        }
+        .method-story {
+            max-width: 980px;
+            margin: 42px auto 0;
+        }
+        .method-story-main {
+            background: rgba(255,255,255,.52);
+            border: 1px solid rgba(89,70,61,.12);
+            border-radius: 28px;
+            padding: clamp(28px,5vw,54px);
+            box-shadow: 0 24px 60px rgba(89,70,61,.08);
+        }
+        .method-lead {
+            font-size: clamp(18px,2vw,24px);
+            line-height: 1.6;
+            max-width: 820px;
+            color: var(--marrom);
+            margin-bottom: 42px;
+        }
+        .method-block {
+            padding: 28px 0;
+            border-top: 1px solid rgba(89,70,61,.12);
+        }
+        .method-block h3 { margin: 0 0 12px; color: var(--marrom); }
+        .method-block p { line-height: 1.8; opacity: .76; max-width: 820px; }
+        .method-block a, .source-links a { color: var(--marrom); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+        .source-links { display:flex; flex-wrap:wrap; gap: 12px 24px; margin-top: 16px; }
+
+        /* =====================================================
+           AJUSTE FINAL — HERO ACIMA DA DOBRA
+           Título, descrição, botões e card ficam visíveis juntos.
+        ===================================================== */
+        .hero {
+            min-height: calc(100vh - 8px);
+            padding: 92px 7% 32px;
+            grid-template-columns: minmax(0, 1fr) 390px;
+            align-items: center;
+            gap: 58px;
+        }
+
+        .hero > div:first-child {
+            transform: translateY(-10px);
+        }
+
+        .mini-label {
+            margin-bottom: 17px;
+        }
+
+        h1 {
+            font-size: clamp(50px, 6vw, 78px);
+            line-height: .93;
+            letter-spacing: -4px;
+            margin-bottom: 22px;
+        }
+
+        .hero-description {
+            max-width: 520px;
+            font-size: 16px;
+            line-height: 1.55;
+            margin-bottom: 25px;
+        }
+
+        .hero-buttons {
+            gap: 12px;
+        }
+
+        .primary-button,
+        .secondary-button {
+            padding: 13px 22px;
+        }
+
+        .visual-area {
+            transform: translateY(-4px);
+        }
+
+        .card-scene {
+            width: 350px;
+            height: 560px;
+        }
+
+        .card-face {
+            padding: 22px;
+            border-radius: 28px;
+        }
+
+        .album {
+            height: 245px;
+            border-radius: 20px;
+        }
+
+        .song-info {
+            padding-top: 15px;
+        }
+
+        .wave {
+            height: 42px;
+        }
+
+        @media (max-width: 1100px) and (min-width: 901px) {
+            .hero {
+                grid-template-columns: minmax(0, 1fr) 340px;
+                gap: 38px;
+                padding-left: 6%;
+                padding-right: 6%;
+            }
+
+            .card-scene {
+                width: 320px;
+                height: 530px;
+            }
+
+            .album {
+                height: 225px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                min-height: auto;
+                padding: 105px 7% 55px;
+                gap: 35px;
+            }
+
+            .hero > div:first-child {
+                transform: none;
+            }
+
+            .visual-area {
+                transform: none;
+            }
+        }
+
+</style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         FUNDO
+    ====================================================== -->
+
+    <div class="orb orb1"></div>
+
+    <div class="orb orb2"></div>
+
+    <div class="orb orb3"></div>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav>
+
+        <a href="#inicio" class="logo" aria-label="SONORA">
+            SONORA<span class="logo-mark">°</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="#inicio">
+                Início
+            </a>
+
+            <a href="#pesquisa">
+                Pesquisar
+            </a>
+
+            <a href="#pesquisa">
+                Análises
+            </a>
+
+            <a href="#o-que-faz">
+                O que a SONORA faz
+            </a>
+
+            <a href="#dados-reais">
+                Dados reais
+            </a>
+
+            <a href="#pesquisa" class="nav-button">
+                Explorar
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero" id="inicio">
+
+        <div>
+
+            <div class="mini-label">
+                Música × Dados × IA
+            </div>
+
+            <h1>
+                Ouça.<br>
+
+                <span>
+                    Entenda.
+                </span>
+
+                <br>
+
+                Descubra.
+            </h1>
+
+            <p class="hero-description">
+
+                Pesquise uma música ou artista e descubra
+                o que os dados revelam sobre a música.
+
+                Estatísticas, padrões, relações e
+                inteligência artificial em uma experiência
+                interativa.
+
+            </p>
+
+            <div class="hero-buttons">
+
+                <a
+                    href="#pesquisa"
+                    class="primary-button">
+
+                    Pesquisar música
+
+                </a>
+
+                <a
+                    href="#o-que-faz"
+                    class="secondary-button">
+
+                    Ver análises
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARD -->
+
+        <div class="visual-area">
+
+            <div class="card-scene">
+
+                <div class="music-card" id="musicCard">
+
+                    <div class="card-face card-front">
+
+                        <div class="album">
+
+                            <img id="heroCover"
+                                src=""
+                                alt="Capa do álbum"
+                                loading="eager">
+
+                            <div class="album-shade"></div>
+
+                            <button class="play-button"
+                                id="playButton"
+                                type="button"
+                                aria-label="Tocar prévia">
+                                ▶
+                            </button>
+
+                            <div class="cover-note">
+                                PRÉVIA MUSICAL
+                            </div>
+
+                        </div>
+
+                        <div class="song-info">
+
+                            <div class="song-copy">
+                                <h3 id="heroSong">
+                                    Sua próxima música
+                                </h3>
+
+                                <p id="heroArtist">
+                                    pronta para ser analisada
+                                </p>
+
+                                <small id="heroAlbum">
+                                    Álbum não informado
+                                </small>
+                            </div>
+
+                            <button class="flip-button"
+                                id="flipButton"
+                                type="button">
+                                ver dados ↗
+                            </button>
+
+                        </div>
+
+                        <div class="wave" id="wave">
+
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+
+                        <div class="player-line">
+                            <div class="progress-track">
+                                <div class="progress-fill" id="progressBar"></div>
+                            </div>
+
+                            <div class="time-row">
+                                <span id="currentTime">0:00</span>
+                                <span id="durationTime">0:00</span>
+                            </div>
+                        </div>
+
+                        <div class="metrics">
+
+                            <div class="metric">
+                                <small>DURAÇÃO</small>
+                                <strong id="heroDuration">—</strong>
+                            </div>
+
+                            <div class="metric">
+                                <small>GÊNERO</small>
+                                <strong id="heroGenre">—</strong>
+                            </div>
+
+                            <div class="metric">
+                                <small>ANO</small>
+                                <strong id="heroYear">—</strong>
+                            </div>
+
+                            <div class="metric">
+                                <small>FAIXAS</small>
+                                <strong id="heroTracks">—</strong>
+                            </div>
+
+                            <div class="metric">
+                                <small>FONTE</small>
+                                <strong>API</strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-face card-back">
+
+                        <div class="back-topline">
+                            <span>SONORA° / SNAPSHOT</span>
+                            <button class="flip-button"
+                                id="backFlipButton"
+                                type="button">
+                                voltar ↙
+                            </button>
+                        </div>
+
+                        <img id="backCover"
+                            class="back-cover"
+                            src=""
+                            alt="Capa do álbum">
+
+                        <div class="back-song">
+                            <h3 id="backTitle">—</h3>
+                            <p id="backArtist">—</p>
+                        </div>
+
+                        <div class="mini-stats">
+
+                            <div>
+                                <small>DURAÇÃO</small>
+                                <strong id="statDuration">—</strong>
+                            </div>
+
+                            <div>
+                                <small>GÊNERO</small>
+                                <strong id="statGenre">—</strong>
+                            </div>
+
+                            <div>
+                                <small>ANO</small>
+                                <strong id="statYear">—</strong>
+                            </div>
+
+                            <div>
+                                <small>FONTE</small>
+                                <strong id="statPopularity">APPLE</strong>
+                            </div>
+
+                        </div>
+
+                        <div class="popularity-wrap">
+                            <div class="popularity-label">
+                                <span>fonte dos dados</span>
+                                <span id="popLabel">APPLE MUSIC</span>
+                            </div>
+
+                            <div class="popularity-track">
+                                <div id="popFill"></div>
+                            </div>
+                        </div>
+
+                        <div class="mini-chart" id="miniChart">
+                            <span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+
+                        <p class="back-note">
+                            Os dados de música, artista, álbum, gênero e lançamento vêm do catálogo Apple consultado pela SONORA. Não é uma pontuação oficial de popularidade.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <audio id="audioPlayer" preload="none"></audio>
+
+    </section>
+
+
+    <!-- =====================================================
+         PESQUISA
+    ====================================================== -->
+
+    <section
+        class="search-section"
+        id="pesquisa">
+
+        <div class="search-header">
+
+            <div class="section-label">
+                Banco musical
+            </div>
+
+            <h2>
+                Pesquise uma música.
+            </h2>
+
+            <p>
+
+                Digite o nome de uma música, artista ou álbum.
+                A SONORA consulta dados reais do catálogo
+                musical e transforma os resultados em análises.
+
+            </p>
+
+        </div>
+
+
+        <!-- BUSCA -->
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Ex.: The Weeknd, Queen, Anitta..."
+                autocomplete="off"
+            >
+
+            <button
+                id="searchButton"
+                onclick="buscarMusicas()">
+
+                Pesquisar
+
+            </button>
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <div
+            class="search-status"
+            id="searchStatus">
+
+        </div>
+
+
+        <!-- SUGESTÕES -->
+
+        <div class="suggestions">
+
+            <button
+                class="suggestion"
+                onclick="pesquisarSugestao('The Weeknd')">
+
+                The Weeknd
+
+            </button>
+
+            <button
+                class="suggestion"
+                onclick="pesquisarSugestao('Taylor Swift')">
+
+                Taylor Swift
+
+            </button>
+
+            <button
+                class="suggestion"
+                onclick="pesquisarSugestao('Billie Eilish')">
+
+                Billie Eilish
+
+            </button>
+
+            <button
+                class="suggestion"
+                onclick="pesquisarSugestao('Queen')">
+
+                Queen
+
+            </button>
+
+            <button
+                class="suggestion"
+                onclick="pesquisarSugestao('Anitta')">
+
+                Anitta
+
+            </button>
+
+            <button
+                class="suggestion"
+                onclick="pesquisarSugestao('Bruno Mars')">
+
+                Bruno Mars
+
+            </button>
+
+        </div>
+
+
+        <!-- LOADING -->
+
+        <div
+            class="loading"
+            id="loading">
+
+            <div class="loader"></div>
+
+            <p>
+                Consultando dados musicais...
+            </p>
+
+        </div>
+
+
+        <!-- RESULTADOS -->
+
+        <div class="results">
+
+            <h3 class="result-title">
+
+                Resultados encontrados
+
+            </h3>
+
+            <div
+                class="song-results"
+                id="songResults">
+
+            </div>
+
+
+            <!-- =================================================
+                 DASHBOARD
+            ================================================== -->
+
+            <div
+                class="dashboard"
+                id="dashboard">
+
+
+                <!-- CABEÇALHO -->
+
+                <div class="dashboard-header">
+
+                    <div>
+
+                        <h2>
+                            Análise dos dados
+                        </h2>
+
+                        <p id="analysisSubtitle">
+                            Pesquise uma música para visualizar os dados reais da faixa.
+                        </p>
+
+                        <div class="selected-track-line">
+                            <span>FAIXA SELECIONADA</span>
+                            <strong id="selectedTrackName">—</strong>
+                            <em id="selectedTrackArtist">—</em>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+                <!-- ESTATÍSTICAS -->
+
+                <div class="stat-grid real-track-stats">
+
+                    <div class="stat-card">
+                        <small>FAIXA</small>
+                        <strong id="analysisStatTrack">—</strong>
+                        <span>música selecionada</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <small>ANO DE LANÇAMENTO</small>
+                        <strong id="analysisStatYear">—</strong>
+                        <span>data registrada no catálogo</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <small>GÊNERO</small>
+                        <strong id="analysisStatGenre">—</strong>
+                        <span>gênero principal da faixa</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <small>ARTISTA</small>
+                        <strong id="analysisStatArtist">—</strong>
+                        <span>artista da faixa</span>
+                    </div>
+
+                </div>
+
+
+                <!-- ANÁLISES -->
+
+                <div class="analysis-grid">
+
+
+                    <!-- 01 -->
+
+                    <div class="analysis-card">
+
+                        <h3>
+                            Distribuição Estatística
+                        </h3>
+
+                        <p class="description">
+
+                            Distribuição dos resultados encontrados por faixa de duração.
+
+                        </p>
+
+                        <div class="chart-container">
+
+                            <canvas
+                                id="distributionChart">
+                            </canvas>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 02 -->
+
+                    <div class="analysis-card">
+
+                        <h3>
+                            Correlação & Covariância
+                        </h3>
+
+                        <p class="description">
+
+                            Veja se o ano de lançamento tem relação com o tamanho do álbum. O gráfico usa dados reais do catálogo musical.
+
+                        </p>
+
+                        <div class="chart-container">
+
+                            <canvas
+                                id="correlationChart">
+                            </canvas>
+
+                        </div>
+
+                        <div
+                            class="analysis-result"
+                            id="correlationResult">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 03 -->
+
+                    <div class="analysis-card">
+
+                        <h3>
+                            Regressão Linear
+                        </h3>
+
+                        <p class="description">
+
+                            Mostra como o número de faixas dos álbuns encontrados varia ao longo dos anos.
+
+                        </p>
+
+                        <div class="chart-container">
+
+                            <canvas
+                                id="regressionChart">
+                            </canvas>
+
+                        </div>
+
+                        <div
+                            class="analysis-result"
+                            id="regressionResult">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 06 -->
+
+                    <div class="analysis-card full interactive-analysis-card">
+
+                        <div class="interactive-badge">INTERATIVO</div>
+
+                        <h3>
+                            Perfil Estatístico do Artista
+                        </h3>
+
+                        <p class="description">
+                            Ao pesquisar um artista, o SONORA transforma os resultados reais em um painel visual com faixas, álbuns, gêneros e período, usando somente dados reais encontrados no catálogo Apple.
+                        </p>
+
+                        <div class="artist-profile-layout">
+                            <div class="artist-profile-main">
+                                <div class="artist-profile-label">ARTISTA PESQUISADO</div>
+                                <h4 id="artistSelectedName">—</h4>
+                                <p>Perfil recalculado a cada busca, usando exclusivamente o artista atualmente pesquisado e seus dados reais do catálogo Apple.</p>
+
+                                <div class="artist-score-row">
+                                    <div class="artist-score">
+                                        <strong id="artistPopularity">N/D</strong>
+                                        <span>ranking</span>
+                                    </div>
+                                    <div>
+                                        <small>POPULARIDADE — RANKING GLOBAL</small>
+                                        <p id="artistPopularityText">Consultando o ranking global atual da Apple Music. Se a Apple não responder, a SONORA usa o Billboard Global 200 como fallback.</p>
+                                    </div>
+                                </div>
+                                <div class="artist-source-line">
+                                    <span>FONTE</span>
+                                    <a id="artistAppleLink" href="#" target="_blank" rel="noopener">Catálogo Apple</a>
+                                </div>
+                            </div>
+
+                            <div class="artist-stat-grid">
+                                <div class="artist-stat">
+                                    <small>FAIXAS ENCONTRADAS</small>
+                                    <strong id="artistTrackCount">—</strong>
+                                </div>
+                                <div class="artist-stat">
+                                    <small>ÁLBUNS</small>
+                                    <strong id="artistAlbumCount">—</strong>
+                                </div>
+                                <div class="artist-stat">
+                                    <small>GÊNERO PRINCIPAL</small>
+                                    <strong id="artistMainGenre">—</strong>
+                                </div>
+                                <div class="artist-stat">
+                                    <small>PERÍODO</small>
+                                    <strong id="artistPeriod">—</strong>
+                                </div>
+                                <div class="artist-stat">
+                                    <small>FAIXA DESTAQUE</small>
+                                    <strong id="artistTopSong">—</strong>
+                                </div>
+                                <div class="artist-stat">
+                                    <small>GÊNEROS</small>
+                                    <strong id="artistGenreCount">—</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="artist-genres" id="artistGenrePills"></div>
+
+                    </div>
+
+
+                    <!-- 07 -->
+
+                    <div class="analysis-card full interactive-analysis-card">
+
+                        <div class="interactive-badge">MAPA VISUAL</div>
+
+                        <h3>
+                            Mapa Musical
+                        </h3>
+
+                        <p class="description">
+                            Cada bolha representa uma faixa que também aparece em um ranking global consultado pela SONORA. O eixo horizontal mostra o ano de lançamento e a posição vertical mostra o ranking real da fonte utilizada.
+                        </p>
+
+                        <div class="chart-container interactive-map-container">
+                            <canvas id="musicMapChart"></canvas>
+                        </div>
+
+                        <div class="map-legend">
+                            <span><i class="legend-dot small"></i> menor destaque</span>
+                            <span><i class="legend-dot large"></i> maior destaque</span>
+                            <span>← ano →</span>
+                            <span>destaque ↑</span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- 08 -->
+
+                    <div class="analysis-card">
+
+                        <h3>
+                            Correspondência
+                        </h3>
+
+                        <p class="description">
+
+                            Distribuição dos gêneros encontrados.
+
+                        </p>
+
+                        <div class="chart-container">
+
+                            <canvas
+                                id="genreChart">
+                            </canvas>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 09 -->
+
+                    <div class="analysis-card full">
+
+                        <h3>
+                            Séries Temporais
+                        </h3>
+
+                        <p class="description">
+
+                            Quantidade de músicas por ano
+                            de lançamento.
+
+                        </p>
+
+                        <div class="chart-container">
+
+                            <canvas
+                                id="timelineChart">
+                            </canvas>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         TEMAS
+    ====================================================== -->
+
+    <section
+        class="topics"
+        id="o-que-faz">
+
+        <div class="topics-header">
+
+            <div>
+
+                <div class="section-label">
+                    O que a SONORA° faz
+                </div>
+
+                <h2>
+
+                    Formas de ouvir<br>
+
+                    os dados.
+
+                </h2>
+
+            </div>
+
+            <p>
+
+                Estatística e inteligência artificial
+                aplicadas a informações musicais reais.
+
+            </p>
+
+        </div>
+
+
+        <div class="topic-grid">
+
+
+            <article class="topic">
+
+                <div class="topic-number">
+                    01 / ESTATÍSTICA
+                </div>
+
+                <h3>
+                    Distribuição Estatística
+                </h3>
+
+                <p>
+                    Observe como as características
+                    das músicas estão distribuídas.
+                </p>
+
+            </article>
+
+
+            <article class="topic">
+
+                <div class="topic-number">
+                    02 / RELAÇÕES
+                </div>
+
+                <h3>
+                    Correlação & Covariância
+                </h3>
+
+                <p>
+                    Descubra relações entre
+                    diferentes características.
+                </p>
+
+            </article>
+
+
+            <article class="topic">
+
+                <div class="topic-number">
+                    03 / PREVISÃO
+                </div>
+
+                <h3>
+                    Regressão Linear
+                </h3>
+
+                <p>
+                    Identifique tendências e
+                    relações numéricas.
+                </p>
+
+            </article>
+
+
+            <article class="topic">
+
+                <div class="topic-number">
+                    CLUSTERING
+                </div>
+
+                <h3>
+                    ML Não Supervisionado
+                </h3>
+
+                <p>
+                    Encontre grupos de
+                    músicas semelhantes.
+                </p>
+
+            </article>
+
+
+            <article class="topic">
+
+                <div class="topic-number">
+                    PADRÕES
+                </div>
+
+                <h3>
+                    Análise Fatorial
+                </h3>
+
+                <p>
+                    Encontre as principais
+                    dimensões dos dados.
+                </p>
+
+            </article>
+
+
+            <article class="topic">
+
+                <div class="topic-number">
+                    CATEGORIAS
+                </div>
+
+                <h3>
+                    Correspondência
+                </h3>
+
+                <p>
+                    Observe relações entre
+                    gêneros e períodos.
+                </p>
+
+            </article>
+
+
+            <article class="topic">
+
+                <div class="topic-number">
+                    TEMPO
+                </div>
+
+                <h3>
+                    Séries Temporais
+                </h3>
+
+                <p>
+                    Observe mudanças musicais
+                    ao longo dos anos.
+                </p>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SOBRE
+    ====================================================== -->
+
+    <section class="intro data-method-section" id="dados-reais">
+
+        <div class="section-label">DADOS · FONTES · MÉTODO</div>
+
+        <h2>Como a SONORA transforma <span>dados musicais</span> em análise estatística.</h2>
+
+        <div class="method-story">
+            <div class="method-story-main">
+                <p class="method-lead">A SONORA não cria os dados musicais. Primeiro ela consulta fontes públicas de catálogo e ranking; depois organiza essas informações e aplica os cálculos estatísticos sobre o conjunto encontrado.</p>
+
+                <div class="method-block">
+                    <h3>01 · Catálogo musical</h3>
+                    <p>Para cada pesquisa, a SONORA consulta a <strong>iTunes Search API</strong>. Os resultados podem trazer o nome da faixa, artista, álbum, gênero principal, data de lançamento, duração, capa e links de visualização. Quando a pesquisa é exatamente um artista, o site usa o <strong>artistId</strong> retornado pela Apple para buscar as faixas e álbuns ligados àquele artista, evitando misturar homônimos.</p>
+                    <a href="https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/Searching.html" target="_blank" rel="noopener">Documentação da iTunes Search API →</a>
+                </div>
+
+                <div class="method-block">
+                    <h3>02 · Popularidade que não é inventada</h3>
+                    <p>O número mostrado como popularidade não é uma pontuação criada pela SONORA. O perfil tenta primeiro o <strong>Top 100: Global da Apple Music</strong>. Se essa fonte não puder ser consultada pela conexão/navegador, o sistema tenta o <strong>Billboard Global 200</strong>, que combina streaming e vendas de mais de 200 territórios. A posição exibida é sempre a posição real encontrada na fonte, nunca uma nota inventada.</p>
+                    <a href="https://music.apple.com/us/playlist/top-100-global/pl.d25f5d1181894928af76c85c967f8f31" target="_blank" rel="noopener">Apple Music · Top 100 Global →</a>
+                    <a href="https://www.billboard.com/charts/billboard-global-200/" target="_blank" rel="noopener">Billboard · Global 200 →</a>
+                </div>
+
+                <div class="method-block">
+                    <h3>03 · O que os gráficos calculam</h3>
+                    <p><strong>Correlação</strong> mede a direção e a intensidade da relação linear entre duas variáveis. <strong>Covariância</strong> indica se elas tendem a variar juntas ou em sentidos opostos. <strong>Regressão linear</strong> ajusta uma reta para resumir a tendência dos pontos. Esses três valores não vêm prontos da Apple: são calculados pela SONORA a partir dos dados coletados.</p>
+                </div>
+
+                <div class="method-block">
+                    <h3>04 · Por que uma fonte pode não ter um dado?</h3>
+                    <p>Catálogo e ranking têm funções diferentes. O catálogo descreve a obra; o ranking mostra uma posição naquele recorte específico. Por isso, uma música pode ter ano, gênero e álbum perfeitamente conhecidos e, ao mesmo tempo, estar fora do Top 100. Nesse caso, a SONORA não preenche o espaço com um número estimado: informa exatamente o que a fonte permite afirmar.</p>
+                </div>
+
+                <div class="method-block">
+                    <h3>05 · Fontes para consulta</h3>
+                    <p>As fontes ficam abertas para que qualquer pessoa possa conferir o método e entender de onde os dados vieram. Para popularidade, a SONORA prioriza o ranking global da Apple Music e usa o Billboard Global 200 como fallback quando a primeira fonte não está acessível.</p>
+                    <div class="source-links">
+                        <a href="https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/UnderstandingSearchResults.html" target="_blank" rel="noopener">Apple · campos dos resultados</a>
+                        <a href="https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/Searching.html" target="_blank" rel="noopener">Apple · como funciona a busca</a>
+                        <a href="https://music.apple.com/br/new/top-charts" target="_blank" rel="noopener">Apple Music · Top Charts</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <span>
+            SONORA° © 2026
+        </span>
+
+        <span>
+            Música × Dados × IA
+        </span>
+
+    </footer>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+
+        /* =====================================================
+           CONFIGURAÇÕES
+        ===================================================== */
+
+        // Fonte de catálogo: Apple/iTunes Search API.
+        // Popularidade: Apple Top Songs RSS, sem chave privada.
+        const APPLE_TOP_SONGS_URL = "https://rss.applemarketingtools.com/api/v2/br/music/most-played/100/songs.json";
+        const APPLE_GLOBAL_PLAYLIST_URL = "https://music.apple.com/us/playlist/top-100-global/pl.d25f5d1181894928af76c85c967f8f31";
+        const BILLBOARD_GLOBAL_URLS = [
+            "https://www.billboard.com/charts/billboard-global-200/",
+            "https://ca.billboard.com/charts/billboard-global-200"
+        ];
+
+        const CACHE_PREFIX =
+            "sonora_itunes_";
+
+        const CACHE_DURATION =
+            1000 * 60 * 30;
+
+        let musicas = [];
+        let musicasArtista = [];
+        let albunsArtista = [];
+        let artistaPesquisado = "";
+        let artistaAppleId = null;
+        let artistaAppleNome = "";
+        let resultadosDestaqueArtista = [];
+        let modoArtista = false;
+        // Identifica a busca atual para impedir que respostas assíncronas
+        // de uma pesquisa anterior alterem o artista novo.
+        let sonoraBuscaToken = 0;
+        let perfilArtistaToken = 0;
+
+        let charts = {};
+
+        let pesquisando = false;
+        let musicaAtual = null;
+        let autoplayTentado = false;
+        const ARTISTAS_ALEATORIOS = [
+            "The Weeknd",
+            "Taylor Swift",
+            "Billie Eilish",
+            "Bruno Mars",
+            "Anitta",
+            "Queen",
+            "Dua Lipa",
+            "Harry Styles",
+            "Rihanna",
+            "Lady Gaga"
+        ];
+
+
+
+        /* =====================================================
+           INICIALIZAÇÃO DA EXPERIÊNCIA
+        ===================================================== */
+
+        document.addEventListener("DOMContentLoaded", () => {
+            carregarMusicaAleatoria();
+        });
+
+        async function carregarMusicaAleatoria() {
+
+            const artista =
+                ARTISTAS_ALEATORIOS[
+                    Math.floor(
+                        Math.random() * ARTISTAS_ALEATORIOS.length
+                    )
+                ];
+
+            try {
+
+                const dados = await consultarAPI(artista);
+
+                const candidatos = (dados.results || [])
+                    .filter(item =>
+                        (item.kind === "song" || item.wrapperType === "track") &&
+                        item.trackName &&
+                        item.previewUrl &&
+                        item.artworkUrl100
+                    );
+
+                if (!candidatos.length) {
+                    return;
+                }
+
+                const musica =
+                    candidatos[
+                        Math.floor(
+                            Math.random() * candidatos.length
+                        )
+                    ];
+
+                musicas = candidatos;
+                aplicarMusicaNoCartao(musica);
+
+                /*
+                 * O navegador pode bloquear autoplay com som.
+                 * Tentamos tocar; se for bloqueado, o botão continua disponível.
+                 */
+                tentarReproducao();
+
+            } catch (erro) {
+
+                console.warn(
+                    "Não foi possível carregar a música inicial.",
+                    erro
+                );
+
+            }
+
+        }
+
+        /* =====================================================
+           ENTER
+        ===================================================== */
+
+        document
+            .getElementById("searchInput")
+            .addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (event.key === "Enter") {
+
+                        buscarMusicas();
+
+                    }
+
+                }
+            );
+
+
+
+        /* =====================================================
+           CONTROLES DO CARTÃO
+        ===================================================== */
+
+        document
+            .getElementById("playButton")
+            .addEventListener("click", (event) => {
+
+                event.stopPropagation();
+                alternarReproducao();
+
+            });
+
+        document
+            .getElementById("flipButton")
+            .addEventListener("click", (event) => {
+
+                event.stopPropagation();
+                virarCartao();
+
+            });
+
+        document
+            .getElementById("backFlipButton")
+            .addEventListener("click", (event) => {
+
+                event.stopPropagation();
+                virarCartao();
+
+            });
+
+        document
+            .getElementById("progressBar")
+            .parentElement
+            .addEventListener("click", function(event) {
+
+                if (!musicaAtual || !audioPlayer.duration) {
+                    return;
+                }
+
+                const rect = this.getBoundingClientRect();
+                const percentual =
+                    (event.clientX - rect.left) / rect.width;
+
+                audioPlayer.currentTime =
+                    Math.max(
+                        0,
+                        Math.min(
+                            1,
+                            percentual
+                        )
+                    ) * audioPlayer.duration;
+
+            });
+
+        const audioPlayer =
+            document.getElementById("audioPlayer");
+
+        audioPlayer.addEventListener("timeupdate", atualizarProgresso);
+
+        audioPlayer.addEventListener("loadedmetadata", () => {
+
+            document.getElementById("durationTime").textContent =
+                formatarSegundos(audioPlayer.duration);
+
+        });
+
+        audioPlayer.addEventListener("ended", () => {
+
+            definirEstadoPlayer(false);
+
+        });
+
+        audioPlayer.addEventListener("play", () => {
+            definirEstadoPlayer(true);
+        });
+
+        audioPlayer.addEventListener("pause", () => {
+            definirEstadoPlayer(false);
+        });
+
+        function virarCartao() {
+
+            document
+                .getElementById("musicCard")
+                .classList.toggle("flipped");
+
+        }
+
+        function alternarReproducao() {
+
+            if (!musicaAtual || !musicaAtual.previewUrl) {
+                return;
+            }
+
+            if (audioPlayer.paused) {
+                audioPlayer.play()
+                    .catch(() => {
+                        status("Clique novamente no botão para liberar a prévia.");
+                    });
+            } else {
+                audioPlayer.pause();
+            }
+
+        }
+
+        function tentarReproducao() {
+
+            if (
+                autoplayTentado ||
+                !musicaAtual ||
+                !musicaAtual.previewUrl
+            ) {
+                return;
+            }
+
+            autoplayTentado = true;
+
+            audioPlayer.play()
+                .catch(() => {
+                    /* Bloqueio normal de autoplay do navegador. */
+                });
+
+        }
+
+        function definirEstadoPlayer(tocando) {
+
+            const card =
+                document.getElementById("musicCard");
+
+            const button =
+                document.getElementById("playButton");
+
+            card.classList.toggle("is-playing", tocando);
+
+            button.classList.toggle("is-playing", tocando);
+
+            button.textContent =
+                tocando ? "Ⅱ" : "▶";
+
+        }
+
+        function atualizarProgresso() {
+
+            if (!audioPlayer.duration) {
+                return;
+            }
+
+            const percentual =
+                (audioPlayer.currentTime /
+                    audioPlayer.duration) * 100;
+
+            document.getElementById("progressBar").style.width =
+                `${percentual}%`;
+
+            document.getElementById("currentTime").textContent =
+                formatarSegundos(audioPlayer.currentTime);
+
+            document.getElementById("durationTime").textContent =
+                formatarSegundos(audioPlayer.duration);
+
+        }
+
+        function formatarSegundos(segundos) {
+
+            if (!Number.isFinite(segundos)) {
+                return "0:00";
+            }
+
+            const total =
+                Math.floor(segundos);
+
+            const minutos =
+                Math.floor(total / 60);
+
+            const segundosRestantes =
+                total % 60;
+
+            return `${minutos}:${String(
+                segundosRestantes
+            ).padStart(2, "0")}`;
+
+        }
+
+        function melhorarCapa(url) {
+
+            if (!url) {
+                return "";
+            }
+
+            return url
+                .replace("100x100bb", "1000x1000bb")
+                .replace("100x100-75", "1000x1000-75")
+                .replace("200x200bb", "1000x1000bb")
+                .replace("300x300bb", "1000x1000bb");
+
+        }
+
+        function calcularPopularidadeRelativa(song, resultados) {
+
+            if (!song || !resultados || !resultados.length) {
+                return 0;
+            }
+
+            const posicao =
+                resultados.findIndex(
+                    item =>
+                        item.trackId === song.trackId
+                );
+
+            if (posicao < 0) {
+                return 0;
+            }
+
+            if (resultados.length === 1) {
+                return 100;
+            }
+
+            return Math.max(
+                1,
+                Math.min(
+                    100,
+                    Math.round(
+                        100 -
+                        (posicao /
+                            (resultados.length - 1)) *
+                        99
+                    )
+                )
+            );
+
+        }
+
+        function aplicarMusicaNoCartao(musica) {
+
+            if (!musica) {
+                return;
+            }
+
+            musicaAtual = musica;
+
+            const capa =
+                melhorarCapa(
+                    musica.artworkUrl100
+                );
+
+            document.getElementById("heroCover").src = capa;
+            document.getElementById("backCover").src = capa;
+
+            document.getElementById("heroCover").alt =
+                `Capa de ${musica.collectionName || musica.trackName}`;
+
+            document.getElementById("heroSong").textContent =
+                musica.trackName || "Faixa";
+
+            document.getElementById("heroArtist").textContent =
+                musica.artistName || "Artista";
+
+            document.getElementById("heroAlbum").textContent =
+                musica.collectionName || "Álbum não informado";
+
+            document.getElementById("heroDuration").textContent =
+                formatarDuracao(musica.trackTimeMillis);
+
+            document.getElementById("heroGenre").textContent =
+                obterGeneroReal(musica) || "—";
+
+            document.getElementById("heroYear").textContent =
+                obterAno(musica.releaseDate) || "—";
+
+            document.getElementById("heroTracks").textContent =
+                musicas.length || "—";
+
+            document.getElementById("backTitle").textContent =
+                musica.trackName || "Faixa";
+
+            document.getElementById("backArtist").textContent =
+                musica.artistName || "Artista";
+
+            document.getElementById("statDuration").textContent =
+                formatarDuracao(musica.trackTimeMillis);
+
+            document.getElementById("statGenre").textContent =
+                musica.primaryGenreName || "—";
+
+            document.getElementById("statYear").textContent =
+                obterAno(musica.releaseDate) || "—";
+
+            document.getElementById("statPopularity").textContent = "APPLE";
+            document.getElementById("popLabel").textContent = "APPLE MUSIC";
+            document.getElementById("popFill").style.width = "100%";
+
+            audioPlayer.src =
+                musica.previewUrl || "";
+
+            audioPlayer.load();
+
+            audioPlayer.currentTime = 0;
+
+            document.getElementById("progressBar").style.width = "0%";
+            document.getElementById("currentTime").textContent = "0:00";
+
+            definirEstadoPlayer(false);
+
+        }
+
+        /* =====================================================
+           SUGESTÃO
+        ===================================================== */
+
+        function pesquisarSugestao(nome) {
+
+            document
+                .getElementById("searchInput")
+                .value = nome;
+
+            buscarMusicas();
+
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        function status(texto) {
+
+            document
+                .getElementById("searchStatus")
+                .textContent = texto;
+
+        }
+
+
+        /* =====================================================
+           BUSCA PRINCIPAL
+        ===================================================== */
+
+        async function buscarMusicas() {
+
+            if (pesquisando) {
+
+                return;
+
+            }
+
+
+            const input =
+                document.getElementById(
+                    "searchInput"
+                );
+
+
+            const termo =
+                input.value.trim();
+
+
+            if (!termo) {
+
+                status(
+                    "Digite uma música ou artista para começar."
+                );
+
+                input.focus();
+
+                return;
+
+            }
+
+            const tokenBusca = ++sonoraBuscaToken;
+            perfilArtistaToken = tokenBusca;
+
+            // Limpa imediatamente os dados dependentes da pesquisa anterior.
+            // Isso evita que o perfil antigo permaneça visível enquanto a nova
+            // consulta ao catálogo está sendo feita.
+            musicaAtual = null;
+            musicas = [];
+            musicasArtista = [];
+            albunsArtista = [];
+            artistaPesquisado = "";
+            artistaAppleId = null;
+            artistaAppleNome = "";
+            resultadosDestaqueArtista = [];
+            modoArtista = false;
+            window.sonoraAppleChart = { entries: [], artist: "", artistId: null, selectedRank: null, trackId: null };
+
+            // Limpa também o painel visual do artista anterior imediatamente.
+            // Assim nenhuma informação antiga fica visível durante a nova busca.
+            const resetArtistField = (id, value = "—") => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value;
+            };
+            resetArtistField("artistSelectedName", termo);
+            resetArtistField("artistPopularity", "—");
+            resetArtistField("artistPopularityText", "Consultando os dados atuais da Apple Music…");
+            resetArtistField("artistTrackCount");
+            resetArtistField("artistAlbumCount");
+            resetArtistField("artistMainGenre");
+            resetArtistField("artistPeriod");
+            resetArtistField("artistTopSong");
+            resetArtistField("artistGenreCount");
+            const artistLinkReset = document.getElementById("artistAppleLink");
+            if (artistLinkReset) {
+                artistLinkReset.href = "#";
+                artistLinkReset.textContent = "Consultando Apple Music…";
+            }
+
+            pesquisando = true;
+
+
+            const button =
+                document.getElementById(
+                    "searchButton"
+                );
+
+
+            const loading =
+                document.getElementById(
+                    "loading"
+                );
+
+
+            const dashboard =
+                document.getElementById(
+                    "dashboard"
+                );
+
+
+            const results =
+                document.getElementById(
+                    "songResults"
+                );
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "Pesquisando...";
+
+            loading.classList.add("active");
+
+            status(
+                "Consultando o catálogo musical..."
+            );
+
+
+            let resultadosRenderizados = false;
+
+            try {
+
+                const dados =
+                    await consultarAPI(termo);
+
+                if (tokenBusca !== sonoraBuscaToken) return;
+
+
+                if (
+                    !dados ||
+                    !dados.results ||
+                    !dados.results.length
+                ) {
+
+                    results.innerHTML = `
+
+                        <div class="analysis-result">
+
+                            Nenhum resultado encontrado
+                            para <strong>${escaparHTML(termo)}</strong>.
+
+                            <br><br>
+
+                            Tente pesquisar somente o nome
+                            do artista ou da música.
+
+                        </div>
+
+                    `;
+
+                    dashboard.classList.remove(
+                        "active"
+                    );
+
+                    status(
+                        "Nenhum resultado encontrado."
+                    );
+
+                    return;
+
+                }
+
+
+                const resultadosMusicais =
+                    dados.results
+                        .filter(item =>
+                            item.kind === "song" ||
+                            item.wrapperType === "track"
+                        )
+                        .filter(item => item.trackName);
+
+                if (!resultadosMusicais.length) {
+                    status(
+                        "A pesquisa retornou conteúdo, mas nenhuma faixa musical."
+                    );
+                    return;
+                }
+
+                const termoNormalizado = normalizarTexto(termo);
+
+                // Primeiro tentamos identificar o artista pelo endpoint de artista.
+                // Isso evita confundir o nome pesquisado com um artista parecido que
+                // apareceu entre as primeiras músicas.
+                let artistasCatalogo = [];
+                try {
+                    const dadosArtistas = await consultarAPIEntity(termo, "musicArtist", 50);
+                    if (tokenBusca !== sonoraBuscaToken) return;
+                    artistasCatalogo = (dadosArtistas.results || []).filter(item =>
+                        item.wrapperType === "artist" && item.artistName && item.artistId
+                    );
+                } catch (e) {
+                    console.warn("Busca de artista indisponível; usando os resultados musicais.", e);
+                }
+
+                const artistaExato = artistasCatalogo.find(item =>
+                    normalizarTexto(item.artistName || "") === termoNormalizado
+                ) || resultadosMusicais.find(item =>
+                    normalizarTexto(item.artistName || "") === termoNormalizado && item.artistId
+                );
+
+                modoArtista = Boolean(artistaExato);
+                artistaPesquisado = modoArtista
+                    ? String(artistaExato.artistName || termo).trim()
+                    : String(resultadosMusicais[0].artistName || "").trim();
+                artistaAppleNome = artistaPesquisado;
+                artistaAppleId = artistaExato?.artistId || resultadosMusicais[0]?.artistId || null;
+
+                musicas = resultadosMusicais;
+                musicasArtista = [];
+                albunsArtista = [];
+                resultadosDestaqueArtista = [];
+
+                // Quando a busca corresponde exatamente a um artista, usamos o ID real
+                // desse artista para buscar somente o catálogo ligado a ele.
+                if (modoArtista && artistaAppleId) {
+                    try {
+                        const [dadosFaixasArtista, dadosAlbunsArtista] = await Promise.all([
+                            consultarLookup(artistaAppleId, "song", 200),
+                            consultarLookup(artistaAppleId, "album", 200)
+                        ]);
+
+                        if (tokenBusca !== sonoraBuscaToken) return;
+
+                        musicasArtista = (dadosFaixasArtista.results || [])
+                            .filter(item =>
+                                (item.kind === "song" || item.wrapperType === "track") &&
+                                item.trackName &&
+                                normalizarTexto(item.artistName || "") === termoNormalizado
+                            );
+
+                        albunsArtista = (dadosAlbunsArtista.results || [])
+                            .filter(item =>
+                                (item.wrapperType === "collection" || item.collectionName) &&
+                                item.collectionName &&
+                                normalizarTexto(item.artistName || "") === termoNormalizado
+                            );
+
+                        if (musicasArtista.length) {
+                            // Para as análises do artista, os dados passam a ser o catálogo
+                            // retornado pelo ID do artista, e não resultados de outros artistas.
+                            musicas = musicasArtista;
+                        }
+                    } catch (erroArtista) {
+                        console.warn("Não foi possível carregar o catálogo completo do artista.", erroArtista);
+                    }
+                }
+
+                if (!musicas.length) {
+                    status("Nenhuma faixa real foi encontrada para esta busca.");
+                    return;
+                }
+
+                if (tokenBusca !== sonoraBuscaToken) return;
+
+                mostrarResultados();
+                resultadosRenderizados = true;
+
+                autoplayTentado = false;
+
+                // A faixa principal vem do artista exato quando a pesquisa é de artista.
+                // Para pesquisa de música, mantemos o primeiro resultado da busca.
+                const faixaPrincipal = modoArtista
+                    ? (musicasArtista[0] || musicas[0])
+                    : musicas[0];
+
+                const correspondente = musicas.find(item =>
+                    item.trackId && faixaPrincipal.trackId && item.trackId === faixaPrincipal.trackId
+                ) || faixaPrincipal || musicas[0];
+
+                aplicarMusicaNoCartao(correspondente);
+                atualizarDadosDaFaixaSelecionada();
+                criarDashboard();
+
+
+                status(
+                    `${musicas.length} músicas encontradas.`
+                );
+
+
+                document
+                    .getElementById("dashboard")
+                    .scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+
+            } catch (erro) {
+
+                console.error(erro);
+
+
+                const mensagem =
+                    erro.message || "";
+
+
+                if (
+                    mensagem.includes(
+                        "RATE_LIMIT"
+                    )
+                ) {
+
+                    status(
+                        "A API atingiu o limite temporário. Aguarde cerca de 1 minuto e tente novamente."
+                    );
+
+                } else if (resultadosRenderizados || musicas.length) {
+
+                    // Os resultados já foram carregados corretamente. Não mostrar
+                    // um erro genérico só porque uma análise secundária falhou.
+                    status(
+                        `${musicas.length} músicas encontradas.`
+                    );
+
+                } else {
+
+                    status(
+                        "Não foi possível realizar a pesquisa. Tente novamente."
+                    );
+
+                }
+
+            } finally {
+
+                loading.classList.remove(
+                    "active"
+                );
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Pesquisar";
+
+                pesquisando = false;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           API COM CACHE
+        ===================================================== */
+
+        async function consultarAPIEntity(termo, entity = "song", limit = 50) {
+            const chave = CACHE_PREFIX + entity + "_" + termo.toLowerCase().trim();
+            try {
+                const armazenado = localStorage.getItem(chave);
+                if (armazenado) {
+                    const objeto = JSON.parse(armazenado);
+                    if (Date.now() - objeto.timestamp < CACHE_DURATION && objeto.data) return objeto.data;
+                }
+            } catch (e) {}
+
+            await esperar(350);
+            const dados = await consultarJSONPEntity(termo, entity, limit);
+            try {
+                localStorage.setItem(chave, JSON.stringify({timestamp: Date.now(), data: dados}));
+            } catch (e) {}
+            return dados;
+        }
+
+        async function consultarAPI(termo) {
+
+            const chave =
+                CACHE_PREFIX +
+                termo
+                    .toLowerCase()
+                    .trim();
+
+
+            /* -----------------------------
+               VERIFICAR CACHE
+            ----------------------------- */
+
+            try {
+
+                const armazenado =
+                    localStorage.getItem(
+                        chave
+                    );
+
+
+                if (armazenado) {
+
+                    const objeto =
+                        JSON.parse(
+                            armazenado
+                        );
+
+
+                    const aindaValido =
+                        Date.now() -
+                        objeto.timestamp <
+                        CACHE_DURATION;
+
+
+                    if (
+                        aindaValido &&
+                        objeto.data
+                    ) {
+
+                        status(
+                            "Resultado recuperado do cache."
+                        );
+
+                        return objeto.data;
+
+                    }
+
+                }
+
+            } catch (erro) {
+
+                console.warn(
+                    "Cache indisponível",
+                    erro
+                );
+
+            }
+
+
+            /* -----------------------------
+               ESPERAR ENTRE BUSCAS
+            ----------------------------- */
+
+            await esperar(700);
+
+
+            /* -----------------------------
+               JSONP
+            ----------------------------- */
+
+            const dados =
+                await consultarJSONP(
+                    termo
+                );
+
+
+            /* -----------------------------
+               CACHE
+            ----------------------------- */
+
+            try {
+
+                localStorage.setItem(
+
+                    chave,
+
+                    JSON.stringify({
+
+                        timestamp:
+                            Date.now(),
+
+                        data:
+                            dados
+
+                    })
+
+                );
+
+            } catch (erro) {
+
+                console.warn(
+                    "Não foi possível salvar cache.",
+                    erro
+                );
+
+            }
+
+
+            return dados;
+
+        }
+
+
+        /* =====================================================
+           JSONP
+        ===================================================== */
+
+        function consultarJSONPEntity(termo, entity = "song", limit = 50) {
+            return new Promise((resolve, reject) => {
+                const callbackName = "sonoraEntity_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+                const script = document.createElement("script");
+                let finalizado = false;
+                const timeout = setTimeout(() => { finalizar(); reject(new Error("TIMEOUT")); }, 12000);
+                function finalizar() {
+                    if (finalizado) return;
+                    finalizado = true;
+                    clearTimeout(timeout);
+                    try { delete window[callbackName]; } catch (e) { window[callbackName] = undefined; }
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                }
+                window[callbackName] = dados => { finalizar(); resolve(dados); };
+                script.onerror = () => { finalizar(); reject(new Error("API_ERROR")); };
+                const params = new URLSearchParams({
+                    term: termo, country: "BR", media: "music", entity, limit: String(limit), explicit: "Yes", callback: callbackName
+                });
+                script.src = "https://itunes.apple.com/search?" + params.toString();
+                script.async = true;
+                document.body.appendChild(script);
+            });
+        }
+
+        function consultarJSONP(termo) {
+
+            return new Promise(
+                (resolve, reject) => {
+
+
+                    const callbackName =
+                        "sonoraCallback_" +
+                        Date.now() +
+                        "_" +
+                        Math.floor(
+                            Math.random() * 100000
+                        );
+
+
+                    const script =
+                        document.createElement(
+                            "script"
+                        );
+
+
+                    let finalizado =
+                        false;
+
+
+                    const timeout =
+                        setTimeout(
+                            () => {
+
+                                finalizar();
+
+                                reject(
+                                    new Error(
+                                        "TIMEOUT"
+                                    )
+                                );
+
+                            },
+                            12000
+                        );
+
+
+                    function finalizar() {
+
+                        if (finalizado) {
+
+                            return;
+
+                        }
+
+
+                        finalizado = true;
+
+
+                        clearTimeout(
+                            timeout
+                        );
+
+
+                        try {
+
+                            delete window[
+                                callbackName
+                            ];
+
+                        } catch (e) {
+
+                            window[
+                                callbackName
+                            ] = undefined;
+
+                        }
+
+
+                        if (
+                            script.parentNode
+                        ) {
+
+                            script
+                                .parentNode
+                                .removeChild(
+                                    script
+                                );
+
+                        }
+
+                    }
+
+
+                    window[
+                        callbackName
+                    ] = function (dados) {
+
+                        finalizar();
+
+                        resolve(
+                            dados
+                        );
+
+                    };
+
+
+                    script.onerror =
+                        function () {
+
+                            finalizar();
+
+                            reject(
+                                new Error(
+                                    "API_ERROR"
+                                )
+                            );
+
+                        };
+
+
+                    const params =
+                        new URLSearchParams({
+
+                            term:
+                                termo,
+
+                            country:
+                                "BR",
+
+                            media:
+                                "music",
+
+                            entity:
+                                "song",
+
+                            limit:
+                                "50",
+
+                            explicit:
+                                "Yes",
+
+                            callback:
+                                callbackName
+
+                        });
+
+
+                    script.src =
+                        "https://itunes.apple.com/search?" +
+                        params.toString();
+
+
+                    script.async = true;
+
+
+                    document
+                        .body
+                        .appendChild(
+                            script
+                        );
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           LOOKUP DE ARTISTA / ÁLBUNS / FAIXAS
+        ===================================================== */
+
+        function consultarLookup(id, entity, limit = 200) {
+            return new Promise((resolve, reject) => {
+                const callbackName =
+                    "sonoraLookup_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+                const script = document.createElement("script");
+                let finalizado = false;
+                const timeout = setTimeout(() => {
+                    finalizar();
+                    reject(new Error("LOOKUP_TIMEOUT"));
+                }, 12000);
+
+                function finalizar() {
+                    if (finalizado) return;
+                    finalizado = true;
+                    clearTimeout(timeout);
+                    try { delete window[callbackName]; } catch (e) { window[callbackName] = undefined; }
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                }
+
+                window[callbackName] = dados => {
+                    finalizar();
+                    resolve(dados || { results: [] });
+                };
+
+                script.onerror = () => {
+                    finalizar();
+                    reject(new Error("LOOKUP_ERROR"));
+                };
+
+                const params = new URLSearchParams({
+                    id: String(id),
+                    entity: entity,
+                    limit: String(limit),
+                    country: "BR",
+                    callback: callbackName
+                });
+
+                script.src = "https://itunes.apple.com/lookup?" + params.toString();
+                script.async = true;
+                document.body.appendChild(script);
+            });
+        }
+
+
+        /* =====================================================
+           MOSTRAR RESULTADOS
+        ===================================================== */
+
+        function mostrarResultados() {
+
+            const container =
+                document.getElementById(
+                    "songResults"
+                );
+
+
+            container.innerHTML = "";
+
+
+            musicas
+                .slice(0, 15)
+                .forEach(
+                    musica => {
+
+
+                        const duracao =
+                            formatarDuracao(
+                                musica.trackTimeMillis
+                            );
+
+
+                        const ano =
+                            obterAno(
+                                musica.releaseDate
+                            );
+
+
+                        const capa =
+                            musica.artworkUrl100 ||
+                            "https://via.placeholder.com/100";
+
+
+                        container.innerHTML += `
+
+                            <div class="song-result">
+
+                                <img
+                                    src="${escaparAtributo(capa)}"
+                                    alt="Capa da música"
+                                >
+
+                                <div>
+
+                                    <h4>
+                                        ${escaparHTML(
+                                            musica.trackName
+                                        )}
+                                    </h4>
+
+                                    <p>
+                                        ${escaparHTML(
+                                            musica.artistName ||
+                                            "Artista desconhecido"
+                                        )}
+                                    </p>
+
+                                    <p>
+
+                                        ${escaparHTML(
+                                            musica.primaryGenreName ||
+                                            "Gênero não informado"
+                                        )}
+
+                                        • ${String(ano || "—").replace(/,/g, "")}
+
+                                        • ${duracao}
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                );
+
+            container.querySelectorAll(".song-result").forEach((card, index) => {
+                card.addEventListener("click", () => {
+                    const faixa = musicas.slice(0, 15)[index];
+                    if (!faixa) return;
+                    aplicarMusicaNoCartao(faixa);
+                    atualizarDadosDaFaixaSelecionada();
+                    criarDashboard();
+                });
+            });
+
+        }
+
+
+        function obterBaseAnalise() {
+            return Array.isArray(musicas) ? musicas.filter(m => m && m.trackName) : [];
+        }
+
+        function normalizarTexto(texto) {
+            return String(texto || "")
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, " ")
+                .trim();
+        }
+
+
+        /* =====================================================
+           DASHBOARD
+        ===================================================== */
+
+        function criarDashboard() {
+
+            const dashboard = document.getElementById("dashboard");
+            if (dashboard) dashboard.classList.add("active");
+
+            // Uma falha em um gráfico nunca mais pode cancelar a pesquisa inteira.
+            // Cada módulo é independente: se um gráfico falhar, os resultados, o
+            // perfil do artista e as demais análises continuam sendo exibidos.
+            const executarComSeguranca = (fn, nome) => {
+                try {
+                    fn();
+                } catch (erro) {
+                    console.warn(`SONORA — falha isolada em ${nome}:`, erro);
+                }
+            };
+
+            executarComSeguranca(atualizarDadosDaFaixaSelecionada, "dados da faixa");
+            executarComSeguranca(analiseDistribuicao, "distribuição");
+            executarComSeguranca(analiseCorrelacao, "correlação");
+            executarComSeguranca(analiseRegressao, "regressão");
+            executarComSeguranca(analisePerfilArtista, "perfil do artista");
+            executarComSeguranca(analiseMapaMusical, "mapa musical");
+            executarComSeguranca(analiseCorrespondencia, "correspondência");
+            executarComSeguranca(analiseTemporal, "série temporal");
+        }
+
+
+        /* =====================================================
+           DADOS REAIS DA FAIXA SELECIONADA
+        ===================================================== */
+
+        function obterGeneroReal(musica) {
+            if (!musica) return "Não informado";
+            if (musica.primaryGenreName) return String(musica.primaryGenreName);
+            if (musica.genreName) return String(musica.genreName);
+            if (Array.isArray(musica.genreNames) && musica.genreNames.length) {
+                return String(musica.genreNames[0]);
+            }
+            return "Não informado";
+        }
+
+        function atualizarDadosDaFaixaSelecionada() {
+            const faixa = musicaAtual || musicas[0];
+            if (!faixa) return;
+
+            const titulo = faixa.trackName || "Faixa sem título";
+            const artista = faixa.artistName || "Artista não informado";
+            const ano = obterAno(faixa.releaseDate);
+            const genero = obterGeneroReal(faixa);
+
+            const nome = document.getElementById("selectedTrackName");
+            const nomeArtista = document.getElementById("selectedTrackArtist");
+            const subtitulo = document.getElementById("analysisSubtitle");
+            const statTrack = document.getElementById("analysisStatTrack");
+            const statArtist = document.getElementById("analysisStatArtist");
+            const statYear = document.getElementById("analysisStatYear");
+            const statGenre = document.getElementById("analysisStatGenre");
+
+            if (nome) nome.textContent = titulo;
+            if (nomeArtista) nomeArtista.textContent = artista;
+            if (subtitulo) subtitulo.textContent = `Dados reais da faixa selecionada • ${artista}`;
+            if (statTrack) statTrack.textContent = titulo;
+            if (statArtist) statArtist.textContent = artista;
+            if (statYear) statYear.textContent = ano || "—";
+            if (statGenre) statGenre.textContent = genero;
+        }
+
+        function formatarTempo(segundos) {
+            segundos = Math.max(0, Math.round(Number(segundos) || 0));
+            const minutos = Math.floor(segundos / 60);
+            const seg = String(segundos % 60).padStart(2, "0");
+            return `${minutos}:${seg}`;
+        }
+
+
+        /* =====================================================
+           01 — DISTRIBUIÇÃO
+        ===================================================== */
+
+        function analiseDistribuicao() {
+
+            const valores =
+                musicas
+                    .map(
+                        m =>
+                            m.trackTimeMillis / 60000
+                    )
+                    .filter(
+                        n =>
+                            Number.isFinite(n)
+                    );
+
+
+            const faixas = [
+
+                {
+                    nome: "< 2 min",
+                    min: 0,
+                    max: 2
+                },
+
+                {
+                    nome: "2–3 min",
+                    min: 2,
+                    max: 3
+                },
+
+                {
+                    nome: "3–4 min",
+                    min: 3,
+                    max: 4
+                },
+
+                {
+                    nome: "4–5 min",
+                    min: 4,
+                    max: 5
+                },
+
+                {
+                    nome: "> 5 min",
+                    min: 5,
+                    max: Infinity
+                }
+
+            ];
+
+
+            const quantidades =
+                faixas.map(
+                    faixa =>
+                        valores.filter(
+                            valor =>
+                                valor >= faixa.min &&
+                                valor < faixa.max
+                        ).length
+                );
+
+
+            destruirChart(
+                "distributionChart"
+            );
+
+
+            charts.distribution =
+                new Chart(
+
+                    document.getElementById(
+                        "distributionChart"
+                    ),
+
+                    {
+
+                        type: "bar",
+
+                        data: {
+
+                            labels:
+                                faixas.map(
+                                    f => f.nome
+                                ),
+
+                            datasets: [{
+
+                                label:
+                                    "Músicas",
+
+                                data:
+                                    quantidades
+
+                            }]
+
+                        },
+
+                        options: {
+
+                            responsive: true,
+
+                            maintainAspectRatio: false,
+
+                            plugins: {
+
+                                legend: {
+                                    display: false
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                );
+
+        }
+
+
+        /* =====================================================
+           02 — CORRELAÇÃO + COVARIÂNCIA
+        ===================================================== */
+
+        function obterFaixasPorAlbum() {
+            // Um ponto = um álbum. A quantidade de faixas vem do campo de catálogo
+            // informado pela Apple (collectionTrackCount/trackCount), nunca de uma
+            // contagem parcial dos resultados da busca.
+            const albums = new Map();
+            const fonte = [...musicas, ...albunsArtista];
+
+            fonte.forEach(m => {
+                const id = m.collectionId || String(m.collectionName || "").trim().toLowerCase();
+                const nome = String(m.collectionName || "").trim();
+                const ano = obterAno(m.releaseDate);
+                const total = Number(m.collectionTrackCount || m.trackCount || 0);
+                if (!id || !nome || !ano || total <= 0) return;
+
+                const chave = String(id);
+                if (!albums.has(chave)) {
+                    albums.set(chave, {
+                        x: ano,
+                        y: total,
+                        album: formatarTituloMusical(nome),
+                        artista: formatarTituloMusical(m.artistName || "")
+                    });
+                } else {
+                    const atual = albums.get(chave);
+                    // Se o lookup do álbum trouxe uma data/contagem mais completa,
+                    // preferimos o registro com informação mais confiável.
+                    if (total > atual.y) atual.y = total;
+                    if (ano < atual.x) atual.x = ano;
+                }
+            });
+
+            return Array.from(albums.values())
+                .filter(p => p.x > 0 && p.y > 0)
+                .sort((a, b) => a.x - b.x || a.album.localeCompare(b.album));
+        }
+
+        function interpretarForcaCorrelacao(r) {
+            const absoluto = Math.abs(r);
+            if (absoluto < 0.2) return "muito fraca ou praticamente inexistente";
+            if (absoluto < 0.4) return "fraca";
+            if (absoluto < 0.7) return "moderada";
+            if (absoluto < 0.9) return "forte";
+            return "muito forte";
+        }
+
+        /* =====================================================
+           02 — CORRELAÇÃO + COVARIÂNCIA
+        ===================================================== */
+
+        function analiseCorrelacao() {
+            const pares = obterFaixasPorAlbum();
+            const box = document.getElementById("correlationResult");
+
+            destruirChart("correlationChart");
+
+            if (pares.length < 2) {
+                if (box) box.innerHTML = "<strong>Dados insuficientes.</strong><br>O catálogo precisa retornar pelo menos duas faixas com ano e informação de quantidade de faixas do álbum.";
+                return;
+            }
+
+            const xs = pares.map(p => p.x);
+            const ys = pares.map(p => p.y);
+            const r = correlacao(xs, ys);
+            const cov = covariancia(xs, ys);
+
+            charts.correlation = new Chart(document.getElementById("correlationChart"), {
+                type: "scatter",
+                data: {
+                    datasets: [{
+                        label: "Álbuns encontrados",
+                        data: pares,
+                        pointRadius: 7,
+                        pointHoverRadius: 10,
+                        backgroundColor: "rgba(91, 143, 166, .65)",
+                        borderColor: "rgba(91, 143, 166, 1)",
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: "linear",
+                            title: { display: true, text: "Ano de lançamento" },
+                            ticks: { callback: value => String(Math.round(value)).replace(/,/g, "") }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: "Faixas no álbum" },
+                            ticks: { precision: 0 }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => {
+                                    const p = ctx.raw;
+                                    return `${p.album} • ${p.y} faixa(s) • ${String(p.x).replace(/,/g, "")}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const sentido = r > 0.05 ? "álbuns maiores tendem a aparecer nos anos mais recentes" :
+                r < -0.05 ? "álbuns menores tendem a aparecer nos anos mais recentes" :
+                "não aparece uma tendência linear clara entre as duas variáveis";
+
+            if (box) {
+                box.innerHTML = `
+                    <div class="analysis-insight">
+                        <div class="analysis-insight-item"><small>RELAÇÃO LINEAR (r)</small><strong>${r.toFixed(2)}</strong></div>
+                        <div class="analysis-insight-item"><small>COVARIÂNCIA</small><strong>${cov.toFixed(2)}</strong></div>
+                        <div class="analysis-insight-item"><small>LEITURA</small><strong>${interpretarForcaCorrelacao(r)}</strong></div>
+                    </div>
+                    <div class="analysis-explanation"><strong>Em palavras simples:</strong> ${sentido}. Cada ponto representa um álbum único. O eixo X é o ano de lançamento e o eixo Y é a quantidade de faixas informada no catálogo para esse álbum. A correlação e a covariância são calculadas somente depois de formar esses pares, evitando contar o mesmo álbum várias vezes.</div>
+                `;
+            }
+        }
+
+
+        /* =====================================================
+           03 — REGRESSÃO LINEAR
+        ===================================================== */
+
+        /* =====================================================
+           03 — REGRESSÃO LINEAR
+        ===================================================== */
+
+        function analiseRegressao() {
+            const paresBase = obterFaixasPorAlbum();
+            const box = document.getElementById("regressionResult");
+            destruirChart("regressionChart");
+
+            if (paresBase.length < 2) {
+                if (box) box.innerHTML = "<strong>Dados insuficientes.</strong><br>São necessárias pelo menos duas faixas com ano e informação sobre o álbum.";
+                return;
+            }
+
+            // Uma observação por álbum deixa a tendência mais legível e evita
+            // contar várias vezes o mesmo álbum quando ele possui várias faixas.
+            const porAlbum = {};
+            paresBase.forEach(p => {
+                const chave = `${p.album}||${p.x}`;
+                if (!porAlbum[chave]) porAlbum[chave] = p;
+            });
+            const pares = Object.values(porAlbum).sort((a,b) => a.x - b.x);
+
+            const xs = pares.map(p => p.x);
+            const ys = pares.map(p => p.y);
+            const regressao = regressaoLinear(xs, ys);
+            const minX = Math.min(...xs);
+            const maxX = Math.max(...xs);
+            const linha = [
+                { x: minX, y: regressao.a * minX + regressao.b },
+                { x: maxX, y: regressao.a * maxX + regressao.b }
+            ];
+
+            const mediaFaixas = media(ys);
+            const tendencia = regressao.a > 0.05 ? "a quantidade de faixas tende a aumentar" :
+                regressao.a < -0.05 ? "a quantidade de faixas tende a diminuir" :
+                "a quantidade de faixas permanece relativamente estável";
+
+            charts.regression = new Chart(document.getElementById("regressionChart"), {
+                type: "scatter",
+                data: {
+                    datasets: [
+                        {
+                            label: "Álbuns reais",
+                            data: pares,
+                            pointRadius: 7,
+                            pointHoverRadius: 10,
+                            backgroundColor: "rgba(220, 118, 145, .65)",
+                            borderColor: "rgba(220, 118, 145, 1)",
+                            borderWidth: 1
+                        },
+                        {
+                            type: "line",
+                            label: "Linha de tendência",
+                            data: linha,
+                            pointRadius: 0,
+                            borderWidth: 3,
+                            borderColor: "rgba(74, 55, 47, .8)",
+                            showLine: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: "linear",
+                            title: { display: true, text: "Ano de lançamento" },
+                            ticks: { callback: value => String(Math.round(value)).replace(/,/g, "") }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: "Faixas no álbum" },
+                            ticks: { precision: 0 }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => {
+                                    const p = ctx.raw;
+                                    if (ctx.datasetIndex === 1) return `Tendência: ${Number(p.y).toFixed(1)} faixa(s)`;
+                                    return `${p.album} • ${p.y} faixa(s) • ${String(p.x).replace(/,/g, "")}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            if (box) {
+                box.innerHTML = `
+                    <div class="analysis-insight">
+                        <div class="analysis-insight-item"><small>ÁLBUNS ANALISADOS</small><strong>${pares.length}</strong></div>
+                        <div class="analysis-insight-item"><small>MÉDIA DE FAIXAS</small><strong>${mediaFaixas.toFixed(1)}</strong></div>
+                        <div class="analysis-insight-item"><small>TENDÊNCIA</small><strong>${regressao.a > 0.05 ? "↑" : regressao.a < -0.05 ? "↓" : "→"}</strong></div>
+                    </div>
+                    <div class="analysis-explanation"><strong>Como ler:</strong> cada ponto representa um álbum real. A linha mostra a tendência geral. Neste conjunto de dados, ${tendencia} conforme o ano muda.</div>
+                `;
+            }
+        }
+
+        /* =====================================================
+           06 — PERFIL ESTATÍSTICO DO ARTISTA
+        ===================================================== */
+
+        function formatarTituloMusical(valor) {
+            const texto = String(valor || "").trim();
+            if (!texto) return "—";
+            if (texto !== texto.toUpperCase()) return texto;
+            const excecoes = new Set(["a","o","as","os","e","de","da","do","das","dos","em","no","na","nos","nas","um","uma","the","of","and"]);
+            return texto.toLowerCase().split(/\s+/).map((p, i) => {
+                if (i > 0 && excecoes.has(p)) return p;
+                return p.charAt(0).toUpperCase() + p.slice(1);
+            }).join(" ");
+        }
+
+        function obterArtistaExatoDaBusca() {
+            return artistaPesquisado || (musicaAtual?.artistName || "");
+        }
+
+        function analisePerfilArtista() {
+            const faixaSelecionada = musicaAtual || musicas[0];
+            if (!faixaSelecionada) return;
+
+            // O perfil pertence ao ARTISTA da busca, não à última faixa/artista
+            // que ficou no estado visual. O ID é a chave principal; o nome é fallback.
+            const nomeArtista = String(
+                artistaPesquisado || faixaSelecionada.artistName || "Artista selecionado"
+            ).trim();
+            const idArtistaPerfil = artistaAppleId ? String(artistaAppleId) : "";
+            const tokenPerfil = sonoraBuscaToken;
+            perfilArtistaToken = tokenPerfil;
+
+            const nomeNorm = normalizarTexto(nomeArtista);
+            const base = modoArtista && musicasArtista.length
+                ? musicasArtista.filter(m =>
+                    normalizarTexto(m.artistName || "") === nomeNorm ||
+                    (idArtistaPerfil && String(m.artistId || "") === idArtistaPerfil)
+                )
+                : musicas.filter(m => normalizarTexto(m.artistName || "") === nomeNorm);
+
+            const dados = base.length ? base : [faixaSelecionada];
+            const idsFaixas = new Set();
+            const faixasUnicas = dados.filter(m => {
+                const id = m.trackId || `${m.trackName}|${m.collectionName}|${m.releaseDate}`;
+                if (idsFaixas.has(id)) return false;
+                idsFaixas.add(id);
+                return true;
+            });
+
+            const albumIds = new Set();
+            faixasUnicas.forEach(m => {
+                const id = m.collectionId || String(m.collectionName || "").trim().toLowerCase();
+                if (id) albumIds.add(String(id));
+            });
+            albunsArtista
+                .filter(a => normalizarTexto(a.artistName || "") === nomeNorm)
+                .forEach(a => {
+                    const id = a.collectionId || String(a.collectionName || "").trim().toLowerCase();
+                    if (id) albumIds.add(String(id));
+                });
+
+            const generos = contarCategorias(faixasUnicas.map(obterGeneroReal));
+            const listaGeneros = Object.entries(generos).sort((a, b) => b[1] - a[1]);
+            const generoPrincipal = listaGeneros[0]?.[0] || "Não informado";
+            const anos = faixasUnicas.map(m => obterAno(m.releaseDate)).filter(a => a > 0);
+            const minAno = anos.length ? Math.min(...anos) : 0;
+            const maxAno = anos.length ? Math.max(...anos) : 0;
+
+            const faixaPrincipal = faixaSelecionada.artistName &&
+                normalizarTexto(faixaSelecionada.artistName) === nomeNorm
+                ? faixaSelecionada
+                : faixasUnicas[0];
+
+            const nomeEl = document.getElementById("artistSelectedName");
+            if (nomeEl) nomeEl.textContent = nomeArtista || "Artista selecionado";
+            const set = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+            set("artistTrackCount", faixasUnicas.length || "—");
+            set("artistAlbumCount", albumIds.size || "—");
+            set("artistMainGenre", generoPrincipal);
+            set("artistPeriod", minAno && maxAno ? `${minAno}–${maxAno}` : "—");
+            set("artistTopSong", formatarTituloMusical(faixaPrincipal?.trackName));
+            set("artistGenreCount", listaGeneros.length || "—");
+
+            // Popularidade é buscada novamente para este artista específico.
+            carregarPopularidadeApple(
+                nomeArtista,
+                faixaPrincipal,
+                tokenPerfil,
+                idArtistaPerfil
+            );
+
+            const appleLink = document.getElementById("artistAppleLink");
+            const linkFonte = faixaPrincipal?.artistViewUrl || faixaPrincipal?.trackViewUrl ||
+                (nomeArtista ? `https://music.apple.com/br/search?term=${encodeURIComponent(nomeArtista)}` : "#");
+            if (appleLink) {
+                appleLink.href = linkFonte;
+                appleLink.textContent = "Abrir no Apple Music";
+            }
+
+            const pills = document.getElementById("artistGenrePills");
+            if (pills) pills.innerHTML = listaGeneros.slice(0, 8).map(([nome, qtd]) =>
+                `<span class="artist-genre-pill">${escaparHTML(nome)} · ${qtd} faixa(s)</span>`
+            ).join("");
+
+            // Segunda pintura explícita do painel: evita que uma atualização assíncrona
+            // de busca/ranking deixe algum cartão visual com o valor antigo.
+            atualizarCardsPerfilArtista({
+                nomeArtista,
+                faixas: faixasUnicas,
+                albuns: albunsArtista,
+                faixaDestaque: faixaPrincipal
+            });
+        }
+
+        function atualizarCardsPerfilArtista({nomeArtista, faixas, albuns, faixaDestaque}) {
+            const faixasValidas = Array.isArray(faixas) ? faixas : [];
+            const albunsValidos = Array.isArray(albuns) ? albuns : [];
+            const nomeNorm = normalizarTexto(nomeArtista);
+            const idsFaixas = new Set();
+            const faixasUnicas = faixasValidas.filter(m => {
+                const id = m?.trackId || `${m?.trackName || ""}|${m?.collectionName || ""}|${m?.releaseDate || ""}`;
+                if (idsFaixas.has(id)) return false;
+                idsFaixas.add(id);
+                return true;
+            });
+            const idsAlbuns = new Set();
+            [...faixasUnicas, ...albunsValidos].forEach(m => {
+                if (!m) return;
+                const mesmoArtista = !m.artistName || normalizarTexto(m.artistName) === nomeNorm;
+                if (!mesmoArtista) return;
+                const id = m.collectionId || m.collectionName;
+                if (id) idsAlbuns.add(String(id));
+            });
+            const generos = contarCategorias(faixasUnicas.map(obterGeneroReal));
+            const listaGeneros = Object.entries(generos).sort((a,b) => b[1]-a[1]);
+            const anos = faixasUnicas.map(m => obterAno(m.releaseDate)).filter(Boolean);
+            const minAno = anos.length ? Math.min(...anos) : 0;
+            const maxAno = anos.length ? Math.max(...anos) : 0;
+            const set = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+            set("artistSelectedName", nomeArtista || "Artista selecionado");
+            set("artistTrackCount", faixasUnicas.length || "—");
+            set("artistAlbumCount", idsAlbuns.size || "—");
+            set("artistMainGenre", listaGeneros[0]?.[0] || "Não informado");
+            set("artistPeriod", minAno && maxAno ? `${minAno}–${maxAno}` : "—");
+            set("artistTopSong", formatarTituloMusical(faixaDestaque?.trackName || faixasUnicas[0]?.trackName));
+            set("artistGenreCount", listaGeneros.length || "—");
+            const pills = document.getElementById("artistGenrePills");
+            if (pills) pills.innerHTML = listaGeneros.slice(0,8).map(([nome,qtd]) => `<span class="artist-genre-pill">${escaparHTML(nome)} · ${qtd} faixa(s)</span>`).join("");
+        }
+
+        /* =====================================================
+           POPULARIDADE REAL — APPLE TOP SONGS
+           Feed público de Top Songs da Apple. Não requer API key.
+        ===================================================== */
+
+        async function carregarPopularidadeApple(nomeArtista, faixa, tokenBuscaAtual = sonoraBuscaToken, idArtistaEsperado = "") {
+            const scoreEl = document.getElementById("artistPopularity");
+            const textEl = document.getElementById("artistPopularityText");
+            const topSongEl = document.getElementById("artistTopSong");
+            const sourceEl = document.getElementById("artistAppleLink");
+            if (!scoreEl || !textEl) return;
+
+            const artistaIdAtual = String(idArtistaEsperado || artistaAppleId || "");
+            const faixaIdAtual = faixa?.trackId ? String(faixa.trackId) : "";
+            const artistaNorm = normalizarTexto(nomeArtista);
+            const faixaNorm = normalizarTexto(faixa?.trackName || "");
+
+            scoreEl.textContent = "…";
+            textEl.textContent = `Consultando o ranking global atual de ${nomeArtista}…`;
+
+            // IMPORTANTE: o perfil não depende de um único endpoint. Primeiro tentamos
+            // o Top 100 Global da Apple Music; se a página da Apple estiver bloqueada
+            // pelo navegador, tentamos proxies públicos de leitura; depois usamos o
+            // Billboard Global 200 como fallback global.
+            const appleGlobalUrls = [
+                `https://r.jina.ai/${APPLE_GLOBAL_PLAYLIST_URL}`,
+                `https://api.allorigins.win/raw?url=${encodeURIComponent(APPLE_GLOBAL_PLAYLIST_URL)}`
+            ];
+            const billboardUrls = [
+                ...BILLBOARD_GLOBAL_URLS,
+                ...BILLBOARD_GLOBAL_URLS.map(url => `https://r.jina.ai/${url}`),
+                ...BILLBOARD_GLOBAL_URLS.map(url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`)
+            ];
+
+            const buscarTexto = async (url, timeoutMs = 4500) => {
+                const controller = new AbortController();
+                const timer = setTimeout(() => controller.abort(), timeoutMs);
+                try {
+                    const resposta = await fetch(url, {
+                        method: "GET",
+                        cache: "no-store",
+                        mode: "cors",
+                        credentials: "omit",
+                        signal: controller.signal,
+                        headers: { "Accept": "text/plain,text/html,application/json,*/*" }
+                    });
+                    if (!resposta.ok) throw new Error(`HTTP_${resposta.status}`);
+                    return await resposta.text();
+                } finally {
+                    clearTimeout(timer);
+                }
+            };
+
+            const parseAppleGlobal = (texto) => {
+                const entries = [];
+                const clean = String(texto || "").replace(/\r/g, "");
+                const lines = clean.split("\n").map(l => l.trim()).filter(Boolean);
+
+                // Jina/Apple pode devolver Markdown. O formato normal da playlist é:
+                // posição -> título -> artista -> álbum -> ...
+                for (let i = 0; i < lines.length; i++) {
+                    const rankMatch = lines[i].match(/^(?:#\s*)?(\d{1,3})[.)]?$/);
+                    if (!rankMatch) continue;
+                    const rank = Number(rankMatch[1]);
+                    if (rank < 1 || rank > 100) continue;
+
+                    const candidatos = [];
+                    for (let j = i + 1; j < Math.min(i + 7, lines.length); j++) {
+                        const linha = lines[j]
+                            .replace(/^#+\s*/, "")
+                            .replace(/^[-*]\s*/, "")
+                            .trim();
+                        if (!linha) continue;
+                        if (/^(?:Image|Button:|Preview|Song|Artist|Album|Time|Top 100|Apple Music)/i.test(linha)) continue;
+                        if (/^\d{1,3}[.)]?$/.test(linha)) break;
+                        candidatos.push(linha);
+                    }
+                    if (candidatos.length >= 2) {
+                        const title = candidatos[0];
+                        const artist = candidatos[1];
+                        if (title && artist && !entries.some(e => e.rank === rank)) {
+                            entries.push({
+                                artistName: artist,
+                                trackName: title,
+                                id: "",
+                                artistId: "",
+                                rank,
+                                source: "Apple Music — Top 100 Global"
+                            });
+                        }
+                    }
+                }
+
+                // Algumas respostas vêm como HTML. O texto visível ainda pode ser
+                // recuperado com DOMParser e analisado pela mesma heurística.
+                if (entries.length < 5 && /<html|<body|<main|<div/i.test(clean)) {
+                    try {
+                        const doc = new DOMParser().parseFromString(clean, "text/html");
+                        const text = doc.body?.innerText || doc.documentElement?.innerText || "";
+                        return parseAppleGlobal(text);
+                    } catch (e) {}
+                }
+
+                return entries.sort((a, b) => a.rank - b.rank).slice(0, 100);
+            };
+
+            const parseBillboard = (texto) => {
+                const clean = String(texto || "").replace(/\r/g, "");
+                const entries = [];
+
+                // 1) Primeiro tenta HTML oficial do Billboard.
+                if (/<html|<body|<li|<h2|<h3/i.test(clean)) {
+                    try {
+                        const doc = new DOMParser().parseFromString(clean, "text/html");
+                        const rows = [...doc.querySelectorAll(
+                            "li.o-chart-results-list__item, ul.o-chart-results-list-row, .o-chart-results-list-row"
+                        )];
+                        rows.forEach((row, index) => {
+                            const titleEl = row.querySelector("h2.c-title, .c-title, h2");
+                            if (!titleEl) return;
+                            const title = titleEl.textContent.trim().replace(/\s+/g, " ");
+                            const labels = [...row.querySelectorAll("span.c-label, .c-label")]
+                                .map(el => el.textContent.trim().replace(/\s+/g, " "))
+                                .filter(Boolean);
+                            const rank = Number(
+                                labels.find(v => /^\d{1,3}$/.test(v)) ||
+                                row.querySelector(".c-label.a-no-trucate")?.textContent.trim() ||
+                                index + 1
+                            );
+                            const artistEl = row.querySelector("h3.c-label, .c-label.a-no-trucate + .c-label, .o-chart-results-list__item--artist")
+                                || row.querySelector("h3");
+                            let artist = artistEl?.textContent.trim().replace(/\s+/g, " ") || "";
+                            if (!artist) {
+                                artist = labels.find(v => v !== title && !/^\d+$/.test(v) && v.length > 1) || "";
+                            }
+                            if (title && artist && rank >= 1 && rank <= 200) {
+                                entries.push({ artistName: artist, trackName: title, id: "", artistId: "", rank, source: "Billboard Global 200" });
+                            }
+                        });
+                    } catch (e) {}
+                }
+
+                if (entries.length >= 5) {
+                    return entries.sort((a, b) => a.rank - b.rank).slice(0, 200);
+                }
+
+                // 2) Fallback para texto/Markdown vindo do Jina Reader.
+                const lines = clean.split("\n").map(l => l.trim()).filter(Boolean);
+                for (let i = 0; i < lines.length; i++) {
+                    const rankMatch = lines[i].match(/^(\d{1,3})$/);
+                    if (!rankMatch) continue;
+                    const rank = Number(rankMatch[1]);
+                    if (rank < 1 || rank > 200) continue;
+
+                    let title = "";
+                    let artist = "";
+                    for (let j = i + 1; j < Math.min(i + 6, lines.length); j++) {
+                        const line = lines[j].replace(/^#+\s*/, "").trim();
+                        if (!line || /^(?:Image|Button:|See Full CHART|This Week|Last Week|Peak Pos\.|Wks On Chart|Awards|Week of)$/i.test(line)) continue;
+                        if (/^\d{1,3}$/.test(line)) break;
+                        if (!title) {
+                            title = line;
+                            continue;
+                        }
+                        artist = line;
+                        break;
+                    }
+                    if (title && artist && !entries.some(e => e.rank === rank)) {
+                        entries.push({ artistName: artist, trackName: title, id: "", artistId: "", rank, source: "Billboard Global 200" });
+                    }
+                }
+
+                return entries.sort((a, b) => a.rank - b.rank).slice(0, 200);
+            };
+
+            const artistaCombina = (artistName) => {
+                const a = normalizarTexto(artistName || "");
+                const t = artistaNorm;
+                if (!a || !t) return false;
+                if (a === t || a.includes(t) || t.includes(a)) return true;
+                const partes = a.split(/\s+(?:feat\.?|featuring|with|and|x)\s+|\s*[,&]\s*/i)
+                    .map(normalizarTexto)
+                    .filter(Boolean);
+                return partes.some(p => p === t || p.includes(t) || t.includes(p));
+            };
+
+            const selecionarRanking = (entries, sourceName, sourceUrl, limite) => {
+                if (!entries.length) return null;
+
+                const doArtista = entries.filter(entry => artistaCombina(entry.artistName));
+                let faixaNoTop = null;
+                if (faixaIdAtual) {
+                    faixaNoTop = doArtista.find(entry => entry.id && entry.id === faixaIdAtual) || null;
+                }
+                if (!faixaNoTop && faixaNorm) {
+                    faixaNoTop = doArtista.find(entry => normalizarTexto(entry.trackName) === faixaNorm) || null;
+                }
+
+                const melhorDoArtista = doArtista.length
+                    ? doArtista.slice().sort((a, b) => a.rank - b.rank)[0]
+                    : null;
+                const ranksArtista = doArtista.map(e => e.rank).sort((a, b) => a - b);
+                const mediaRank = ranksArtista.length
+                    ? ranksArtista.reduce((a, b) => a + b, 0) / ranksArtista.length
+                    : null;
+
+                return {
+                    entries,
+                    sourceName,
+                    sourceUrl,
+                    limit: limite,
+                    doArtista,
+                    faixaNoTop,
+                    melhorDoArtista,
+                    mediaRank
+                };
+            };
+
+            const aplicarResultado = (resultado) => {
+                if (!resultado) return false;
+                if (tokenBuscaAtual !== sonoraBuscaToken || perfilArtistaToken !== tokenBuscaAtual) return true;
+
+                const { entries, sourceName, sourceUrl, limit, doArtista, faixaNoTop, melhorDoArtista, mediaRank } = resultado;
+                const limiteTexto = sourceName.includes("Billboard") ? "GLOBAL 200" : "TOP 100 GLOBAL";
+
+                window.sonoraAppleChart = {
+                    entries,
+                    artist: nomeArtista,
+                    artistId: artistaIdAtual || null,
+                    selectedRank: faixaNoTop?.rank || melhorDoArtista?.rank || null,
+                    trackId: faixaIdAtual || null,
+                    source: sourceName,
+                    sourceUrl,
+                    updatedAt: new Date().toISOString(),
+                    unavailable: false
+                };
+
+                if (faixaNoTop) {
+                    scoreEl.textContent = `#${faixaNoTop.rank}`;
+                    textEl.innerHTML = `A faixa <strong>${escaparHTML(formatarTituloMusical(faixaNoTop.trackName))}</strong> está em <strong>#${faixaNoTop.rank}</strong> no <strong>${escaparHTML(limiteTexto)}</strong>. <strong>${escaparHTML(nomeArtista)}</strong> tem <strong>${doArtista.length}</strong> faixa(s) no ranking e sua melhor posição é <strong>#${melhorDoArtista.rank}</strong>. <a href="${sourceUrl}" target="_blank" rel="noopener">abrir ranking</a>`;
+                } else if (melhorDoArtista) {
+                    scoreEl.textContent = `#${melhorDoArtista.rank}`;
+                    textEl.innerHTML = `<strong>${escaparHTML(nomeArtista)}</strong> aparece no <strong>${escaparHTML(limiteTexto)}</strong> com <strong>${doArtista.length}</strong> faixa(s). A melhor posição é <strong>#${melhorDoArtista.rank}</strong>${mediaRank ? ` e a média das posições é <strong>#${mediaRank.toFixed(1)}</strong>` : ""}. <a href="${sourceUrl}" target="_blank" rel="noopener">abrir ranking</a>`;
+                } else {
+                    scoreEl.textContent = `FORA DO ${sourceName.includes("Billboard") ? "GLOBAL 200" : "TOP 100"}`;
+                    textEl.innerHTML = `Nenhuma faixa de <strong>${escaparHTML(nomeArtista)}</strong> foi encontrada nas posições retornadas do <strong>${escaparHTML(limiteTexto)}</strong>. Isso não é uma pontuação de popularidade: significa apenas que o artista não aparece neste recorte do ranking. <a href="${sourceUrl}" target="_blank" rel="noopener">abrir ranking</a>`;
+                }
+
+                if (topSongEl && melhorDoArtista) {
+                    topSongEl.textContent = formatarTituloMusical(melhorDoArtista.trackName);
+                }
+                if (sourceEl) {
+                    sourceEl.href = sourceUrl;
+                    sourceEl.textContent = sourceName;
+                }
+
+                try { analiseMapaMusical(); } catch (erro) { console.warn("SONORA — mapa pós-ranking:", erro); }
+                return true;
+            };
+
+            const finalizarSemRanking = (motivo = "") => {
+                if (tokenBuscaAtual !== sonoraBuscaToken || perfilArtistaToken !== tokenBuscaAtual) return;
+                scoreEl.textContent = "N/D";
+                textEl.innerHTML = `Não foi possível consultar um ranking global agora. O perfil do artista continua correto porque os dados de faixas, álbuns, gênero e período vêm do catálogo Apple. <a href="${APPLE_GLOBAL_PLAYLIST_URL}" target="_blank" rel="noopener">Apple Music · Top 100 Global</a> · <a href="https://www.billboard.com/charts/billboard-global-200/" target="_blank" rel="noopener">Billboard Global 200</a>`;
+                if (sourceEl) {
+                    sourceEl.href = APPLE_GLOBAL_PLAYLIST_URL;
+                    sourceEl.textContent = "Ver rankings globais";
+                }
+                window.sonoraAppleChart = {
+                    entries: [],
+                    artist: nomeArtista,
+                    artistId: artistaIdAtual || null,
+                    selectedRank: null,
+                    trackId: faixaIdAtual || null,
+                    source: "indisponível",
+                    updatedAt: new Date().toISOString(),
+                    unavailable: true,
+                    reason: motivo
+                };
+            };
+
+            try {
+                if (tokenBuscaAtual !== sonoraBuscaToken || perfilArtistaToken !== tokenBuscaAtual) return;
+
+                // 1) Apple Music Top 100 Global.
+                for (const url of appleGlobalUrls) {
+                    try {
+                        const texto = await buscarTexto(url, 4200);
+                        if (tokenBuscaAtual !== sonoraBuscaToken || perfilArtistaToken !== tokenBuscaAtual) return;
+                        const entries = parseAppleGlobal(texto);
+                        const resultado = selecionarRanking(entries, "Apple Music — Top 100 Global", APPLE_GLOBAL_PLAYLIST_URL, 100);
+                        if (resultado && (resultado.doArtista.length || entries.length >= 20)) {
+                            aplicarResultado(resultado);
+                            return;
+                        }
+                    } catch (erro) {
+                        console.warn("SONORA — Apple Global indisponível:", erro);
+                    }
+                }
+
+                // 2) Fallback oficial/editorial global: Billboard Global 200.
+                for (const url of billboardUrls) {
+                    try {
+                        const texto = await buscarTexto(url, 4200);
+                        if (tokenBuscaAtual !== sonoraBuscaToken || perfilArtistaToken !== tokenBuscaAtual) return;
+                        const entries = parseBillboard(texto);
+                        const resultado = selecionarRanking(entries, "Billboard Global 200", "https://www.billboard.com/charts/billboard-global-200/", 200);
+                        if (resultado && resultado.entries.length >= 20) {
+                            aplicarResultado(resultado);
+                            return;
+                        }
+                    } catch (erro) {
+                        console.warn("SONORA — Billboard Global 200 indisponível:", erro);
+                    }
+                }
+
+                finalizarSemRanking("APPLE_GLOBAL_AND_BILLBOARD_UNAVAILABLE");
+            } catch (erro) {
+                console.warn("SONORA — ranking global indisponível:", erro);
+                finalizarSemRanking(erro?.message || "GLOBAL_RANKING_ERROR");
+            }
+        }
+
+        /* =====================================================
+           07 — MAPA MUSICAL
+        ===================================================== */
+
+        function analiseMapaMusical() {
+            const base = obterBaseAnalise().filter(m => obterAno(m.releaseDate) > 0);
+            destruirChart("musicMapChart");
+            const canvas = document.getElementById("musicMapChart");
+            if (!canvas || !base.length) return;
+
+            const entries = window.sonoraAppleChart?.entries || [];
+            const ranking = new Map(entries.map((e, i) => [
+                `${normalizarTexto(e?.artistName || e?.im?.artist?.[0]?.label || "")}||${normalizarTexto(e?.trackName || e?.name || e?.im?.name?.[0]?.label || "")}`,
+                Number(e?.rank) || i + 1
+            ]));
+
+            const pontos = base.map(m => {
+                const chave = `${normalizarTexto(m.artistName || "")}||${normalizarTexto(m.trackName || "")}`;
+                const rank = ranking.get(chave);
+                if (!rank) return null;
+                return {
+                    x: obterAno(m.releaseDate),
+                    y: 101 - rank,
+                    r: Math.max(7, 21 - rank * 0.12),
+                    trackName: formatarTituloMusical(m.trackName),
+                    artistName: formatarTituloMusical(m.artistName),
+                    genre: obterGeneroReal(m),
+                    ranking: rank
+                };
+            }).filter(Boolean).slice(0, 100);
+
+            if (!pontos.length) {
+                if (canvas.parentElement) {
+                    const old = canvas.parentElement.querySelector(".analysis-note");
+                    if (old) old.remove();
+                    canvas.parentElement.insertAdjacentHTML("beforeend", '<p class="analysis-note">As bolhas aparecem quando uma das faixas pesquisadas também está no Top Songs público da Apple.</p>');
+                }
+                return;
+            }
+
+            const minYear = Math.min(...pontos.map(p => p.x));
+            const maxYear = Math.max(...pontos.map(p => p.x));
+            charts.musicMap = new Chart(canvas, {
+                type: "bubble",
+                data: { datasets: [{ label: "Top Songs Apple", data: pontos, backgroundColor: "rgba(169,201,216,.72)", borderColor: "#59463d", borderWidth: 1.2 }] },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        x: { type: "linear", min: minYear - .5, max: maxYear + .5, title: { display: true, text: "Ano de lançamento" }, ticks: { callback: v => String(Math.round(v)).replace(/,/g, "") } },
+                        y: { min: 0, max: 100, title: { display: true, text: "Posição no Top Songs Apple" }, ticks: { callback: v => v === 0 ? "" : `#${101 - v}` } }
+                    },
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => {
+                        const p = ctx.raw;
+                        return [`${p.trackName} — ${p.artistName}`, `Ano: ${p.x}`, `Ranking Apple: #${p.ranking}`, `Gênero: ${p.genre}`];
+                    } } } }
+                }
+            });
+        }
+
+        /* =====================================================
+           08 — CORRESPONDÊNCIA DE GÊNEROS
+        ===================================================== */
+
+        function analiseCorrespondencia() {
+            const base = obterBaseAnalise();
+            const generos = contarCategorias(base.map(obterGeneroReal));
+            const top = Object.entries(generos)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            destruirChart("genreChart");
+            if (!top.length) return;
+
+            const pontos = top.map(([nome, qtd], index) => ({
+                x: index,
+                y: qtd,
+                r: Math.max(10, Math.min(30, 10 + qtd * 2)),
+                genre: nome,
+                count: qtd
+            }));
+
+            charts.genre = new Chart(document.getElementById("genreChart"), {
+                type: "bubble",
+                data: {
+                    datasets: [{
+                        label: "Gêneros encontrados",
+                        data: pontos,
+                        backgroundColor: "rgba(220,174,181,.72)",
+                        borderColor: "#59463d",
+                        borderWidth: 1.2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: "linear",
+                            min: -0.7,
+                            max: Math.max(0, pontos.length - 0.3),
+                            ticks: {
+                                stepSize: 1,
+                                callback: value => top[Math.round(value)]?.[0] || ""
+                            },
+                            title: { display: true, text: "Gêneros encontrados" },
+                            grid: { display: false }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: { precision: 0 },
+                            title: { display: true, text: "Quantidade de faixas" },
+                            grid: { color: "rgba(89,70,61,.08)" }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => `${ctx.raw.genre}: ${ctx.raw.count} faixa(s)`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+
+        /* =====================================================
+           09 — SÉRIE TEMPORAL
+        ===================================================== */
+
+        function analiseTemporal() {
+            const anos = obterBaseAnalise()
+                .map(m => obterAno(m.releaseDate))
+                .filter(a => a >= 1900 && a <= 2100);
+
+            const contagem = contarCategorias(anos);
+            const ordenado = Object.entries(contagem)
+                .map(([ano, qtd]) => [Number(ano), qtd])
+                .sort((a, b) => a[0] - b[0]);
+
+            destruirChart("timelineChart");
+            if (!ordenado.length) return;
+
+            const pontos = ordenado.map(([ano, qtd]) => ({ x: ano, y: qtd }));
+
+            charts.timeline = new Chart(document.getElementById("timelineChart"), {
+                type: "line",
+                data: {
+                    datasets: [{
+                        label: "Faixas lançadas",
+                        data: pontos,
+                        parsing: false,
+                        tension: .3,
+                        fill: true,
+                        pointRadius: 5,
+                        pointHoverRadius: 8,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: "linear",
+                            min: Math.max(1900, ordenado[0][0] - 1),
+                            max: ordenado[ordenado.length - 1][0] + 1,
+                            title: { display: true, text: "Ano de lançamento" },
+                            ticks: { callback: value => String(Math.round(value)) },
+                            grid: { color: "rgba(89,70,61,.08)" }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: { precision: 0 },
+                            title: { display: true, text: "Quantidade de faixas" },
+                            grid: { color: "rgba(89,70,61,.08)" }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: items => `Ano: ${String(items[0].raw.x).replace(/,/g, "")}`,
+                                label: ctx => `${ctx.raw.y} faixa(s)`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        /* =====================================================
+           K-MEANS
+        ===================================================== */
+
+        function kmeans(
+            pontos,
+            k
+        ) {
+
+            let centroides =
+                pontos
+                    .slice(
+                        0,
+                        k
+                    )
+                    .map(
+                        p => ({
+
+                            x:
+                                p.x,
+
+                            y:
+                                p.y
+
+                        })
+                    );
+
+
+            let resultado =
+                pontos.map(
+                    p => ({
+
+                        ...p,
+
+                        cluster:
+                            0
+
+                    })
+                );
+
+
+            for (
+                let iteracao = 0;
+                iteracao < 10;
+                iteracao++
+            ) {
+
+
+                resultado.forEach(
+                    ponto => {
+
+
+                        let menorDistancia =
+                            Infinity;
+
+
+                        let clusterEscolhido =
+                            0;
+
+
+                        centroides.forEach(
+                            (
+                                centro,
+                                index
+                            ) => {
+
+
+                                const distancia =
+                                    Math.sqrt(
+
+                                        Math.pow(
+                                            ponto.x -
+                                            centro.x,
+                                            2
+                                        )
+
+                                        +
+
+                                        Math.pow(
+                                            ponto.y -
+                                            centro.y,
+                                            2
+                                        )
+
+                                    );
+
+
+                                if (
+                                    distancia <
+                                    menorDistancia
+                                ) {
+
+                                    menorDistancia =
+                                        distancia;
+
+                                    clusterEscolhido =
+                                        index;
+
+                                }
+
+                            }
+                        );
+
+
+                        ponto.cluster =
+                            clusterEscolhido;
+
+                    }
+                );
+
+
+                centroides =
+                    centroides.map(
+                        (
+                            centro,
+                            index
+                        ) => {
+
+
+                            const grupo =
+                                resultado.filter(
+                                    p =>
+                                        p.cluster ===
+                                        index
+                                );
+
+
+                            if (
+                                !grupo.length
+                            ) {
+
+                                return centro;
+
+                            }
+
+
+                            return {
+
+                                x:
+                                    media(
+                                        grupo.map(
+                                            p =>
+                                                p.x
+                                        )
+                                    ),
+
+                                y:
+                                    media(
+                                        grupo.map(
+                                            p =>
+                                                p.y
+                                        )
+                                    )
+
+                            };
+
+                        }
+                    );
+
+            }
+
+
+            return resultado;
+
+        }
+
+
+        /* =====================================================
+           REGRESSÃO
+        ===================================================== */
+
+        function regressaoLinear(
+            x,
+            y
+        ) {
+
+            const mediaX =
+                media(x);
+
+
+            const mediaY =
+                media(y);
+
+
+            let numerador =
+                0;
+
+
+            let denominador =
+                0;
+
+
+            for (
+                let i = 0;
+                i < x.length;
+                i++
+            ) {
+
+                numerador +=
+                    (
+                        x[i] -
+                        mediaX
+                    ) *
+                    (
+                        y[i] -
+                        mediaY
+                    );
+
+
+                denominador +=
+                    Math.pow(
+                        x[i] -
+                        mediaX,
+                        2
+                    );
+
+            }
+
+
+            const a =
+                denominador === 0
+                    ? 0
+                    : numerador /
+                    denominador;
+
+
+            const b =
+                mediaY -
+                a *
+                mediaX;
+
+
+            return {
+                a,
+                b
+            };
+
+        }
+
+
+        /* =====================================================
+           CORRELAÇÃO
+        ===================================================== */
+
+        function correlacao(
+            x,
+            y
+        ) {
+
+            if (
+                x.length < 2 ||
+                y.length < 2
+            ) {
+
+                return 0;
+
+            }
+
+
+            const mx =
+                media(x);
+
+
+            const my =
+                media(y);
+
+
+            let numerador =
+                0;
+
+
+            let dx =
+                0;
+
+
+            let dy =
+                0;
+
+
+            for (
+                let i = 0;
+                i < x.length;
+                i++
+            ) {
+
+                numerador +=
+                    (
+                        x[i] -
+                        mx
+                    ) *
+                    (
+                        y[i] -
+                        my
+                    );
+
+
+                dx +=
+                    Math.pow(
+                        x[i] -
+                        mx,
+                        2
+                    );
+
+
+                dy +=
+                    Math.pow(
+                        y[i] -
+                        my,
+                        2
+                    );
+
+            }
+
+
+            const denominador =
+                Math.sqrt(
+                    dx *
+                    dy
+                );
+
+
+            if (
+                denominador === 0
+            ) {
+
+                return 0;
+
+            }
+
+
+            return (
+                numerador /
+                denominador
+            );
+
+        }
+
+
+        /* =====================================================
+           COVARIÂNCIA
+        ===================================================== */
+
+        function covariancia(
+            x,
+            y
+        ) {
+
+            if (
+                x.length < 2
+            ) {
+
+                return 0;
+
+            }
+
+
+            const mx =
+                media(x);
+
+
+            const my =
+                media(y);
+
+
+            let soma =
+                0;
+
+
+            for (
+                let i = 0;
+                i < x.length;
+                i++
+            ) {
+
+                soma +=
+                    (
+                        x[i] -
+                        mx
+                    ) *
+                    (
+                        y[i] -
+                        my
+                    );
+
+            }
+
+
+            return (
+                soma /
+                (x.length - 1)
+            );
+
+        }
+
+
+        /* =====================================================
+           MÉDIA
+        ===================================================== */
+
+        function media(
+            array
+        ) {
+
+            if (
+                !array.length
+            ) {
+
+                return 0;
+
+            }
+
+
+            return (
+                array.reduce(
+                    (
+                        a,
+                        b
+                    ) =>
+                        a + b,
+                    0
+                ) /
+                array.length
+            );
+
+        }
+
+
+        /* =====================================================
+           MEDIANA
+        ===================================================== */
+
+        function calcularMediana(
+            array
+        ) {
+
+            const ordenado =
+                [
+                    ...array
+                ].sort(
+                    (
+                        a,
+                        b
+                    ) =>
+                        a - b
+                );
+
+
+            const meio =
+                Math.floor(
+                    ordenado.length /
+                    2
+                );
+
+
+            if (
+                ordenado.length %
+                2 === 0
+            ) {
+
+                return (
+
+                    ordenado[
+                        meio - 1
+                    ]
+
+                    +
+
+                    ordenado[
+                        meio
+                    ]
+
+                ) / 2;
+
+            }
+
+
+            return ordenado[
+                meio
+            ];
+
+        }
+
+
+        /* =====================================================
+           DESVIO
+        ===================================================== */
+
+        function desvioPadrao(
+            array
+        ) {
+
+            if (
+                array.length < 2
+            ) {
+
+                return 0;
+
+            }
+
+
+            const m =
+                media(
+                    array
+                );
+
+
+            const variancia =
+                media(
+                    array.map(
+                        x =>
+                            Math.pow(
+                                x - m,
+                                2
+                            )
+                    )
+                );
+
+
+            return Math.sqrt(
+                variancia
+            );
+
+        }
+
+
+        /* =====================================================
+           CONTAGEM
+        ===================================================== */
+
+        function contarCategorias(
+            array
+        ) {
+
+            const resultado =
+                {};
+
+
+            array.forEach(
+                item => {
+
+                    const chave =
+                        String(
+                            item
+                        );
+
+
+                    resultado[
+                        chave
+                    ] =
+                        (
+                            resultado[
+                                chave
+                            ] ||
+                            0
+                        ) + 1;
+
+                }
+            );
+
+
+            return resultado;
+
+        }
+
+
+        /* =====================================================
+           DURAÇÃO
+        ===================================================== */
+
+        function formatarDuracao(
+            ms
+        ) {
+
+            if (
+                !ms ||
+                !Number.isFinite(
+                    Number(ms)
+                )
+            ) {
+
+                return "—";
+
+            }
+
+
+            const segundos =
+                Math.floor(
+                    Number(ms) /
+                    1000
+                );
+
+
+            const minutos =
+                Math.floor(
+                    segundos /
+                    60
+                );
+
+
+            const resto =
+                segundos %
+                60;
+
+
+            return `${minutos}:${String(
+                resto
+            ).padStart(
+                2,
+                "0"
+            )}`;
+
+        }
+
+
+        function minutosParaTexto(
+            minutos
+        ) {
+
+            if (
+                !minutos ||
+                !Number.isFinite(
+                    minutos
+                )
+            ) {
+
+                return "0:00";
+
+            }
+
+
+            const totalSegundos =
+                Math.round(
+                    minutos *
+                    60
+                );
+
+
+            const m =
+                Math.floor(
+                    totalSegundos /
+                    60
+                );
+
+
+            const s =
+                totalSegundos %
+                60;
+
+
+            return `${m}:${String(
+                s
+            ).padStart(
+                2,
+                "0"
+            )}`;
+
+        }
+
+
+        /* =====================================================
+           ANO
+        ===================================================== */
+
+        function obterAno(data) {
+
+            if (!data) {
+                return 0;
+            }
+
+            // O catálogo pode devolver uma data ISO (YYYY-MM-DD...)
+            // ou uma data completa. Pegamos primeiro os 4 dígitos do ano
+            // para evitar problemas de fuso horário.
+            const texto = String(data).trim();
+            const encontrado = texto.match(/(?:^|[^0-9])(19\d{2}|20\d{2}|21\d{2})(?:[^0-9]|$)/);
+
+            if (encontrado) {
+                return Number(encontrado[1]);
+            }
+
+            const dataObj = new Date(data);
+            const ano = dataObj.getFullYear();
+
+            return Number.isNaN(ano) ? 0 : ano;
+
+        }
+
+        /* =====================================================
+           DESTRUIR GRÁFICOS
+        ===================================================== */
+
+        function destruirChart(
+            nome
+        ) {
+
+            if (
+                charts[nome]
+            ) {
+
+                charts[
+                    nome
+                ].destroy();
+
+
+                charts[
+                    nome
+                ] =
+                    null;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        function atualizarHero() {
+
+            if (!musicas.length) {
+                return;
+            }
+
+            const candidatas =
+                musicas.filter(
+                    musica =>
+                        musica.trackName &&
+                        musica.previewUrl &&
+                        musica.artworkUrl100
+                );
+
+            /*
+             * Depois de uma pesquisa, o dashboard usa a primeira faixa
+             * retornada para representar exatamente a busca realizada.
+             * A aleatoriedade continua apenas na música da página inicial.
+             */
+            const primeira =
+                candidatas.length
+                    ? candidatas[0]
+                    : musicas[0];
+
+            aplicarMusicaNoCartao(primeira);
+            atualizarDadosDaFaixaSelecionada();
+
+            if (
+                primeira.previewUrl &&
+                !autoplayTentado
+            ) {
+                tentarReproducao();
+            }
+
+        }
+
+
+        /* =====================================================
+           ESPERAR
+        ===================================================== */
+
+        function esperar(
+            ms
+        ) {
+
+            return new Promise(
+                resolve =>
+                    setTimeout(
+                        resolve,
+                        ms
+                    )
+            );
+
+        }
+
+
+        /* =====================================================
+           HTML SEGURO
+        ===================================================== */
+
+        function escaparHTML(
+            texto
+        ) {
+
+            if (
+                texto === null ||
+                texto === undefined
+            ) {
+
+                return "";
+
+            }
+
+
+            return String(
+                texto
+            )
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        function escaparAtributo(
+            texto
+        ) {
+
+            return escaparHTML(
+                texto
+            );
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
