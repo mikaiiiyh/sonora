@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -7,7 +8,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SONORA — Música × Dados × IA</title>
+    <title>SONORA° — Música que pensa em dados</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -290,77 +291,377 @@
             justify-content: center;
             perspective: 1000px;
         }
+        .card-scene {
+            width: 390px;
+            height: 640px;
+            perspective: 1400px;
+        }
 
         .music-card {
-            width: 390px;
-            background: rgba(245, 241, 233, .82);
-            backdrop-filter: blur(15px);
-            border-radius: 30px;
-            padding: 25px;
-            box-shadow: 0 30px 80px rgba(51, 44, 41, .13);
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform .75s cubic-bezier(.2,.8,.2,1);
             transform: rotate(3deg);
-            transition: .5s;
         }
 
         .music-card:hover {
             transform: rotate(0deg) translateY(-10px);
         }
 
-        .album {
-            height: 240px;
-            border-radius: 22px;
+        .music-card.flipped {
+            transform: rotateY(180deg) rotate(0deg) translateY(-4px);
+        }
 
-            background:
-                radial-gradient(circle at 30% 30%, var(--amarelo), transparent 35%),
-                radial-gradient(circle at 70% 70%, var(--rosa), transparent 40%),
-                var(--azul);
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            position: relative;
+        .card-face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            width: 100%;
+            height: 100%;
+            padding: 25px;
+            border-radius: 30px;
+            background: rgba(245, 241, 233, .86);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 30px 80px rgba(51, 44, 41, .13);
             overflow: hidden;
         }
 
-        .album::before {
-            content: "";
-
-            width: 150px;
-            height: 150px;
-
-            border-radius: 50%;
-
-            background: var(--marrom-escuro);
-
-            position: absolute;
-
-            animation: rotateVinyl 8s linear infinite;
+        .card-back {
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
         }
 
-        .album::after {
-            content: "";
+        .album {
+            height: 285px;
+            border-radius: 22px;
+            background: var(--azul);
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,.22);
+        }
 
-            width: 25px;
-            height: 25px;
+        .album img#heroCover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            image-rendering: auto;
+            transform: scale(1.015);
+            transition: transform .8s ease;
+        }
 
+        .music-card:hover .album img#heroCover {
+            transform: scale(1.045);
+        }
+
+        .album-shade {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(51,44,41,.05) 20%,
+                rgba(51,44,41,.5) 100%
+            );
+            pointer-events: none;
+        }
+
+        .status {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(245, 241, 233, .82);
+            color: var(--marrom-escuro);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+            z-index: 2;
+            backdrop-filter: blur(8px);
+        }
+
+        .play-button {
+            position: absolute;
+            left: 50%;
+            bottom: 18px;
+            transform: translateX(-50%);
+            width: 58px;
+            height: 58px;
+            border: 0;
             border-radius: 50%;
-
             background: var(--creme);
+            color: var(--marrom-escuro);
+            box-shadow: 0 12px 30px rgba(51,44,41,.22);
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 3;
+            transition: .25s;
+        }
 
+        .play-button:hover {
+            transform: translateX(-50%) scale(1.07);
+        }
+
+        .play-button.is-playing {
+            background: var(--rosa);
+        }
+
+        .cover-note {
             position: absolute;
+            right: 15px;
+            bottom: 22px;
+            color: var(--creme);
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 1.4px;
+            z-index: 2;
         }
 
-        @keyframes rotateVinyl {
-
-            from {
-                transform: rotate(0);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
+        .song-info {
+            padding: 18px 4px 4px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
         }
+
+        .song-copy {
+            min-width: 0;
+        }
+
+        .song-info h3 {
+            font-family: "Space Grotesk";
+            font-size: 22px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .song-info p {
+            font-size: 13px;
+            opacity: .58;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 3px;
+        }
+
+        .song-info small {
+            display: block;
+            font-size: 10px;
+            opacity: .43;
+            margin-top: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .flip-button {
+            border: 0;
+            background: transparent;
+            color: var(--marrom);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .7px;
+            cursor: pointer;
+            white-space: nowrap;
+            padding: 5px 0;
+        }
+
+        .wave {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            opacity: .35;
+        }
+
+        .wave span {
+            width: 4px;
+            height: 30px;
+            border-radius: 10px;
+            background: var(--marrom);
+            animation: wave 1s infinite ease-in-out;
+            animation-play-state: paused;
+        }
+
+        .music-card.is-playing .wave span {
+            animation-play-state: running;
+        }
+
+        .player-line {
+            padding: 0 3px 12px;
+        }
+
+        .progress-track {
+            height: 4px;
+            background: rgba(89,70,61,.12);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--marrom);
+            border-radius: inherit;
+            transition: width .08s linear;
+        }
+
+        .time-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 9px;
+            opacity: .45;
+        }
+
+        .back-topline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            opacity: .58;
+        }
+
+        .back-cover {
+            width: 125px;
+            height: 125px;
+            object-fit: cover;
+            border-radius: 22px;
+            margin: 24px auto 15px;
+            box-shadow: 0 18px 35px rgba(51,44,41,.15);
+        }
+
+        .back-song {
+            text-align: center;
+        }
+
+        .back-song h3 {
+            font-family: "Space Grotesk";
+            font-size: 21px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .back-song p {
+            font-size: 12px;
+            opacity: .55;
+            margin-top: 4px;
+        }
+
+        .mini-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .mini-stats > div {
+            background: rgba(232,228,220,.72);
+            border-radius: 15px;
+            padding: 12px;
+        }
+
+        .mini-stats small {
+            display: block;
+            font-size: 8px;
+            opacity: .5;
+            font-weight: 800;
+            letter-spacing: .6px;
+        }
+
+        .mini-stats strong {
+            display: block;
+            font-family: "Space Grotesk";
+            font-size: 14px;
+            margin-top: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .popularity-wrap {
+            margin-top: 13px;
+        }
+
+        .popularity-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            opacity: .5;
+            margin-bottom: 6px;
+        }
+
+        .popularity-track {
+            height: 6px;
+            border-radius: 10px;
+            background: rgba(89,70,61,.11);
+            overflow: hidden;
+        }
+
+        .popularity-track div {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--azul), var(--rosa), var(--amarelo));
+            transition: width .5s ease;
+        }
+
+        .mini-chart {
+            height: 45px;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            gap: 4px;
+            margin-top: 15px;
+            opacity: .65;
+        }
+
+        .mini-chart span {
+            width: 8px;
+            height: 20%;
+            border-radius: 8px 8px 2px 2px;
+            background: var(--marrom);
+            transition: height .5s ease;
+        }
+
+        .mini-chart span:nth-child(2) { height: 55%; }
+        .mini-chart span:nth-child(3) { height: 34%; }
+        .mini-chart span:nth-child(4) { height: 72%; }
+        .mini-chart span:nth-child(5) { height: 45%; }
+        .mini-chart span:nth-child(6) { height: 82%; }
+        .mini-chart span:nth-child(7) { height: 58%; }
+        .mini-chart span:nth-child(8) { height: 92%; }
+        .mini-chart span:nth-child(9) { height: 63%; }
+        .mini-chart span:nth-child(10) { height: 75%; }
+        .mini-chart span:nth-child(11) { height: 42%; }
+        .mini-chart span:nth-child(12) { height: 68%; }
+
+        .back-note {
+            margin-top: auto;
+            font-size: 9px;
+            line-height: 1.45;
+            text-align: center;
+            opacity: .43;
+        }
+
+        .audio-hint {
+            text-align: center;
+            font-size: 10px;
+            opacity: .5;
+            margin-top: 4px;
+        }
+
+
 
         .status {
             position: absolute;
@@ -377,80 +678,6 @@
             font-weight: 800;
 
             z-index: 2;
-        }
-
-        .song-info {
-            padding: 22px 5px 5px;
-        }
-
-        .song-info h3 {
-            font-family: "Space Grotesk";
-            font-size: 23px;
-        }
-
-        .song-info p {
-            font-size: 13px;
-            opacity: .55;
-        }
-
-        .wave {
-            height: 70px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            gap: 4px;
-        }
-
-        .wave span {
-            width: 5px;
-            height: 35px;
-
-            border-radius: 10px;
-
-            background: var(--marrom);
-
-            animation: wave 1s infinite ease-in-out;
-        }
-
-        .wave span:nth-child(2) {
-            height: 50px;
-        }
-
-        .wave span:nth-child(3) {
-            height: 25px;
-        }
-
-        .wave span:nth-child(4) {
-            height: 60px;
-        }
-
-        .wave span:nth-child(5) {
-            height: 35px;
-        }
-
-        .wave span:nth-child(6) {
-            height: 55px;
-        }
-
-        .wave span:nth-child(7) {
-            height: 25px;
-        }
-
-        .wave span:nth-child(8) {
-            height: 45px;
-        }
-
-        @keyframes wave {
-
-            0%, 100% {
-                transform: scaleY(.5);
-            }
-
-            50% {
-                transform: scaleY(1.2);
-            }
         }
 
         .metrics {
@@ -1116,8 +1343,9 @@
                 font-size: 58px;
             }
 
-            .music-card {
-                width: 100%;
+            .card-scene {
+                width: min(390px, 100%);
+                height: 620px;
             }
 
             .topic-grid,
@@ -1190,8 +1418,8 @@
 
     <nav>
 
-        <a href="#inicio" class="logo">
-            SONORA<span></span>
+        <a href="#inicio" class="logo" aria-label="SONORA">
+            SONORA<span class="logo-mark">°</span>
         </a>
 
         <div class="nav-links">
@@ -1283,112 +1511,187 @@
 
         <div class="visual-area">
 
-            <div class="music-card">
+            <div class="card-scene">
 
-                <div class="album">
+                <div class="music-card" id="musicCard">
 
-                    <div class="status">
-                        ● DADOS REAIS
+                    <div class="card-face card-front">
+
+                        <div class="album">
+
+                            <img id="heroCover"
+                                src=""
+                                alt="Capa do álbum"
+                                loading="eager">
+
+                            <div class="album-shade"></div>
+
+                            <div class="status">
+                                ● DADOS REAIS
+                            </div>
+
+                            <button class="play-button"
+                                id="playButton"
+                                type="button"
+                                aria-label="Tocar prévia">
+                                ▶
+                            </button>
+
+                            <div class="cover-note">
+                                PRÉVIA MUSICAL
+                            </div>
+
+                        </div>
+
+                        <div class="song-info">
+
+                            <div class="song-copy">
+                                <h3 id="heroSong">
+                                    Sua próxima música
+                                </h3>
+
+                                <p id="heroArtist">
+                                    pronta para ser analisada
+                                </p>
+
+                                <small id="heroAlbum">
+                                    Álbum não informado
+                                </small>
+                            </div>
+
+                            <button class="flip-button"
+                                id="flipButton"
+                                type="button">
+                                ver dados ↗
+                            </button>
+
+                        </div>
+
+                        <div class="wave" id="wave">
+
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+
+                        <div class="player-line">
+                            <div class="progress-track">
+                                <div class="progress-fill" id="progressBar"></div>
+                            </div>
+
+                            <div class="time-row">
+                                <span id="currentTime">0:00</span>
+                                <span id="durationTime">0:00</span>
+                            </div>
+                        </div>
+
+                        <div class="metrics">
+
+                            <div class="metric">
+                                <small>DURAÇÃO</small>
+                                <strong id="heroDuration">—</strong>
+                            </div>
+
+                            <div class="metric">
+                                <small>GÊNERO</small>
+                                <strong id="heroGenre">—</strong>
+                            </div>
+
+                            <div class="metric">
+                                <small>ANO</small>
+                                <strong id="heroYear">—</strong>
+                            </div>
+
+                            <div class="metric">
+                                <small>FAIXAS</small>
+                                <strong id="heroTracks">—</strong>
+                            </div>
+
+                            <div class="metric">
+                                <small>RESULTADOS</small>
+                                <strong id="heroResults">—</strong>
+                            </div>
+
+                            <div class="metric">
+                                <small>FONTE</small>
+                                <strong>API</strong>
+                            </div>
+
+                        </div>
+
                     </div>
 
-                </div>
+                    <div class="card-face card-back">
 
-                <div class="song-info">
+                        <div class="back-topline">
+                            <span>SONORA° / SNAPSHOT</span>
+                            <button class="flip-button"
+                                id="backFlipButton"
+                                type="button">
+                                voltar ↙
+                            </button>
+                        </div>
 
-                    <h3 id="heroSong">
-                        Sua próxima música
-                    </h3>
+                        <img id="backCover"
+                            class="back-cover"
+                            src=""
+                            alt="Capa do álbum">
 
-                    <p id="heroArtist">
-                        pronta para ser analisada
-                    </p>
+                        <div class="back-song">
+                            <h3 id="backTitle">—</h3>
+                            <p id="backArtist">—</p>
+                        </div>
 
-                </div>
+                        <div class="mini-stats">
 
-                <div class="wave">
+                            <div>
+                                <small>DURAÇÃO</small>
+                                <strong id="statDuration">—</strong>
+                            </div>
 
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                            <div>
+                                <small>GÊNERO</small>
+                                <strong id="statGenre">—</strong>
+                            </div>
 
-                </div>
+                            <div>
+                                <small>ANO</small>
+                                <strong id="statYear">—</strong>
+                            </div>
 
-                <div class="metrics">
+                            <div>
+                                <small>POPULARIDADE</small>
+                                <strong id="statPopularity">—</strong>
+                            </div>
 
-                    <div class="metric">
+                        </div>
 
-                        <small>
-                            DURAÇÃO
-                        </small>
+                        <div class="popularity-wrap">
+                            <div class="popularity-label">
+                                <span>presença no resultado</span>
+                                <span id="popLabel">—</span>
+                            </div>
 
-                        <strong id="heroDuration">
-                            —
-                        </strong>
+                            <div class="popularity-track">
+                                <div id="popFill"></div>
+                            </div>
+                        </div>
 
-                    </div>
+                        <div class="mini-chart" id="miniChart">
+                            <span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span>
+                        </div>
 
-                    <div class="metric">
-
-                        <small>
-                            GÊNERO
-                        </small>
-
-                        <strong id="heroGenre">
-                            —
-                        </strong>
-
-                    </div>
-
-                    <div class="metric">
-
-                        <small>
-                            ANO
-                        </small>
-
-                        <strong id="heroYear">
-                            —
-                        </strong>
-
-                    </div>
-
-                    <div class="metric">
-
-                        <small>
-                            FAIXAS
-                        </small>
-
-                        <strong id="heroTracks">
-                            —
-                        </strong>
-
-                    </div>
-
-                    <div class="metric">
-
-                        <small>
-                            RESULTADOS
-                        </small>
-
-                        <strong id="heroResults">
-                            —
-                        </strong>
-
-                    </div>
-
-                    <div class="metric">
-
-                        <small>
-                            FONTE
-                        </small>
-
-                        <strong>
-                            API
-                        </strong>
+                        <p class="back-note">
+                            Índice relativo à posição da faixa nos resultados desta busca.
+                        </p>
 
                     </div>
 
@@ -1397,6 +1700,8 @@
             </div>
 
         </div>
+
+        <audio id="audioPlayer" preload="none"></audio>
 
     </section>
 
@@ -1934,7 +2239,7 @@
             <div>
 
                 <div class="section-label">
-                    O que a SONORA faz
+                    O que a SONORA° faz
                 </div>
 
                 <h2>
@@ -2156,7 +2461,7 @@
     <footer>
 
         <span>
-            SONORA © 2026
+            SONORA° © 2026
         </span>
 
         <span>
@@ -2188,7 +2493,82 @@
         let charts = {};
 
         let pesquisando = false;
+        let musicaAtual = null;
+        let autoplayTentado = false;
+        const ARTISTAS_ALEATORIOS = [
+            "The Weeknd",
+            "Taylor Swift",
+            "Billie Eilish",
+            "Bruno Mars",
+            "Anitta",
+            "Queen",
+            "Dua Lipa",
+            "Harry Styles",
+            "Rihanna",
+            "Lady Gaga"
+        ];
 
+
+
+        /* =====================================================
+           INICIALIZAÇÃO DA EXPERIÊNCIA
+        ===================================================== */
+
+        document.addEventListener("DOMContentLoaded", () => {
+            carregarMusicaAleatoria();
+        });
+
+        async function carregarMusicaAleatoria() {
+
+            const artista =
+                ARTISTAS_ALEATORIOS[
+                    Math.floor(
+                        Math.random() * ARTISTAS_ALEATORIOS.length
+                    )
+                ];
+
+            try {
+
+                const dados = await consultarAPI(artista);
+
+                const candidatos = (dados.results || [])
+                    .filter(item =>
+                        (item.kind === "song" || item.wrapperType === "track") &&
+                        item.trackName &&
+                        item.previewUrl &&
+                        item.artworkUrl100
+                    );
+
+                if (!candidatos.length) {
+                    return;
+                }
+
+                const musica =
+                    candidatos[
+                        Math.floor(
+                            Math.random() * candidatos.length
+                        )
+                    ];
+
+                musicas = candidatos;
+                aplicarMusicaNoCartao(musica);
+
+                /*
+                 * O navegador pode bloquear autoplay com som.
+                 * Tentamos tocar; se for bloqueado, o botão continua disponível.
+                 */
+                tentarReproducao();
+
+            } catch (erro) {
+
+                console.warn(
+                    "Não foi possível carregar a música inicial.",
+                    erro
+                );
+
+            }
+
+        }
 
         /* =====================================================
            ENTER
@@ -2209,6 +2589,327 @@
                 }
             );
 
+
+
+        /* =====================================================
+           CONTROLES DO CARTÃO
+        ===================================================== */
+
+        document
+            .getElementById("playButton")
+            .addEventListener("click", (event) => {
+
+                event.stopPropagation();
+                alternarReproducao();
+
+            });
+
+        document
+            .getElementById("flipButton")
+            .addEventListener("click", (event) => {
+
+                event.stopPropagation();
+                virarCartao();
+
+            });
+
+        document
+            .getElementById("backFlipButton")
+            .addEventListener("click", (event) => {
+
+                event.stopPropagation();
+                virarCartao();
+
+            });
+
+        document
+            .getElementById("progressBar")
+            .parentElement
+            .addEventListener("click", function(event) {
+
+                if (!musicaAtual || !audioPlayer.duration) {
+                    return;
+                }
+
+                const rect = this.getBoundingClientRect();
+                const percentual =
+                    (event.clientX - rect.left) / rect.width;
+
+                audioPlayer.currentTime =
+                    Math.max(
+                        0,
+                        Math.min(
+                            1,
+                            percentual
+                        )
+                    ) * audioPlayer.duration;
+
+            });
+
+        const audioPlayer =
+            document.getElementById("audioPlayer");
+
+        audioPlayer.addEventListener("timeupdate", atualizarProgresso);
+
+        audioPlayer.addEventListener("loadedmetadata", () => {
+
+            document.getElementById("durationTime").textContent =
+                formatarSegundos(audioPlayer.duration);
+
+        });
+
+        audioPlayer.addEventListener("ended", () => {
+
+            definirEstadoPlayer(false);
+
+        });
+
+        audioPlayer.addEventListener("play", () => {
+            definirEstadoPlayer(true);
+        });
+
+        audioPlayer.addEventListener("pause", () => {
+            definirEstadoPlayer(false);
+        });
+
+        function virarCartao() {
+
+            document
+                .getElementById("musicCard")
+                .classList.toggle("flipped");
+
+        }
+
+        function alternarReproducao() {
+
+            if (!musicaAtual || !musicaAtual.previewUrl) {
+                return;
+            }
+
+            if (audioPlayer.paused) {
+                audioPlayer.play()
+                    .catch(() => {
+                        status("Clique novamente no botão para liberar a prévia.");
+                    });
+            } else {
+                audioPlayer.pause();
+            }
+
+        }
+
+        function tentarReproducao() {
+
+            if (
+                autoplayTentado ||
+                !musicaAtual ||
+                !musicaAtual.previewUrl
+            ) {
+                return;
+            }
+
+            autoplayTentado = true;
+
+            audioPlayer.play()
+                .catch(() => {
+                    /* Bloqueio normal de autoplay do navegador. */
+                });
+
+        }
+
+        function definirEstadoPlayer(tocando) {
+
+            const card =
+                document.getElementById("musicCard");
+
+            const button =
+                document.getElementById("playButton");
+
+            card.classList.toggle("is-playing", tocando);
+
+            button.classList.toggle("is-playing", tocando);
+
+            button.textContent =
+                tocando ? "Ⅱ" : "▶";
+
+        }
+
+        function atualizarProgresso() {
+
+            if (!audioPlayer.duration) {
+                return;
+            }
+
+            const percentual =
+                (audioPlayer.currentTime /
+                    audioPlayer.duration) * 100;
+
+            document.getElementById("progressBar").style.width =
+                `${percentual}%`;
+
+            document.getElementById("currentTime").textContent =
+                formatarSegundos(audioPlayer.currentTime);
+
+            document.getElementById("durationTime").textContent =
+                formatarSegundos(audioPlayer.duration);
+
+        }
+
+        function formatarSegundos(segundos) {
+
+            if (!Number.isFinite(segundos)) {
+                return "0:00";
+            }
+
+            const total =
+                Math.floor(segundos);
+
+            const minutos =
+                Math.floor(total / 60);
+
+            const segundosRestantes =
+                total % 60;
+
+            return `${minutos}:${String(
+                segundosRestantes
+            ).padStart(2, "0")}`;
+
+        }
+
+        function melhorarCapa(url) {
+
+            if (!url) {
+                return "";
+            }
+
+            return url
+                .replace("100x100bb", "1000x1000bb")
+                .replace("100x100-75", "1000x1000-75")
+                .replace("200x200bb", "1000x1000bb")
+                .replace("300x300bb", "1000x1000bb");
+
+        }
+
+        function calcularPopularidadeRelativa(song, resultados) {
+
+            if (!song || !resultados || !resultados.length) {
+                return 0;
+            }
+
+            const posicao =
+                resultados.findIndex(
+                    item =>
+                        item.trackId === song.trackId
+                );
+
+            if (posicao < 0) {
+                return 0;
+            }
+
+            if (resultados.length === 1) {
+                return 100;
+            }
+
+            return Math.max(
+                1,
+                Math.min(
+                    100,
+                    Math.round(
+                        100 -
+                        (posicao /
+                            (resultados.length - 1)) *
+                        99
+                    )
+                )
+            );
+
+        }
+
+        function aplicarMusicaNoCartao(musica) {
+
+            if (!musica) {
+                return;
+            }
+
+            musicaAtual = musica;
+
+            const capa =
+                melhorarCapa(
+                    musica.artworkUrl100
+                );
+
+            document.getElementById("heroCover").src = capa;
+            document.getElementById("backCover").src = capa;
+
+            document.getElementById("heroCover").alt =
+                `Capa de ${musica.collectionName || musica.trackName}`;
+
+            document.getElementById("heroSong").textContent =
+                musica.trackName || "Faixa";
+
+            document.getElementById("heroArtist").textContent =
+                musica.artistName || "Artista";
+
+            document.getElementById("heroAlbum").textContent =
+                musica.collectionName || "Álbum não informado";
+
+            document.getElementById("heroDuration").textContent =
+                formatarDuracao(musica.trackTimeMillis);
+
+            document.getElementById("heroGenre").textContent =
+                musica.primaryGenreName || "—";
+
+            document.getElementById("heroYear").textContent =
+                obterAno(musica.releaseDate) || "—";
+
+            document.getElementById("heroTracks").textContent =
+                musicas.length || "—";
+
+            document.getElementById("heroResults").textContent =
+                "REAL";
+
+            document.getElementById("backTitle").textContent =
+                musica.trackName || "Faixa";
+
+            document.getElementById("backArtist").textContent =
+                musica.artistName || "Artista";
+
+            document.getElementById("statDuration").textContent =
+                formatarDuracao(musica.trackTimeMillis);
+
+            document.getElementById("statGenre").textContent =
+                musica.primaryGenreName || "—";
+
+            document.getElementById("statYear").textContent =
+                obterAno(musica.releaseDate) || "—";
+
+            const popularidade =
+                calcularPopularidadeRelativa(
+                    musica,
+                    musicas
+                );
+
+            document.getElementById("statPopularity").textContent =
+                `${popularidade}/100`;
+
+            document.getElementById("popLabel").textContent =
+                `${popularidade}%`;
+
+            document.getElementById("popFill").style.width =
+                `${popularidade}%`;
+
+            audioPlayer.src =
+                musica.previewUrl || "";
+
+            audioPlayer.load();
+
+            audioPlayer.currentTime = 0;
+
+            document.getElementById("progressBar").style.width = "0%";
+            document.getElementById("currentTime").textContent = "0:00";
+
+            definirEstadoPlayer(false);
+
+        }
 
         /* =====================================================
            SUGESTÃO
@@ -2380,6 +3081,7 @@
 
                 criarDashboard();
 
+                autoplayTentado = false;
                 atualizarHero();
 
 
@@ -2696,9 +3398,6 @@
 
                             limit:
                                 "50",
-
-                            lang:
-                                "pt_br",
 
                             explicit:
                                 "Yes",
@@ -4768,80 +5467,41 @@
 
         function atualizarHero() {
 
-            if (
-                !musicas.length
-            ) {
-
+            if (!musicas.length) {
                 return;
-
             }
 
-
-            const primeira =
-                musicas[0];
-
-
-            document
-                .getElementById(
-                    "heroSong"
-                )
-                .textContent =
-                primeira.trackName;
-
-
-            document
-                .getElementById(
-                    "heroArtist"
-                )
-                .textContent =
-                primeira.artistName ||
-                "Artista";
-
-
-            document
-                .getElementById(
-                    "heroDuration"
-                )
-                .textContent =
-                formatarDuracao(
-                    primeira.trackTimeMillis
+            const candidatas =
+                musicas.filter(
+                    musica =>
+                        musica.trackName &&
+                        musica.previewUrl &&
+                        musica.artworkUrl100
                 );
 
+            const primeira =
+                candidatas.length
+                    ? candidatas[
+                        Math.floor(
+                            Math.random() *
+                            candidatas.length
+                        )
+                    ]
+                    : musicas[
+                        Math.floor(
+                            Math.random() *
+                            musicas.length
+                        )
+                    ];
 
-            document
-                .getElementById(
-                    "heroGenre"
-                )
-                .textContent =
-                primeira.primaryGenreName ||
-                "—";
+            aplicarMusicaNoCartao(primeira);
 
-
-            document
-                .getElementById(
-                    "heroYear"
-                )
-                .textContent =
-                obterAno(
-                    primeira.releaseDate
-                ) ||
-                "—";
-
-
-            document
-                .getElementById(
-                    "heroTracks"
-                )
-                .textContent =
-                musicas.length;
-
-
-            document
-                .getElementById(
-                    "heroResults"
-                )
-                .textContent =
-                "REAL";
+            if (
+                primeira.previewUrl &&
+                !autoplayTentado
+            ) {
+                tentarReproducao();
+            }
 
         }
 
