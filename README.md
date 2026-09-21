@@ -10,7 +10,7 @@
 
 ---
 
-## 🎵 Sobre a SONORA
+##  Sobre a SONORA
 
 A **SONORA** é uma plataforma de análise musical que transforma dados sobre músicas e artistas em uma experiência visual, interativa e fácil de explorar.
 
@@ -18,20 +18,20 @@ O projeto nasceu como uma atividade acadêmica desenvolvida por três estudantes
 
 ---
 
-## ✨ O que a SONORA faz
+##  O que a SONORA faz
 
-- 🔎 Pesquisa artistas e músicas
-- 🎧 Apresenta informações musicais
-- 📊 Explora dados e estatísticas
-- 🧬 Cria o Perfil Sonoro
-- 🔄 Permite explorar relações entre dados musicais
-- 📈 Apresenta visualizações interativas
-- 🎵 Conecta características musicais a análises estatísticas
-- 📤 Permite compartilhar análises e o Perfil Sonoro
+-  Pesquisa artistas e músicas
+-  Apresenta informações musicais
+- Explora dados e estatísticas
+   - Cria o Perfil Sonoro
+- Permite explorar relações entre dados musicais
+  - Apresenta visualizações interativas
+- Conecta características musicais a análises estatísticas
+- Permite compartilhar análises e o Perfil Sonoro
 
 ---
 
-## 🎧 Perfil Sonoro
+##  Perfil Sonoro
 
 O **Perfil Sonoro** transforma características musicais em uma experiência visual personalizada.
 
@@ -41,7 +41,7 @@ A proposta é permitir que cada pessoa descubra uma leitura própria dos dados m
 
 ---
 
-## 📊 Análises
+##  Análises
 
 A SONORA explora diferentes formas de analisar dados musicais:
 
@@ -57,7 +57,7 @@ A SONORA explora diferentes formas de analisar dados musicais:
 
 ---
 
-## 🧠 Como funciona
+##  Como funciona
 
 A experiência da SONORA pode ser resumida em:
 
@@ -67,7 +67,7 @@ A interface combina elementos musicais, como ondas sonoras, capas e equalizadore
 
 ---
 
-## 🎨 Identidade
+## Identidade
 
 A identidade visual da SONORA combina:
 
@@ -84,7 +84,7 @@ A linguagem visual combina música e dados através de ondas, gráficos, círcul
 
 ---
 
-## 🛠️ Tecnologias
+##  Tecnologias
 
 A SONORA utiliza tecnologias web e serviços de dados para construir sua experiência interativa.
 
@@ -96,7 +96,7 @@ A SONORA utiliza tecnologias web e serviços de dados para construir sua experi�
 
 ---
 
-## 🚀 Da sala de aula para um projeto real
+## Da sala de aula para um projeto real
 
 A SONORA começou como um projeto acadêmico desenvolvido por três estudantes.
 
