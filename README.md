@@ -96,14 +96,8 @@ A SONORA utiliza tecnologias web e serviços de dados para construir sua experi�
 
 ---
 
-## Da sala de aula para um projeto real
 
-A SONORA começou como um projeto acadêmico desenvolvido por três estudantes.
-
-O que inicialmente surgiu a partir de uma atividade envolvendo dados e estatística acabou se transformando em uma ideia própria.
-
-```text
-Atividade acadêmica
+```text  
         ↓
       Ideia
         ↓
