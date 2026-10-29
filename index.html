@@ -2,6 +2,8 @@
 <html lang="pt-BR">
 
 <head>
+<link rel="preconnect" href="https://itunes.apple.com">
+<link rel="dns-prefetch" href="https://is1-ssl.mzstatic.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -7623,6 +7625,7 @@
         <div class="nav-links">
             <a href="#pesquisa">Pesquisar</a>
             <a href="#perfil-sonoro">Perfil Sonoro</a>
+            <a href="#radar-sonora">Radar</a>
             <a href="#retrospectiva">Retrospectiva</a>
             <a href="#saiba-mais">Dados e personalidade</a>
         </div>
@@ -8501,18 +8504,56 @@
     ====================================================== -->
     <section class="mood-section" id="momento" aria-labelledby="moodTitle">
         <div class="mood-inner">
-            <div class="search-header mood-header mood-reveal">
-                <div class="section-label">Música para o seu momento</div>
-                <h2 id="moodTitle">Como você está agora?</h2>
-                <p>Escolha o seu humor ou o que você vai fazer. A SONORA sugere músicas com características compatíveis e explica por que cada uma combina com o momento.</p>
+<div class="search-header mood-header mood-reveal">
+                <div class="section-label">Seu momento</div>
+                <h2 id="moodTitle">Música para o seu Momento</h2>
+                <p>Escolha uma vibe, coloque o disco para tocar e a SONORA mostra faixas que combinam com agora, explicando por quê.</p>
             </div>
 
-            <div class="mood-group-label mood-reveal">Como você está se sentindo?</div>
-            <div class="mood-grid mood-reveal" id="moodHumor" role="radiogroup" aria-label="Escolha o seu humor"></div>
+            <div class="vit mood-reveal" id="vitrola" data-state="idle">
+                <div class="vit-side vit-side-a">
+                    <div class="mood-group-label">Lado A <b>Como você está</b></div>
+                    <div class="vit-list" id="moodHumor" role="radiogroup" aria-label="Escolha o seu humor"></div>
+                </div>
+                <div class="vit-stage">
+                    <div class="vit-deck">
+                        <svg class="vit-svg" viewBox="0 0 440 400" role="img" aria-label="Toca-discos digital da SONORA" xmlns="http://www.w3.org/2000/svg">
+                            <defs><linearGradient id="vitPlate" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--vit-plate-a)"/><stop offset="1" stop-color="var(--vit-plate-b)"/></linearGradient></defs>
+                            <rect class="vit-plinth" x="8" y="8" width="424" height="384" rx="46"/>
+                            <circle class="vit-platter" cx="190" cy="205" r="176"/>
+                            <circle class="vit-wave w1" cx="190" cy="205" r="172"/><circle class="vit-wave w2" cx="190" cy="205" r="172"/><circle class="vit-wave w3" cx="190" cy="205" r="172"/>
+                            <g class="vit-record">
+                                <circle class="vit-vinyl" cx="190" cy="205" r="165"/>
+                                <circle class="vit-groove" cx="190" cy="205" r="155"/><circle class="vit-groove" cx="190" cy="205" r="146"/><circle class="vit-groove" cx="190" cy="205" r="137"/><circle class="vit-groove" cx="190" cy="205" r="128"/><circle class="vit-groove" cx="190" cy="205" r="119"/><circle class="vit-groove" cx="190" cy="205" r="110"/><circle class="vit-groove" cx="190" cy="205" r="101"/><circle class="vit-groove" cx="190" cy="205" r="92"/><circle class="vit-groove" cx="190" cy="205" r="83"/><circle class="vit-groove" cx="190" cy="205" r="74"/>
+                                <circle class="vit-label" cx="190" cy="205" r="58"/>
+                                <circle class="vit-label-ring" cx="190" cy="205" r="50"/>
+                                <text class="vit-label-text" x="190" y="192">SONORA°</text>
+                                <text class="vit-side-text" id="vitSideText" x="190" y="226">33</text>
+                                <circle class="vit-spindle" cx="190" cy="205" r="3.5"/>
+                            </g>
+                            <path class="vit-sheen" d="M190 205L282 62A165 165 0 0 1 331 118Z" fill="rgba(255,255,255,.07)"/>
+                            <path class="vit-sheen" d="M190 205L98 348A165 165 0 0 1 49 292Z" fill="rgba(255,255,255,.05)"/>
+                            <g class="vit-arm">
+                                <path class="vit-arm-line" d="M406 21L385 55L255 265"/>
+                                <rect class="vit-arm-head" x="-7" y="-14" width="14" height="30" rx="4" transform="translate(255 265) rotate(31.8)"/>
+                                <circle class="vit-arm-needle" cx="246.6" cy="278.6" r="3"/>
+                            </g>
+                            <circle class="vit-arm-pivot" cx="385" cy="55" r="19"/><circle class="vit-arm-ring" cx="385" cy="55" r="11"/>
+                        </svg>
+                    </div>
+                    <div class="vit-caption" aria-live="polite">
+                        <span class="vit-kicker" id="vitKicker">Escolha uma vibe</span>
+                        <strong class="vit-now" id="vitNow">Coloque o disco para tocar</strong>
+                        <span class="vit-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                    </div>
+                </div>
+                <div class="vit-side vit-side-b">
+                    <div class="mood-group-label">Lado B <b>O que você vai fazer</b></div>
+                    <div class="vit-list" id="moodAtividade" role="radiogroup" aria-label="Escolha a atividade"></div>
+                </div>
+            </div>
 
-            <div class="mood-group-label mood-reveal">O que você vai fazer?</div>
-            <div class="mood-grid mood-grid-act mood-reveal" id="moodAtividade" role="radiogroup" aria-label="Escolha a atividade"></div>
-
+            
             <div class="mood-result" id="moodResult" hidden aria-live="polite">
                 <div class="mood-result-head">
                     <span class="mood-result-ico" id="moodResultIco" aria-hidden="true"></span>
@@ -8534,23 +8575,6 @@
     .mood-section{padding:40px 7% 110px}
     .mood-inner{width:min(1100px,100%);margin:0 auto}
     .mood-header{margin-bottom:38px}
-    .mood-group-label{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:18px;color:var(--marrom-escuro);margin:30px 0 16px;letter-spacing:-.01em}
-    .mood-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
-    .mood-grid-act{grid-template-columns:repeat(4,minmax(0,1fr))}
-    .mood-section .t-a{--tint:var(--azul)}.mood-section .t-r{--tint:var(--rosa)}.mood-section .t-y{--tint:var(--amarelo)}
-
-    .mood-opt{--tint:var(--azul);position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;padding:18px 18px 16px;border-radius:24px;cursor:pointer;color:var(--marrom-escuro);
-        border:1px solid rgba(89,70,61,.12);background:rgba(245,241,233,.88);background:color-mix(in srgb,var(--tint) 34%,var(--creme));
-        box-shadow:0 8px 22px rgba(89,70,61,.06);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease,border-color .35s ease}
-    .mood-opt:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(89,70,61,.12)}
-    .mood-opt:focus-visible{outline:3px solid var(--marrom);outline-offset:3px}
-    .mood-opt[aria-checked="true"]{border-color:var(--marrom);box-shadow:0 18px 38px rgba(89,70,61,.18);transform:translateY(-3px)}
-    .mood-opt[aria-checked="true"]::after{content:"";position:absolute;inset:-5px;border-radius:29px;border:2px solid var(--tint);opacity:0;pointer-events:none;animation:moodRing 2.6s ease-out infinite}
-    .mood-ico{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;font-size:25px;line-height:1;margin-bottom:6px;
-        background:rgba(245,241,233,.8);background:color-mix(in srgb,var(--tint) 55%,var(--creme));animation:moodFloat 4.2s ease-in-out infinite;animation-delay:calc(var(--i,0) * -.45s)}
-    .mood-opt[aria-checked="true"] .mood-ico{animation:moodPop .6s cubic-bezier(.2,.9,.3,1.4) both,moodFloat 4.2s ease-in-out .6s infinite}
-    .mood-lab{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:16px;line-height:1.15}
-    .mood-sub{font-size:12.5px;opacity:.62;line-height:1.3}
 
     .mood-result{margin-top:46px;scroll-margin-top:110px;animation:moodFade .6s ease both}
     .mood-result[hidden]{display:none}
@@ -8605,12 +8629,9 @@
     @keyframes moodShimmer{0%{background-position:120% 0}100%{background-position:-120% 0}}
     @keyframes moodEq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
 
-    @media(max-width:980px){.mood-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.mood-grid-act{grid-template-columns:repeat(2,minmax(0,1fr))}.mood-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:980px){.mood-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media(max-width:620px){
         .mood-section{padding:30px 16px 90px}
-        .mood-grid,.mood-grid-act{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-        .mood-grid > :last-child:nth-child(odd){grid-column:1/-1}
-        .mood-opt{padding:15px 14px 13px;border-radius:20px}
         .mood-cards{grid-template-columns:1fr}
         .mood-result-head{align-items:flex-start}
     }
@@ -8619,10 +8640,8 @@
         .mood-reveal{opacity:1;transform:none}
     }
     @media(prefers-color-scheme:dark){
-        .mood-group-label,.mood-result-head h3,.mood-track{color:#eee9e1!important}
-        .mood-opt{background:#24221f;background:color-mix(in srgb,var(--tint) 20%,#24221f)!important;color:#eee9e1!important;border-color:rgba(255,255,255,.12)!important;box-shadow:0 8px 22px rgba(0,0,0,.25)}
-        .mood-opt[aria-checked="true"]{border-color:var(--tint)!important}
-        .mood-ico,.mood-result-ico,.mood-cover,.mood-fit{background:#2d2a26;background:color-mix(in srgb,var(--tint,var(--azul)) 35%,#24221f)!important;color:#eee9e1!important}
+        .mood-result-head h3,.mood-track{color:#eee9e1!important}
+        .mood-result-ico,.mood-cover,.mood-fit{background:#2d2a26;background:color-mix(in srgb,var(--tint,var(--azul)) 35%,#24221f)!important;color:#eee9e1!important}
         .mood-card{background:rgba(36,34,31,.92)!important;border-color:rgba(255,255,255,.1)!important;box-shadow:0 10px 26px rgba(0,0,0,.28)}
         .mood-chips span{color:#e7dfd5!important;border-color:rgba(255,255,255,.18)!important}
         .mood-link{color:#e6c979!important}
@@ -8634,6 +8653,153 @@
     }
     </style>
 
+<style id="sonora-vitrola-style">
+/* ===== MÚSICA PARA O SEU MOMENTO · toca-discos =====
+   Paleta fixa: creme, marrom quente/escuro e toques mínimos de rosé. */
+.mood-section{--vit-ink:var(--marrom-escuro);--vit-soft:var(--marrom);--vit-line:rgba(89,70,61,.16);--vit-rose:#e6cbc6;
+  --vit-plate-a:#f1eadf;--vit-plate-b:#e7ddd0;--vit-vinyl:#3b312d;--vit-groove:rgba(255,246,238,.07);--vit-arm:#6b5449;--vit-sel-bg:var(--marrom-escuro);--vit-sel-fg:#f7f1e8}
+.mood-section .mood-header{text-align:center;margin-bottom:34px}
+.mood-section .mood-header h2{letter-spacing:-.035em}
+.vit{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,400px) minmax(0,1fr);gap:28px;align-items:center}
+.vit-side{min-width:0}
+.mood-group-label{display:flex;align-items:baseline;gap:10px;margin:0 0 12px;font:800 11px "DM Sans",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--vit-soft)}
+.mood-group-label b{font:700 22px "DM Serif Display",Georgia,serif;font-style:italic;letter-spacing:0;text-transform:none;color:var(--vit-ink)}
+.vit-list{display:grid;grid-template-columns:1fr 1fr;column-gap:14px}
+.vit-list .mood-opt{grid-template-columns:36px minmax(0,1fr);grid-template-rows:auto auto auto;row-gap:3px;column-gap:0;align-items:start;align-content:start;padding:14px 12px 13px 8px;border-bottom:0;border-top:1px solid var(--vit-line)}
+.vit-list .mood-ico{grid-row:1;grid-column:1}
+.vit-list .vit-no{position:absolute;top:13px;right:10px;grid-row:auto}
+.vit-list .mood-lab{grid-row:2;grid-column:1/-1;margin-top:9px}
+.vit-list .mood-sub{grid-row:3;grid-column:1/-1}
+.vit-list .mood-opt[aria-checked="true"]{padding-left:12px;border-top-color:transparent}
+.mood-opt{position:relative;display:grid;grid-template-columns:26px 38px minmax(0,1fr);grid-template-rows:auto auto;column-gap:12px;row-gap:1px;align-items:center;text-align:left;
+  padding:11px 12px 11px 6px;background:transparent;border:0;border-bottom:1px solid var(--vit-line);border-radius:0;color:var(--vit-ink);cursor:pointer;
+  transition:background .45s ease,color .45s ease,padding .45s ease}
+.mood-opt:hover{background:rgba(89,70,61,.06)}
+.mood-opt:focus-visible{outline:2px solid var(--vit-soft);outline-offset:-2px}
+.vit-no{grid-row:1/3;font:700 10.5px "DM Sans",sans-serif;letter-spacing:.08em;color:var(--vit-soft);opacity:.7;text-align:center}
+.mood-ico{grid-row:1/3;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:var(--vit-ink);border:1px solid var(--vit-line);background:transparent;transition:background .45s ease,color .45s ease,border-color .45s ease}
+.mood-ico svg,.mood-result-ico svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.mood-lab{font:700 15px/1.15 "Space Grotesk",sans-serif;letter-spacing:-.01em}
+.mood-sub{font-size:12px;line-height:1.3;opacity:.62}
+.mood-opt[aria-checked="true"]{background:var(--vit-sel-bg);color:var(--vit-sel-fg);padding-left:12px;border-radius:14px;border-bottom-color:transparent}
+.mood-opt[aria-checked="true"] .vit-no{color:var(--vit-sel-fg)}
+.mood-opt[aria-checked="true"] .mood-ico{background:var(--vit-rose);border-color:var(--vit-rose);color:#3b2f2a}
+.mood-opt[aria-checked="true"] .mood-sub{opacity:.78}
+
+/* opções não selecionadas ganham um fundinho (não parecem texto solto) */
+.vit-list{row-gap:8px}
+.vit-list .mood-opt{padding:14px 12px 13px 12px;background:rgba(255,255,255,.42);border:1px solid var(--vit-line);border-radius:14px}
+.vit-list .mood-opt:hover{background:rgba(255,255,255,.68)}
+.vit-list .mood-opt[aria-checked="true"]{background:var(--vit-sel-bg);border-color:transparent}
+
+/* palco do disco */
+.vit-stage{display:flex;flex-direction:column;align-items:center;gap:18px}
+.vit-deck{position:relative;width:100%;aspect-ratio:440/400}
+.vit-svg{display:block;width:100%;height:auto;overflow:visible}
+.vit-plinth{fill:url(#vitPlate);stroke:var(--vit-line)}
+.vit-platter{fill:rgba(59,47,42,.1)}
+.vit-vinyl{fill:var(--vit-vinyl)}
+.vit-groove{fill:none;stroke:var(--vit-groove);stroke-width:1}
+.vit-sheen{pointer-events:none}
+.vit-label{fill:var(--vit-rose)}
+.vit-label-ring{fill:none;stroke:rgba(59,47,42,.28);stroke-width:1}
+.vit-label-text{font:700 11px "Space Grotesk",sans-serif;letter-spacing:.2em;fill:#3b2f2a;text-anchor:middle}
+.vit-side-text{font:400 30px "DM Serif Display",Georgia,serif;font-style:italic;fill:#3b2f2a;text-anchor:middle}
+.vit-spindle{fill:var(--fundo)}
+.vit-record{transform-box:view-box;transform-origin:190px 205px;transition:transform 1.8s cubic-bezier(.2,.7,.2,1)}
+.vit-deck:hover .vit-record{transform:rotate(16deg)}
+.vit[data-state="playing"] .vit-record{animation:vitSpin 9s linear infinite}
+.vit[data-state="playing"] .vit-deck:hover .vit-record{transform:none}
+@keyframes vitSpin{to{transform:rotate(360deg)}}
+.vit-arm{transform-box:view-box;transform-origin:385px 55px;transform:rotate(-31deg);transition:transform 1.3s cubic-bezier(.35,.1,.2,1)}
+.vit[data-state="playing"] .vit-arm{transform:rotate(0deg)}
+.vit[data-state="lift"] .vit-arm{transform:rotate(-14deg);transition-duration:.55s}
+.vit-arm-line{stroke:var(--vit-arm);stroke-width:5;stroke-linecap:round;fill:none}
+.vit-arm-pivot{fill:var(--vit-arm)}
+.vit-arm-ring{fill:none;stroke:var(--vit-rose);stroke-width:2}
+.vit-arm-head{fill:var(--vit-arm)}
+.vit-arm-needle{fill:var(--vit-rose)}
+.vit-wave{fill:none;stroke:var(--vit-soft);stroke-width:1.3;stroke-linecap:round;opacity:0}
+.vit[data-state="playing"] .vit-wave{animation:vitWave 3.2s ease-out infinite}
+.vit[data-state="playing"] .vit-wave.w2{animation-delay:1.1s}
+.vit[data-state="playing"] .vit-wave.w3{animation-delay:2.2s}
+@keyframes vitWave{0%{opacity:.5;transform:scale(.96)}100%{opacity:0;transform:scale(1.07)}}
+.vit-wave{transform-box:view-box;transform-origin:190px 205px}
+.vit-caption{display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;min-height:62px}
+.vit-kicker{font:800 10.5px "DM Sans",sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--vit-soft)}
+.vit-now{font:400 clamp(22px,2.4vw,28px)/1.1 "DM Serif Display",Georgia,serif;font-style:italic;color:var(--vit-ink)}
+.vit-bars{display:flex;gap:3px;align-items:flex-end;height:12px;opacity:0;transition:opacity .6s ease}
+.vit-bars i{width:2.5px;height:100%;border-radius:2px;background:var(--vit-soft);transform-origin:bottom;transform:scaleY(.3)}
+.vit[data-state="playing"] .vit-bars{opacity:.8}
+.vit[data-state="playing"] .vit-bars i{animation:moodEq 1.4s ease-in-out infinite}
+.vit-bars i:nth-child(2){animation-delay:-.35s!important}.vit-bars i:nth-child(3){animation-delay:-.7s!important}.vit-bars i:nth-child(4){animation-delay:-1.05s!important}
+
+/* o resultado mantém o visual atual; só o ícone virou traço */
+.mood-result-ico svg{width:30px;height:30px}
+
+@media(max-width:1020px){
+  .vit{grid-template-columns:1fr 1fr;gap:22px 30px}
+  .vit-stage{grid-column:1/-1;grid-row:1}
+  .vit-deck{width:min(400px,100%)}
+}
+@media(max-width:620px){
+  .mood-section .mood-header{margin-bottom:22px}
+  .vit{grid-template-columns:1fr;gap:26px}
+  .vit-deck{width:min(300px,86%)}
+  .vit-caption{min-height:54px}
+}
+@media(prefers-color-scheme:dark){
+  .mood-section{--vit-ink:#f1ebe3;--vit-soft:#cdbfb2;--vit-line:rgba(255,255,255,.14);--vit-rose:#d9b8b2;
+    --vit-plate-a:#2b2724;--vit-plate-b:#211e1c;--vit-vinyl:#15110f;--vit-groove:rgba(255,246,238,.09);--vit-arm:#cfc2b6;--vit-sel-bg:#f1e8de;--vit-sel-fg:#2a2420}
+  #momento .mood-opt{background:transparent!important;color:var(--vit-ink)!important;border-color:transparent!important;border-top:1px solid var(--vit-line)!important;border-bottom:0!important;box-shadow:none!important}
+  #momento .mood-opt:hover{background:rgba(255,255,255,.07)!important}
+  #momento .mood-opt[aria-checked="true"]{background:var(--vit-sel-bg)!important;color:#2a2420!important;border-top-color:transparent!important}
+  #momento .mood-opt .mood-ico{background:transparent!important;color:var(--vit-ink)!important;border:1px solid var(--vit-line)!important}
+  #momento .mood-opt[aria-checked="true"] .mood-ico{background:var(--vit-rose)!important;border-color:var(--vit-rose)!important;color:#2a2420!important}
+  #momento .mood-opt .mood-lab,#momento .mood-opt .mood-sub,#momento .mood-opt .vit-no{color:inherit!important}
+  .mood-opt[aria-checked="true"] .vit-no,.mood-opt[aria-checked="true"] .mood-lab,.mood-opt[aria-checked="true"] .mood-sub{color:#2a2420!important}
+  .mood-opt[aria-checked="true"] .mood-ico{color:#2a2420}
+  .mood-group-label,.mood-group-label b{color:var(--vit-soft)!important}
+  .mood-group-label b{color:var(--vit-ink)!important}
+  #momento .vit-list .mood-opt:not([aria-checked="true"]){background:rgba(255,255,255,.06)!important;border:1px solid var(--vit-line)!important;border-radius:14px!important}
+  #momento .vit-list .mood-opt:not([aria-checked="true"]):hover{background:rgba(255,255,255,.12)!important}
+  #momento .vit-list .mood-opt[aria-checked="true"]{border:1px solid transparent!important}
+  .vit-platter{fill:rgba(0,0,0,.25)}
+  .vit-spindle{fill:#14111a}
+  .mood-section .mood-header h2{color:#f4eee8!important}
+}
+</style>
+
+<style id="sonora-mood-apps-style">
+.mood-apps-btn{background:none;border:0;padding:0;font-family:inherit;cursor:pointer;text-align:left}
+.mood-apps{position:fixed;inset:0;z-index:100050;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(51,44,41,.42);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.mood-apps[hidden]{display:none}
+.mood-apps-box{width:min(380px,100%);background:#f5f1e9;color:#332c29;border:1px solid rgba(89,70,61,.14);border-radius:26px;padding:22px 20px 16px;display:flex;flex-direction:column;gap:4px;animation:moodAppsIn .35s ease both}
+@keyframes moodAppsIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mood-apps-kicker{font:800 10.5px "DM Sans",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#806c63}
+.mood-apps-title{font:700 19px/1.2 "Space Grotesk",sans-serif;letter-spacing:-.01em}
+.mood-apps-artist{font-size:13px;opacity:.65;margin-bottom:12px}
+.mood-apps-list{display:flex;flex-direction:column;border-top:1px solid rgba(89,70,61,.14)}
+.mood-apps-item{display:flex;justify-content:space-between;align-items:center;padding:14px 4px;border-bottom:1px solid rgba(89,70,61,.14);color:inherit;text-decoration:none;font:700 15px "Space Grotesk",sans-serif;transition:background .25s ease,padding .25s ease}
+.mood-apps-item span{opacity:.5;font-weight:400}
+.mood-apps-item:hover,.mood-apps-item:focus-visible{background:rgba(89,70,61,.07);padding-left:10px;outline:none}
+.mood-apps-copy,.mood-apps-close{margin-top:8px;border:0;background:none;padding:10px 4px;font:700 13px "DM Sans",sans-serif;color:#6d5d56;cursor:pointer;text-align:left}
+.mood-apps-close{align-self:flex-end;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:620px){.mood-apps{align-items:flex-end;padding:0}.mood-apps-box{width:100%;border-radius:26px 26px 0 0;padding-bottom:22px}}
+@media(prefers-color-scheme:dark){
+  .mood-apps-box{background:#24211f;color:#f1ebe3;border-color:rgba(255,255,255,.14)}
+  .mood-apps-kicker{color:#cdbfb2}.mood-apps-list,.mood-apps-item{border-color:rgba(255,255,255,.14)}
+  .mood-apps-item:hover,.mood-apps-item:focus-visible{background:rgba(255,255,255,.07)}
+  .mood-apps-copy,.mood-apps-close{color:#d8cdc4}
+}
+@media(prefers-reduced-motion:reduce){.mood-apps-box{animation:none}}
+.mood-card .mood-apps-btn{align-self:flex-start;width:auto;background:none!important;border:0!important;box-shadow:none!important;border-radius:0}
+@media(prefers-color-scheme:dark){
+  .mood-card .mood-apps-btn,.mood-card .mood-apps-btn:hover,.mood-card .mood-apps-btn:focus{background:none!important;background-color:transparent!important;color:#f0e4d9!important;-webkit-text-fill-color:#f0e4d9}
+  .mood-card .mood-apps-btn{text-decoration-color:rgba(240,228,217,.55)}
+  .mood-card .mood-apps-btn:hover{color:#ffffff!important;-webkit-text-fill-color:#ffffff}
+}
+</style>
     <script id="sonora-mood-script">
     (function(){
     "use strict";
@@ -8657,6 +8823,10 @@
       title:"Para ligar o modo energia",desc:"Pulso forte e intensidade alta, para dar aquele empurrão.",
       p:{e:.85,i:.8,bpm:[115,170]},facts:["e","i","bpm"],hook:"Pulso forte e intensidade alta dão aquele empurrão.",
       seeds:["Survivor|Eye of the Tiger","Eminem|Lose Yourself","Macklemore|Can't Hold Us","The Weeknd|Blinding Lights","AC/DC|Thunderstruck","Dua Lipa|Levitating","Imagine Dragons|Believer","The White Stripes|Seven Nation Army","The Killers|Mr. Brightside","David Guetta|Titanium","Kanye West|Stronger","Queen|Don't Stop Me Now"]},
+     {id:"melancolico",ico:"",lab:"Estou melancólico",sub:"chuva por dentro e silêncio",tint:"a",
+      title:"Para sentir com calma",desc:"Andamento lento e clima introspectivo, para acompanhar a melancolia.",
+      p:{e:.3,c:.6,i:.35,bpm:[55,105]},facts:["e","c","bpm"],hook:"Andamento lento e clima introspectivo acompanham a melancolia.",
+      seeds:["Billie Eilish|when the party's over","Adele|Someone Like You","Radiohead|Creep","Lana Del Rey|Video Games","Johnny Cash|Hurt","Lewis Capaldi|Someone You Loved","Mazzy Star|Fade Into You","Bon Iver|Skinny Love","Djavan|Oceano","Sam Smith|Stay With Me","Nick Drake|Pink Moon","Radiohead|No Surprises"]},
      {id:"nostalgica",ico:"🌙",lab:"Estou nostálgica",sub:"memórias e saudade",tint:"r",
       title:"Para viajar no tempo",desc:"Clássicos de outras épocas, daqueles que trazem memórias.",
       p:{old:true,c:.45},facts:["year","g"],hook:"Um clássico da época que costuma trazer memórias.",
@@ -8700,6 +8870,7 @@
       p:{e:.1,i:.1,c:.85,bpm:[45,85]},facts:["i","bpm","c"],hook:"Intensidade muito baixa e andamento lento embalam o descanso.",
       seeds:["Marconi Union|Weightless","Erik Satie|Gymnopédie No. 1","Debussy|Clair de Lune","Ludovico Einaudi|Nuvole Bianche","Arvo Pärt|Spiegel im Spiegel","Beethoven|Moonlight Sonata","Chopin|Nocturne Op. 9 No. 2","Bon Iver|Holocene","Lord Huron|The Night We Met","Ludovico Einaudi|Experience","Yiruma|River Flows in You","Ludovico Einaudi|Divenire"]}
     ];
+    (function(o){HUMOR.sort(function(a,b){return o.indexOf(a.id)-o.indexOf(b.id)})})(["feliz","dancar","melancolico","nostalgica","relaxar","energia"]);
     var ALL=HUMOR.concat(ATIV);
     var FLAB={e:"Energia",d:"Dançabilidade",c:"Acústico",i:"Intensidade"};
 
@@ -8750,7 +8921,7 @@
       if(typeof sonoraExtrairFeaturesAudio!=="function"||!t.previewUrl)return Promise.resolve(null);
       return Promise.race([
         Promise.resolve().then(function(){return sonoraExtrairFeaturesAudio(t)}).catch(function(){return null}),
-        new Promise(function(r){setTimeout(function(){r(null)},12000)})
+        new Promise(function(r){setTimeout(function(){r(null)},9000)})
       ]).then(function(f){
         try{var k=String(t.trackId||t.previewUrl||t.trackName);if(typeof sonoraAudioFeatureCache!=="undefined")sonoraAudioFeatureCache.delete(k);if(typeof sonoraWaveCache!=="undefined")sonoraWaveCache.delete(k)}catch(e){}
         if(!f||!Number.isFinite(f.energy))return null;
@@ -8792,10 +8963,27 @@
 
     /* ---------- interface ---------- */
     var state={},tok=0,cur=null,au=null,playingId=null,playingEl=null;
+    var VIT_ICONS={
+     melancolico:'<path d="M12 3.8s5.4 5.6 5.4 9.4a5.4 5.4 0 0 1-10.8 0c0-3.8 5.4-9.4 5.4-9.4z"/><path d="M9.6 14a2.6 2.6 0 0 0 2.2 2.4"/>',
+     feliz:'<circle cx="12" cy="12" r="3.6"/><path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4L18 18M18 6l-1.6 1.6M7.6 16.4L6 18"/>',
+     relaxar:'<path d="M3 9.5q3-3.2 6 0t6 0 6 0M3 15q3-3.2 6 0t6 0 6 0"/>',
+     energia:'<path d="M5 14v-3M8.5 17V7M12 20V4M15.5 16V8M19 13v-2"/>',
+     nostalgica:'<path d="M11 7L4 12l7 5zM20 7l-7 5 7 5z"/>',
+     dancar:'<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c-3 2.5-3 13.5 0 16M12 4c3 2.5 3 13.5 0 16M5.5 7.5h13M5.5 16.5h13"/>',
+     afazeres:'<path d="M4 11l8-6.5L20 11M6 9.5V19h12V9.5M10 19v-5h4v5"/>',
+     lazer:'<path d="M3 16h18M6 16a6 6 0 0 1 12 0M12 5.5v2M5.2 8.7l1.4 1.3M18.8 8.7l-1.4 1.3M4 20q2-1.6 4 0t4 0 4 0 4 0"/>',
+     estudos:'<path d="M12 6.5C10 5 7 4.8 4 5.5v12c3-.7 6-.5 8 1 2-1.5 5-1.7 8-1v-12c-3-.7-6-.5-8 1zM12 6.5V18.5"/>',
+     festa:'<rect x="6" y="3.5" width="12" height="17" rx="3"/><circle cx="12" cy="14.5" r="3"/><circle cx="12" cy="7.8" r="1"/>',
+     treino:'<path d="M3 12h4l2.2-5 3.6 10 2.2-5H21"/>',
+     estrada:'<path d="M9 4L5 20M15 4l4 16M12 5v2.5M12 11v2.5M12 17v2.5"/>',
+     cozinhar:'<path d="M5 11h14v5a3.5 3.5 0 0 1-3.5 3.5h-7A3.5 3.5 0 0 1 5 16zM3.5 11h17M9 8.5c-.8-1 .8-1.8 0-2.8M14 8.5c-.8-1 .8-1.8 0-2.8"/>',
+     dormir:'<path d="M3.5 10c2.5 4.5 14.5 4.5 17 0M7 14.2l-1.4 2M12 15.4v2.4M17 14.2l1.4 2"/>'};
+    function vicon(id){return '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'+(VIT_ICONS[id]||'<circle cx="12" cy="12" r="4"/>')+'</svg>'}
     function build(box,list,off){
       list.forEach(function(m,k){
         var b=h("button","mood-opt t-"+m.tint);b.type="button";b.setAttribute("role","radio");b.setAttribute("aria-checked","false");b.dataset.id=m.id;b.style.setProperty("--i",String(k+off));
-        b.appendChild(h("span","mood-ico",m.ico));b.lastChild.setAttribute("aria-hidden","true");
+        b.appendChild(h("span","vit-no",(off?"B":"A")+(k+1)));b.lastChild.setAttribute("aria-hidden","true");
+        b.appendChild(h("span","mood-ico"));b.lastChild.innerHTML=vicon(m.id);b.lastChild.setAttribute("aria-hidden","true");
         b.appendChild(h("span","mood-lab",m.lab));b.appendChild(h("span","mood-sub",m.sub));
         b.addEventListener("click",function(){escolher(m.id)});
         box.appendChild(b);
@@ -8809,10 +8997,47 @@
       au.src=t.previewUrl;playingId=t.trackId;playingEl=card;card.classList.add("playing");
       au.play().catch(function(){stop()});
     }
+    /* ---------- escolher o app de música ----------
+       O navegador não consegue listar os apps instalados, então oferecemos os
+       serviços mais comuns. No celular/computador, o link abre o app se ele estiver
+       instalado (ou o site do serviço); é lá que a pessoa adiciona à biblioteca. */
+    var appsSheet=null,appsFoco=null;
+    function fecharApps(){if(!appsSheet)return;appsSheet.hidden=true;document.removeEventListener("keydown",appsTecla,true);if(appsFoco&&appsFoco.focus)try{appsFoco.focus()}catch(e){}}
+    function appsTecla(e){if(e.key==="Escape"){e.preventDefault();fecharApps()}}
+    function abrirApps(t,from){
+      var q=encodeURIComponent((t.trackName||"")+" "+(t.artistName||""));
+      var lista=[["Apple Music",t.trackViewUrl||"https://music.apple.com/search?term="+q],
+        ["Spotify","https://open.spotify.com/search/"+q],
+        ["YouTube Music","https://music.youtube.com/search?q="+q],
+        ["Deezer","https://www.deezer.com/search/"+q],
+        ["Amazon Music","https://music.amazon.com/search/"+q]];
+      if(!appsSheet){
+        appsSheet=h("div","mood-apps");appsSheet.hidden=true;
+        appsSheet.addEventListener("click",function(e){if(e.target===appsSheet)fecharApps()});
+        document.body.appendChild(appsSheet);
+      }
+      appsFoco=from;appsSheet.innerHTML="";
+      var box=h("div","mood-apps-box");box.setAttribute("role","dialog");box.setAttribute("aria-modal","true");box.setAttribute("aria-label","Escolha o app de música");
+      box.appendChild(h("div","mood-apps-kicker","Abrir em"));
+      box.appendChild(h("div","mood-apps-title",t.trackName||""));
+      box.appendChild(h("div","mood-apps-artist",t.artistName||""));
+      var ul=h("div","mood-apps-list");
+      lista.forEach(function(x){var a=h("a","mood-apps-item",x[0]);a.href=x[1];a.target="_blank";a.rel="noopener noreferrer";a.appendChild(h("span",null,"↗"));a.addEventListener("click",function(){setTimeout(fecharApps,150)});ul.appendChild(a)});
+      box.appendChild(ul);
+      var cp=h("button","mood-apps-copy","Copiar nome da música");cp.type="button";
+      cp.addEventListener("click",function(){var txt=(t.trackName||"")+" - "+(t.artistName||"");
+        function ok(){cp.textContent="Copiado"}
+        try{navigator.clipboard.writeText(txt).then(ok,function(){cp.textContent=txt})}catch(e){cp.textContent=txt}});
+      box.appendChild(cp);
+      var fc=h("button","mood-apps-close","Fechar");fc.type="button";fc.addEventListener("click",fecharApps);box.appendChild(fc);
+      appsSheet.appendChild(box);appsSheet.hidden=false;
+      document.addEventListener("keydown",appsTecla,true);
+      var first=box.querySelector(".mood-apps-item");if(first)first.focus();
+    }
     function cardEl(m,it,n){
       var t=it.t,card=h("article","mood-card t-"+m.tint);card.style.setProperty("--n",String(n));
       var body=h("div","mood-card-body"),cover=h("div","mood-cover");
-      if(t.artworkUrl100){var im=h("img");im.alt="";im.loading="lazy";im.src=String(t.artworkUrl100).replace("100x100","300x300");cover.appendChild(im)}else cover.textContent="♪";
+      if(t.artworkUrl100){var im=h("img"),u100=String(t.artworkUrl100),u300=u100.replace("100x100","300x300");im.alt="";im.decoding="async";im.referrerPolicy="no-referrer";im.onerror=function(){if(!im.dataset.f&&u300!==u100){im.dataset.f="1";im.src=u100}else{im.onerror=null;im.remove();cover.insertBefore(document.createTextNode("♪"),cover.firstChild)}};im.src=u300;cover.appendChild(im)}else cover.textContent="♪";
       var pb=h("button","mood-play");pb.type="button";pb.setAttribute("aria-label","Ouvir prévia de "+t.trackName);pb.appendChild(h("span"));
       pb.addEventListener("click",function(){tocar(t,card)});cover.appendChild(pb);
       var eq=h("span","mood-eq");eq.setAttribute("aria-hidden","true");eq.appendChild(h("i"));eq.appendChild(h("i"));eq.appendChild(h("i"));cover.appendChild(eq);
@@ -8823,16 +9048,17 @@
       var cs=chips(m,it.f,t);
       if(cs.length){var ch=h("div","mood-chips");cs.forEach(function(c){ch.appendChild(h("span",null,c))});card.appendChild(ch)}
       card.appendChild(h("p","mood-why",why(m,it.f,t,it.s)));
-      if(t.trackViewUrl){var a=h("a","mood-link","Abrir no Apple Music ↗");a.href=t.trackViewUrl;a.target="_blank";a.rel="noopener noreferrer";card.appendChild(a)}
+      var ab=h("button","mood-link mood-apps-btn","Ouvir ou adicionar no seu app ▾");ab.type="button";ab.setAttribute("aria-haspopup","dialog");
+      ab.addEventListener("click",function(){abrirApps(t,ab)});card.appendChild(ab);
       return card;
     }
     function skeleton(n){var box=$("moodCards");box.innerHTML="";box.appendChild(h("p","mood-status","Ouvindo as prévias e comparando ritmo, energia e intensidade…"));for(var k=0;k<n;k++)box.appendChild(h("div","mood-skel"))}
     function erro(){var box=$("moodCards");box.innerHTML="";var e=h("div","mood-error","Não consegui buscar as músicas agora. Verifique a conexão e tente de novo em instantes.");box.appendChild(e);$("moodMoreWrap").hidden=true}
     async function carregar(m,st,n){
       var seeds=m.seeds.slice(st.next,st.next+n);st.next+=n;
-      var tr=await limit(seeds,3,resolveSeed);
+      var tr=await limit(seeds,6,resolveSeed);
       tr=tr.filter(function(t){return t&&!st.pool.some(function(x){return x.t.trackId===t.trackId})});
-      var ft=await limit(tr,3,analyze);
+      var ft=await limit(tr,4,analyze);
       tr.forEach(function(t,k){st.pool.push({t:t,f:ft[k],s:score(m.p,ft[k],t),shown:false})});
     }
     function mostrar(m,st){
@@ -8849,7 +9075,7 @@
       cur=m;var my=++tok;stop();
       document.querySelectorAll(".mood-opt").forEach(function(b){b.setAttribute("aria-checked",b.dataset.id===id?"true":"false")});
       var res=$("moodResult");res.hidden=false;res.style.setProperty("--tint","var(--"+(m.tint==="a"?"azul":m.tint==="r"?"rosa":"amarelo")+")");
-      $("moodResultIco").textContent=m.ico;$("moodResultTitle").textContent=m.title;$("moodResultDesc").textContent=m.desc;
+      $("moodResultIco").innerHTML=vicon(m.id);$("moodResultTitle").textContent=m.title;$("moodResultDesc").textContent=m.desc;
       $("moodMoreWrap").hidden=true;
       try{res.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})}catch(e){}
       var st=state[id];
@@ -8881,6 +9107,30 @@
     if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
     })();
     </script>
+
+
+<script id="sonora-vitrola-script">
+/* Toca-discos da seção "Música para o seu momento": só reage à escolha já feita
+   pela lógica existente (não altera seleção nem resultados). */
+(function(){
+  var sec=document.getElementById('momento');if(!sec)return;
+  var vit=sec.querySelector('.vit'),now=document.getElementById('vitNow'),kick=document.getElementById('vitKicker'),side=document.getElementById('vitSideText'),t=0;
+  if(!vit)return;
+  function pos(b){var list=b.parentNode,i=[].indexOf.call(list.children,b)+1;return (list.id==='moodHumor'?'A':'B')+i}
+  sec.addEventListener('click',function(e){
+    var b=e.target.closest('.mood-opt');if(!b)return;
+    var lab=b.querySelector('.mood-lab');
+    clearTimeout(t);
+    if(vit.getAttribute('data-state')==='playing'){vit.setAttribute('data-state','lift');t=setTimeout(go,520)}else go();
+    function go(){
+      vit.setAttribute('data-state','playing');
+      if(kick)kick.textContent='Tocando agora · lado '+pos(b).charAt(0);
+      if(now)now.textContent=lab?lab.textContent:'';
+      if(side)side.textContent=pos(b);
+    }
+  });
+})();
+</script>
 
     <!-- =====================================================
          PÁGINA INTERNA · PERFIL SONORO
@@ -8982,7 +9232,6 @@
             <div class="perfil-metrics" id="perfilMetrics"></div>
           </div>
           <button type="button" class="sonora-profile-share" id="sonoraProfileShareBtn">Compartilhar meu Perfil Sonoro <svg class="sonora-share-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg></button>
-          <div class="perfil-insight"><div><span>SONORA PERCEBEU...</span><h4 id="perfilInsightTitle">Tem alguma coisa acontecendo aqui.</h4></div><div id="perfilInsights"></div></div>
           <div class="perfil-recs"><div class="perfil-kicker">ABRA UM CAMPO NOVO</div><h3>Artistas que podem combinar com o seu lado sonoro.</h3><p>Não são cópias das suas escolhas. A ideia é encontrar caminhos próximos, mas um pouco inesperados.</p><div id="perfilRecommendations" class="perfil-rec-grid"></div></div>
           <div class="perfil-explore-side"><span>✦</span><div><b>E se você experimentasse outro lado?</b><p id="perfilSideText">A SONORA pode procurar artistas que explorem uma característica que apareceu menos nas suas escolhas.</p></div><button id="perfilExploreSide">Explorar esse lado →</button></div>
           <button class="perfil-again" id="perfilAgain">Refazer meu perfil ↻</button>
@@ -14442,7 +14691,7 @@
                         duration:Number(musica.trackTimeMillis||0)/60000,
                         year:obterAno(musica.releaseDate),
                         mpb:/\bmpb\b/i.test(obterGeneroReal(musica)),
-                        track:musica, waveform:dados, analysisSource:'preview'
+                        track:musica, waveform:dados, sampleRate, analysisSource:'preview'
                     };
                     try { await audioContext.close(); } catch(e) {}
                     sonoraAudioFeatureCache.set(chave,result);
@@ -15184,12 +15433,13 @@
 
 <script id="sonora-page-routing">
 (function(){
-  function closePages(){document.body.classList.remove('sonora-info-open','sonora-perfil-page','sonora-bichos-page','sonora-retro-page');['saiba-mais','perfil-sonoro','retrospectiva'].forEach(id=>{const el=document.getElementById(id);if(el)el.setAttribute('aria-hidden','true');});}
+  function closePages(){document.body.classList.remove('sonora-info-open','sonora-perfil-page','sonora-bichos-page','sonora-retro-page','sonora-radar-page');['saiba-mais','perfil-sonoro','retrospectiva','radar-sonora'].forEach(id=>{const el=document.getElementById(id);if(el)el.setAttribute('aria-hidden','true');});}
   function openInfo(push){closePages();document.body.classList.add('sonora-info-open');const p=document.getElementById('saiba-mais');if(p){p.setAttribute('aria-hidden','false');p.scrollTop=0;}if(window.sonoraRenderBichos)window.sonoraRenderBichos();if(push)history.pushState(null,'','#saiba-mais');}
   function openProfile(push){closePages();document.body.classList.add('sonora-perfil-page');const p=document.getElementById('perfil-sonoro');if(p){p.setAttribute('aria-hidden','false');p.scrollTop=0;}if(push)history.pushState(null,'','#perfil-sonoro');}
   function openRetro(push){closePages();document.body.classList.add('sonora-retro-page');const p=document.getElementById('retrospectiva');if(p){p.setAttribute('aria-hidden','false');p.scrollTop=0;}if(window.sonoraRenderRetro)window.sonoraRenderRetro(true);if(push)history.pushState(null,'','#retrospectiva');}
-  function route(hash,push){if(hash==='#retrospectiva'){openRetro(push);return}if(hash==='#bichinhos'){openInfo(push);const bp=document.getElementById('bichinhos');if(bp)requestAnimationFrame(()=>bp.scrollIntoView({block:'start'}));return}if(hash==='#saiba-mais'||hash==='#o-que-faz'||hash==='#dados-reais'){openInfo(push);return}if(hash==='#perfil-sonoro'){openProfile(push);return}closePages();const target=(hash==='#pesquisa'||hash==='#dashboard'||hash==='#inicio')?hash:'#inicio';const el=document.querySelector(target);if(el)requestAnimationFrame(()=>el.scrollIntoView({behavior:'smooth',block:'start'}));if(push)history.pushState(null,'',target);}
-  document.addEventListener('click',function(e){if(e.target.closest('[data-profile-close]')){e.preventDefault();route('#inicio',true);return}const a=e.target.closest('a[href^="#"]');if(!a)return;const h=a.getAttribute('href');if(!['#saiba-mais','#o-que-faz','#dados-reais','#perfil-sonoro','#bichinhos','#retrospectiva','#pesquisa','#dashboard','#inicio'].includes(h))return;e.preventDefault();route(h,true);});
+  function openRadar(push){closePages();document.body.classList.add('sonora-radar-page');const p=document.getElementById('radar-sonora');if(p){p.setAttribute('aria-hidden','false');p.scrollTop=0;}if(window.sonoraRenderRadar)window.sonoraRenderRadar();if(push)history.pushState(null,'','#radar-sonora');}
+  function route(hash,push){if(hash==='#radar-sonora'){openRadar(push);return}if(hash==='#retrospectiva'){openRetro(push);return}if(hash==='#bichinhos'){openInfo(push);const bp=document.getElementById('bichinhos');if(bp)requestAnimationFrame(()=>bp.scrollIntoView({block:'start'}));return}if(hash==='#saiba-mais'||hash==='#o-que-faz'||hash==='#dados-reais'){openInfo(push);return}if(hash==='#perfil-sonoro'){openProfile(push);return}closePages();const target=(hash==='#pesquisa'||hash==='#dashboard'||hash==='#inicio')?hash:'#inicio';const el=document.querySelector(target);if(el)requestAnimationFrame(()=>el.scrollIntoView({behavior:'smooth',block:'start'}));if(push)history.pushState(null,'',target);}
+  document.addEventListener('click',function(e){if(e.target.closest('[data-profile-close]')){e.preventDefault();route('#inicio',true);return}const a=e.target.closest('a[href^="#"]');if(!a)return;const h=a.getAttribute('href');if(!['#saiba-mais','#o-que-faz','#dados-reais','#perfil-sonoro','#bichinhos','#retrospectiva','#radar-sonora','#pesquisa','#dashboard','#inicio'].includes(h))return;e.preventDefault();route(h,true);});
   window.addEventListener('popstate',()=>route(location.hash,false));window.addEventListener('hashchange',()=>route(location.hash,false));document.addEventListener('DOMContentLoaded',()=>route(location.hash,false));
 })();
 </script>
@@ -15208,7 +15458,8 @@ function avg(a,k){const v=a.map(x=>Number(x?.[k])).filter(Number.isFinite);retur
 function genreText(x){return String(x?.primaryGenreName||x?.genreName||'').toLowerCase()}
 function stylePrior(genre){const g=genre.toLowerCase();const p={energy:.5,dance:.5,acoustic:.45,intensity:.5,melancholy:.45,eclectic:.5};
  if(/metal|hard rock|punk|hardcore|industrial|emo|nu metal/.test(g)){p.energy=.88;p.dance=.58;p.acoustic=.18;p.intensity=.92;p.melancholy=.48}
- else if(/rock|alternative|grunge|indie rock/.test(g)){p.energy=.70;p.dance=.52;p.acoustic=.34;p.intensity=.70;p.melancholy=.48}
+ else if(/alternative|grunge|indie|post-punk|shoegaze|dream pop/.test(g)){p.energy=.66;p.dance=.48;p.acoustic=.32;p.intensity=.66;p.melancholy=.60}
+ else if(/rock/.test(g)){p.energy=.70;p.dance=.52;p.acoustic=.34;p.intensity=.70;p.melancholy=.48}
  else if(/pop|dance pop|electropop|synth/.test(g)){p.energy=.67;p.dance=.74;p.acoustic=.18;p.intensity=.62;p.melancholy=.40}
  else if(/hip hop|rap|trap|r&b|soul/.test(g)){p.energy=.67;p.dance=.70;p.acoustic=.28;p.intensity=.64;p.melancholy=.47}
  else if(/edm|house|techno|trance|electronic|dubstep/.test(g)){p.energy=.88;p.dance=.91;p.acoustic=.08;p.intensity=.84;p.melancholy=.25}
@@ -15220,6 +15471,84 @@ function stylePrior(genre){const g=genre.toLowerCase();const p={energy:.5,dance:
  return p}
 function mergeFeature(base,prior,w){for(const k of ['energy','dance','acoustic','intensity','melancholy'])if(Number.isFinite(prior[k]))base[k]=(1-w)*base[k]+w*prior[k];return base}
 async function feat(t){try{return await sonoraExtrairFeaturesAudio(t)}catch(e){return sonoraFeaturesFallback(t)}}
+/*PERFIL-LETRA-MODO-START*/
+// Tom maior/menor estimado a partir da própria prévia (já baixada para a análise) e
+// "clima" da letra por contagem de palavras. Nada daqui altera o resto do site: se qualquer
+// parte falhar, devolve NaN e o perfil usa só o cálculo anterior.
+const PERFIL_KS_MAJ=[6.35,2.23,3.48,2.33,4.38,4.09,2.52,5.19,2.39,3.66,2.29,2.88];
+const PERFIL_KS_MIN=[6.33,2.68,3.52,5.38,2.60,3.53,2.54,4.75,3.98,2.69,3.34,3.17];
+let PERFIL_HANN=null;
+function perfilCorr(a,b){const n=a.length;let ma=0,mb=0;for(let i=0;i<n;i++){ma+=a[i];mb+=b[i]}ma/=n;mb/=n;let nu=0,da=0,db=0;for(let i=0;i<n;i++){const x=a[i]-ma,y=b[i]-mb;nu+=x*y;da+=x*x;db+=y*y}return da&&db?nu/Math.sqrt(da*db):0}
+// 0 = claramente maior · 0,5 = indefinido · 1 = claramente menor
+function perfilModo(f){
+ try{
+  const w=f&&f.waveform,sr=f&&f.sampleRate;
+  if(!w||!sr||w.length<sr*8)return NaN;
+  const N=8192,frames=8;
+  if(!PERFIL_HANN||PERFIL_HANN.length!==N){PERFIL_HANN=new Float32Array(N);for(let n=0;n<N;n++)PERFIL_HANN[n]=.5*(1-Math.cos(2*Math.PI*n/(N-1)))}
+  const chroma=new Float64Array(12),step=Math.floor((w.length-N)/(frames-1));
+  let used=0;
+  for(let fr=0;fr<frames;fr++){
+   const st=fr*step;let ss=0;for(let n=0;n<N;n+=8)ss+=w[st+n]*w[st+n];
+   if(Math.sqrt(ss/(N/8))<.004)continue;
+   used++;const part=new Float64Array(12);
+   for(let midi=48;midi<=83;midi++){
+    const k=440*Math.pow(2,(midi-69)/12)*N/sr,co=2*Math.cos(2*Math.PI*k/N);
+    let s1=0,s2=0;
+    for(let n=0;n<N;n++){const s0=w[st+n]*PERFIL_HANN[n]+co*s1-s2;s2=s1;s1=s0}
+    part[midi%12]+=Math.sqrt(Math.max(0,s1*s1+s2*s2-co*s1*s2));
+   }
+   const tot=part.reduce((a,b)=>a+b,0)||1;for(let i=0;i<12;i++)chroma[i]+=part[i]/tot;
+  }
+  if(used<4)return NaN;
+  let bMaj=-2,bMin=-2;
+  for(let t=0;t<12;t++){const rot=[];for(let i=0;i<12;i++)rot.push(chroma[(t+i)%12]);
+   bMaj=Math.max(bMaj,perfilCorr(rot,PERFIL_KS_MAJ));bMin=Math.max(bMin,perfilCorr(rot,PERFIL_KS_MIN))}
+  return Math.max(0,Math.min(1,.5+(bMin-bMaj)*4));
+ }catch(e){return NaN}
+}
+const perfilSemAcento=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const PERFIL_TRISTE=new Set(('cry cried crying tears tear alone lonely lost pain hurt hurts hurting broken goodbye die dying dead death dark darkness sorrow sad sadness empty miss missing regret sorry gone never nobody cold fade fading rain ghost heartbreak heartbroken weak afraid fear hate bleed scar grave tired numb worthless creep weirdo hopeless ashes drown drowning bury mourn grief shadows suffer suffering '+
+ 'chorar choro chorei chorando lagrima lagrimas sozinho sozinha solidao saudade saudades dor doer doi machuca machucou perdido perdida perdi perder perdeu adeus morrer morte morto morta escuro escuridao triste tristeza vazio vazia falta culpa arrependo arrependido partiu ausencia fim frio chuva fantasma medo ferida cicatriz nunca ninguem sangue cansado cansada magoa desespero sofrer sofro sofrimento solitario abandonado partido quebrado lamento luto '+
+ 'llorar lloro llore soledad dolor duele perdi adios morir muerte muerto oscuro oscuridad vacio lluvia herida nadie sangre olvido sufrir sufro roto').split(' ').map(perfilSemAcento));
+const PERFIL_FELIZ=new Set(('happy joy smile smiling laugh laughing dance dancing party sun sunshine sunny beautiful shine shining heaven paradise celebrate fun kiss together alive free freedom wonderful sweet bright golden sing summer tonight '+
+ 'feliz felicidade alegria alegre sorriso sorrir rir riso dancar danca festa sol brilho brilhar brilha ceu paraiso celebrar beijo juntos junto vida livre liberdade bom lindo linda doce verao cantar curtir bora vamos luz '+
+ 'sonrisa sonreir reir risa bailar baile fiesta cielo beso libre bueno bonito dulce verano cantar').split(' ').map(perfilSemAcento));
+// Só contagem: o texto da letra não é guardado nem exibido, apenas o número final (0 = alegre · 1 = triste).
+function perfilLetraScore(txt){
+ const w=perfilSemAcento(txt).match(/[a-z']+/g)||[];
+ if(w.length<40)return NaN;
+ let tr=0,fe=0;for(const x of w){if(PERFIL_TRISTE.has(x))tr++;else if(PERFIL_FELIZ.has(x))fe++}
+ const net=tr/w.length-.5*(fe/w.length);
+ return Math.max(0,Math.min(1,.5+(net-.008)*12));
+}
+const PERFIL_LETRA_CACHE=new Map();
+async function perfilLetraGet(url,ms){const c=new AbortController(),tm=setTimeout(()=>c.abort(),ms);try{const r=await fetch(url,{signal:c.signal});return r.ok?await r.json():null}catch(e){return null}finally{clearTimeout(tm)}}
+async function perfilLetra(t){
+ try{
+  if(!t||!t.trackName||!t.artistName)return NaN;
+  const key=String(t.trackId||t.artistName+'|'+t.trackName);
+  if(PERFIL_LETRA_CACHE.has(key))return PERFIL_LETRA_CACHE.get(key);
+  const limpo=String(t.trackName).replace(/\s*[\(\[].*?[\)\]]/g,'').replace(/\s+-\s+.*$/,'').trim()||t.trackName;
+  const dur=Math.round(Number(t.trackTimeMillis||0)/1000);
+  const base='https://lrclib.net/api/';
+  const work=(async()=>{
+   const q=new URLSearchParams({track_name:t.trackName,artist_name:t.artistName});
+   if(t.collectionName)q.set('album_name',t.collectionName);if(dur)q.set('duration',String(dur));
+   let rec=await perfilLetraGet(base+'get?'+q,2500);
+   if(!(rec&&rec.plainLyrics)){
+    const s=await perfilLetraGet(base+'search?'+new URLSearchParams({track_name:limpo,artist_name:t.artistName}),2500);
+    if(Array.isArray(s)){const ok=s.filter(r=>r&&!r.instrumental&&r.plainLyrics);
+     ok.sort((a,b)=>Math.abs((a.duration||0)-dur)-Math.abs((b.duration||0)-dur));rec=ok[0]||null}
+   }
+   return rec&&!rec.instrumental&&rec.plainLyrics?perfilLetraScore(rec.plainLyrics):NaN;
+  })();
+  const v=await Promise.race([work,new Promise(r=>setTimeout(()=>r(NaN),5200))]);
+  PERFIL_LETRA_CACHE.set(key,v);return v;
+ }catch(e){return NaN}
+}
+/*PERFIL-LETRA-MODO-END*/
+
 function soundReveal(){const ov=$('perfilLoading');ov.classList.add('is-active');ov.setAttribute('aria-hidden','false');const txt=$('perfilLoadingText');const phrases=['ouvindo seus padrões...','cruzando ritmos e atmosferas...','comparando seus universos musicais...','montando seu retrato sonoro...'];let i=0;txt.textContent=phrases[0];const timer=setInterval(()=>{txt.textContent=phrases[++i%phrases.length]},620);try{const C=window.AudioContext||window.webkitAudioContext;if(C){const c=new C(),g=c.createGain();g.gain.setValueAtTime(.0001,c.currentTime);g.gain.exponentialRampToValueAtTime(.075,c.currentTime+.08);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+1.9);g.connect(c.destination);[0,1,2].forEach((n)=>{const o=c.createOscillator();o.type=n===1?'sine':'triangle';o.frequency.setValueAtTime([392,523.25,659.25][n],c.currentTime+n*.12);o.frequency.exponentialRampToValueAtTime([523.25,659.25,784][n],c.currentTime+1.5+n*.08);o.connect(g);o.start(c.currentTime+n*.1);o.stop(c.currentTime+1.7)});setTimeout(()=>c.close().catch(()=>{}),2100)}}catch(e){}return()=>{clearInterval(timer);ov.classList.remove('is-active');ov.setAttribute('aria-hidden','true')}}
 async function analisar(){
  const st=$('perfilStatus'),finish=soundReveal();
@@ -15228,7 +15557,7 @@ async function analisar(){
    $('perfilLoadingText').textContent='ouvindo suas escolhas...';
    // As 5 faixas são analisadas em paralelo. Antes eram lidas uma por uma,
    // o que podia prender a tela de carregamento por muito tempo.
-   const tf=await Promise.all(T.map(t=>feat(t)));
+   const [tf,letras]=await Promise.all([Promise.all(T.map(t=>feat(t))),Promise.all(T.map(t=>perfilLetra(t)))]);
    const tv=tf.filter(Boolean),tvGood=tv.filter(x=>Number.isFinite(x.energy));
    let energy=tvGood.length?avg(tvGood,'energy'):.55,
        dance=tvGood.length?avg(tvGood,'danceability'):.55,
@@ -15238,9 +15567,18 @@ async function analisar(){
          priors=genres.map(stylePrior);
    const prior={energy:avg(priors,'energy'),dance:avg(priors,'dance'),acoustic:avg(priors,'acoustic'),intensity:avg(priors,'intensity'),melancholy:avg(priors,'melancholy')};
    const genreMood=Number.isFinite(prior.melancholy)?prior.melancholy:.45;
-   const base={energy,dance,acoustic,intensity,melancholy:.48*genreMood+.22*acoustic+.16*(1-intensity)+.14*(1-energy)};
+   const base={energy,dance,acoustic,intensity,melancholy:.60*genreMood+.18*acoustic+.12*(1-intensity)+.10*(1-energy)};
    const x=mergeFeature(base,prior,.34);
    x.melancholy=Math.max(0,Math.min(1,.70*x.melancholy+.30*genreMood));
+   // Refino da melancolia: tom menor (da prévia) e palavras tristes da letra. Se faltar algum, ele é ignorado.
+   try{
+     const lets=letras.filter(Number.isFinite),modos=tvGood.map(perfilModo).filter(Number.isFinite);
+     let soma=.5*x.melancholy,pesos=.5;
+     if(lets.length){soma+=.30*(lets.reduce((a,b)=>a+b,0)/lets.length);pesos+=.30}
+     if(modos.length){soma+=.20*(modos.reduce((a,b)=>a+b,0)/modos.length);pesos+=.20}
+     x.melancholy=Math.max(0,Math.min(1,soma/pesos));
+     x.fontesMelancolia={letras:lets.length,modo:modos.length};
+   }catch(e){}
    // Variação, contraste, impacto, instrumental e variedade real vêm das 5 faixas (ver perfilEnriquecer).
    perfilEnriquecer(x,tvGood,T,A);
    const profile=pickProfile(x);
@@ -15282,7 +15620,7 @@ function perfilEnriquecer(x,tf,T,A){
  if(fs.length>=2){let s=0,w=0;[[E,1.2],[D,1],[bpmN,1],[Ac,1],[I,1],[mel,.8]].forEach(([a,wt])=>{const sd=perfilStd(a);if(Number.isFinite(sd)){s+=wt*pc(sd/.30);w+=wt}});if(w)variation=s/w}
  const inst=fs.map(f=>.55*perfilInstGenero(genreText(f.track))+.30*pn(f.acousticness,.45)+.15*(1-pn(f.danceability,.5)));
  x.instrumental=pc(perfilMedia(inst,.2));
- const epicRe=/metal|soundtrack|classical|score|orchestral|hard rock|progressive|post-rock|symphonic|epic/;
+ const epicRe=/soundtrack|classical|score|orchestral|progressive|post-rock|symphonic|power metal|epic/;
  x.epic=gT.length?gT.filter(g=>epicRe.test(g)).length/gT.length:0;
  x.impact=pc(.46*x.energy+.40*x.intensity+.10*x.instrumental+.04*x.epic*4);
  const rng=a=>{const v=a.filter(Number.isFinite);return v.length>1?Math.max(...v)-Math.min(...v):0};
@@ -15298,34 +15636,37 @@ function perfilEnriquecer(x,tf,T,A){
 // bonus/pen = [chave,min,max,valor]. Nenhuma característica sozinha decide: o score é a compatibilidade do conjunto.
 const PERFIL_ARQ=[
  {b:'polvo',t:'Polvo Eclético',tag:['Eclético','Curioso','Versátil'],text:'Seu gosto vive em vários lugares. Estilos, ritmos e climas bem diferentes dividem espaço na sua seleção sem brigar entre si.',
-  traits:[['eclectic',3,'hi',.55,.95],['genreVariety',3,'hi',.5,1],['variation',2,'hi',.4,.8],['families',1.5,'hi',2,5]],
-  req:[['eclectic',.72,null,0],['variation',.55,null,0],['families',3,null,0]],bonus:[['families',5,null,.05]],pen:[['contrast',.65,null,-.05]]},
+  traits:[['eclectic',3,'hi',.55,.95],['genreVariety',3,'hi',.5,1],['variation',1.5,'hi',.4,.8],['families',2,'hi',2,5],['contrast',1,'lo',.45,.8]],
+  req:[['eclectic',.76,null,0],['families',3,null,0]],bonus:[['families',5,null,.05],['genreVariety',.7,null,.05]],pen:[['contrast',.62,null,-.08],['dance',.72,null,-.04]]},
  {b:'axolote',t:'Axolote',tag:['Contemplativo','Atmosférico','Aconchegante'],text:'Seu gosto gosta de clima. Você curte músicas macias, cheias de textura e atmosfera, que convidam a ficar um pouco mais por ali, alegres ou não.',
-  traits:[['acoustic',2.2,'hi',.45,.8],['energy',2,'mid',.30,.62,.12],['instrumental',1.5,'hi',.25,.65],['intensity',1.2,'lo',.3,.6],['dance',.5,'mid',.2,.6,.2]],
-  req:[['acoustic',.55,null,.06],['instrumental',.45,null,.12],['energy',.30,.65,.05]],bonus:[['intensity',null,.35,.04],['instrumental',.55,null,.05]],pen:[['melancholy',.62,null,-.07],['energy',.66,null,-.08]]},
+  traits:[['acoustic',2.2,'hi',.4,.78],['energy',2,'mid',.28,.62,.14],['instrumental',1.3,'hi',.2,.6],['intensity',1.2,'lo',.3,.62],['dance',.5,'mid',.2,.65,.25]],
+  req:[['acoustic',.48,null,.05],['instrumental',.28,null,.04],['energy',.28,.66,.05]],bonus:[['intensity',null,.4,.05],['instrumental',.45,null,.05]],pen:[['energy',.68,null,-.08]]},
  {b:'gato',t:'Gatuno',tag:['Noturno','Introspectivo','Melancólico'],text:'Seu gosto tem um lado noturno. A emoção pesa nas suas escolhas: músicas mais contidas e cheias de sentimento, para ouvir com calma.',
-  traits:[['melancholy',4,'hi',.35,.68],['energy',1.5,'lo',.35,.6],['dance',1.2,'lo',.35,.55],['acoustic',.8,'hi',.3,.6]],
-  req:[['melancholy',.68,null,.08],['dance',null,.50,.05],['energy',null,.55,.05]],bonus:[['acoustic',.52,null,.06],['melancholy',.6,null,.06]],pen:[['variation',.72,null,-.05]]},
+  traits:[['melancholy',5,'hi',.38,.60],['energy',.7,'lo',.4,.85],['dance',.5,'lo',.45,.8],['acoustic',.6,'hi',.2,.6]],
+  req:[['melancholy',.55,null,.03],['dance',null,.78,.05]],bonus:[['acoustic',.5,null,.05],['melancholy',.54,null,.08]],pen:[['variation',.72,null,-.05],['instrumental',.5,null,-.14]]},
  {b:'urso',t:'Urso',tag:['Tranquilo','Confortável','Orgânico'],text:'Seu gosto gosta de conforto. Sons orgânicos, ritmo desacelerado e pouca pressa: músicas que abraçam em vez de empurrar.',
   traits:[['acoustic',3,'hi',.3,.72],['energy',2,'lo',.3,.55],['intensity',2,'lo',.28,.5],['dance',1,'lo',.28,.55]],
-  req:[['acoustic',.70,null,.06],['energy',null,.50,.05],['intensity',null,.45,.05]],bonus:[['energy',null,.38,.04],['dance',null,.40,.03],['instrumental',null,.42,.05]],pen:[['instrumental',.6,null,-.05]]},
+  req:[['acoustic',.56,null,.04],['energy',null,.55,.05],['intensity',null,.50,.05]],bonus:[['acoustic',.6,null,.06],['acoustic',.68,null,.12],['energy',null,.38,.04],['dance',null,.40,.03],['instrumental',null,.42,.05]],pen:[['instrumental',.6,null,-.2]]},
  {b:'sapo',t:'Sapo Elétrico',tag:['Elétrico','Intenso','Explosivo'],text:'Seu gosto gosta de energia. Suas faixas chegam com força e presença, e nem precisam ser dançantes para fazer o coração acelerar.',
-  traits:[['energy',3,'hi',.5,.85],['intensity',3,'hi',.5,.85],['impact',1,'mid',.55,.82,.2],['dance',.4,'hi',.3,.7]],
-  req:[['energy',.70,null,0],['intensity',.70,null,.02]],bonus:[['dance',.5,null,.03]],pen:[['instrumental',.55,null,-.05],['variation',.72,null,-.05],['epic',.5,null,-.05]]},
+  traits:[['energy',3,'hi',.6,.92],['intensity',3,'hi',.6,.92],['impact',1,'mid',.6,.85,.2],['dance',.4,'hi',.3,.7]],
+  req:[['energy',.70,null,0],['intensity',.68,null,0]],bonus:[['dance',.5,null,.02]],pen:[['instrumental',.55,null,-.05],['variation',.72,null,-.05],['epic',.5,null,-.05],['melancholy',.5,null,-.04]]},
  {b:'raposa',t:'Raposa',tag:['Versátil','Imprevisível','Rítmico'],text:'Seu gosto muda de ideia. De uma faixa para outra, energia, ritmo e clima variam bastante, mas sempre com um pulso que mantém tudo em movimento.',
-  traits:[['variation',3.5,'hi',.35,.75],['dance',1.5,'hi',.35,.7],['energy',1,'hi',.3,.6]],
-  req:[['variation',.62,null,.05],['dance',.55,null,.05],['energy',.45,null,.05]],bonus:[['eclectic',null,.6,.04]],pen:[['eclectic',.8,null,-.04],['contrast',.6,null,-.05]]},
+  traits:[['dance',3,'hi',.45,.8],['variation',3,'hi',.35,.75],['energy',1,'hi',.4,.7],['eclectic',1,'lo',.5,.9]],
+  req:[['variation',.67,null,.03],['dance',.66,null,.03],['energy',.52,null,.04]],bonus:[['dance',.68,null,.05]],pen:[['eclectic',.78,null,-.07],['contrast',.6,null,-.06]]},
  {b:'goblin',t:'Goblin',tag:['Caótico','Excêntrico','Contrastante'],text:'Seu gosto é meio caótico, no bom sentido. Suas escolhas juntam extremos e combinações inesperadas, e esse contraste é o que dá personalidade ao conjunto.',
-  traits:[['contrast',3,'hi',.3,.75],['variation',2.5,'hi',.35,.75],['intensity',2,'hi',.4,.8]],
-  req:[['intensity',.60,null,.05],['variation',.58,null,.05],['contrast',.45,null,.06]],bonus:[['contrast',.6,null,.05]],pen:[]},
+  traits:[['contrast',3.5,'hi',.4,.8],['intensity',2,'hi',.45,.85],['variation',1.5,'hi',.4,.8],['dance',.8,'lo',.4,.75]],
+  req:[['intensity',.50,null,.05],['variation',.55,null,.05],['contrast',.52,null,.04]],bonus:[['contrast',.62,null,.06]],pen:[['dance',.74,null,-.05]]},
  {b:'dino',t:'Dinossauro',tag:['Épico','Imponente','Impactante'],text:'Seu gosto gosta de impacto. Você é atraído por músicas grandes, fortes e cheias de presença, daquelas que parecem ocupar o ambiente inteiro.',
   traits:[['impact',3.5,'hi',.5,.85],['energy',2,'hi',.5,.88],['intensity',2,'hi',.45,.8],['instrumental',1.2,'hi',.15,.6]],
-  req:[['impact',.70,null,.05],['energy',.65,null,.05],['intensity',.60,null,.05]],bonus:[['instrumental',.55,null,.08],['epic',.4,null,.06]],pen:[['dance',.75,null,-.04]]}
+  req:[['impact',.70,null,.05],['energy',.65,null,.05],['intensity',.60,null,.05],['instrumental',.30,null,.05]],bonus:[['instrumental',.55,null,.08],['epic',.4,null,.06]],pen:[['dance',.75,null,-.04]]}
 ];
 function perfilMembro(v,t){const [,,tp,a,b,s]=t;if(tp==='hi')return pc((v-a)/(b-a));if(tp==='lo')return 1-pc((v-a)/(b-a));return v<a?pc(1-(a-v)/s):v>b?pc(1-(v-b)/s):1}
 function perfilAvaliar(x){return PERFIL_ARQ.map(p=>{let s=0,w=0,sig=0;p.traits.forEach((t,i)=>{const m=perfilMembro(pn(x[t[0]],.5),t);s+=t[1]*m;w+=t[1];if(i===0)sig=m*t[1]});
  let score=w?s/w:0;const inR=(v,lo,hi)=>(lo==null||v>=lo)&&(hi==null||v<=hi);
  p.bonus.concat(p.pen).forEach(([k,lo,hi,val])=>{if(inR(pn(x[k],.5),lo,hi))score+=val});
+ // Melancolia pesa mais: clima melancólico alto empurra o Gatuno e penaliza os demais (Axolote fica neutro).
+ const sad=pc((pn(x.melancholy,.45)-.44)/.2);
+ if(p.b==='gato')score+=.06*sad;else if(p.b==='urso')score-=.03*sad;else if(p.b!=='axolote')score-=.06*sad;
  const ok=p.req.every(([k,lo,hi,tol])=>inR(pn(x[k],.5),lo==null?null:lo-tol,hi==null?null:hi+tol));
  return {p,score:Math.max(0,score),sig,ok}})}
 function pickProfile(x){const all=perfilAvaliar(x);const pool=all.some(a=>a.ok)?all.filter(a=>a.ok):all;
@@ -15355,7 +15696,7 @@ dino:pSvg('Dinossauro',(()=>{const S='#72c2b4',P='#f2b96d';return `<path d="M96 
 window.SonoraBichos=PERFIL_BICHOS;
 /*PERFIL-BICHOS-END*/
 
-function render(p,x){window.sonoraPerfilFeatures=x;$('perfilTitle').textContent=p.t;$('perfilTags').innerHTML=p.tag.map(t=>`<span>${t}</span>`).join('');$('perfilText').textContent=p.text;$('perfilBicho').dataset.bicho=p.b;$('perfilBicho').innerHTML=PERFIL_BICHOS[p.b]||PERFIL_BICHOS.gato;if(window.SonoraBichoEditor)window.SonoraBichoEditor.aplicarNoResultado(p.b);const ms=[['Energia',x.energy],['Dançabilidade',x.dance],['Variedade',x.eclectic],['Intensidade',x.intensity],['Clima melancólico',x.melancholy],['Variação',x.variation],['Impacto',x.impact]];$('perfilMetrics').innerHTML=ms.map(m=>`<div class="perfil-metric"><label><span>${m[0]}</span><span>${Math.round(m[1]*100)}</span></label><div class="perfil-bar"><i style="--w:${Math.round(m[1]*100)}%"></i></div></div>`).join('');const ins=[];let title='Seu gosto tem mais de uma camada.';if(x.contrast>.5&&x.variation>.55){title='Suas escolhas gostam de contraste.';ins.push('Extremos diferentes convivem no seu conjunto, e isso deixa o perfil bem mais interessante.');}else if(x.variation>.62){title='Seu gosto muda de ideia com facilidade.';ins.push('Energia, ritmo e clima mudam bastante de uma faixa para outra.');}else if(x.impact>.74){title='Você gosta de música com peso e escala.';ins.push('Impacto e presença aparecem com força no conjunto.');}else if(x.eclectic>.72&&x.melancholy>.62){title='Você gosta de sentir, mas não gosta de ficar preso a um só lugar.';ins.push('Tem emoção nas suas escolhas, mas ela aparece em universos musicais diferentes.');}else if(x.dance>.72&&x.melancholy>.60){title='Você não precisa estar feliz para querer dançar.';ins.push('Ritmo e emoção caminham juntos por aqui — uma coisa não anula a outra.');}else if(x.intensity>.75&&x.acoustic>.55){title='Você gosta quando a música tem presença.';ins.push('Mesmo quando o clima muda, suas escolhas tendem a deixar alguma marca.');}else if(x.acoustic>.72&&x.melancholy>.62){title='Você parece gostar de músicas que ficam com você depois que acabam.';ins.push('Clima e textura pesam bastante nas suas escolhas.');}else if(x.eclectic>.70){title='Seu gosto parece ter mais portas do que uma playlist só consegue mostrar.';ins.push('Você transita entre estilos sem precisar escolher um único universo.');}else if(x.dance>.72){title='Quando a música encaixa, seu corpo parece saber antes de você.';ins.push('O ritmo aparece como uma parte importante da sua identidade musical.');}else if(x.intensity>.72){title='Você gosta de sentir que a música chegou de verdade.';ins.push('Presença e intensidade aparecem com força no conjunto.');}else if(x.melancholy>.68){title='Você não foge de músicas que têm alguma coisa para dizer.';ins.push('O lado emocional aparece bastante nas suas escolhas.');}else{title='Tem um jeito bem seu de escolher música.';ins.push('As suas escolhas formam uma mistura própria de clima, ritmo e intensidade.');}if(x.energy>.72&&x.melancholy>.58)ins.push('Energia alta não apagou o lado emocional — e esse contraste é uma das partes mais interessantes do seu perfil.');if(x.eclectic>.65)ins.push('O interessante é justamente a mistura: estilos diferentes acabam conversando no mesmo universo.');if(x.acoustic>.70)ins.push('Você também deixa espaço para timbres mais orgânicos e próximos.');if(x.intensity>.70)ins.push('Quando uma faixa te pega, parece que você prefere que ela tenha presença.');$('perfilInsightTitle').textContent=title;$('perfilInsights').innerHTML=ins.slice(0,2).map(x=>`<div>• ${x}</div>`).join('')}
+function render(p,x){window.sonoraPerfilFeatures=x;$('perfilTitle').textContent=p.t;$('perfilTags').innerHTML=p.tag.map(t=>`<span>${t}</span>`).join('');$('perfilText').textContent=p.text;$('perfilBicho').dataset.bicho=p.b;$('perfilBicho').innerHTML=PERFIL_BICHOS[p.b]||PERFIL_BICHOS.gato;if(window.SonoraBichoEditor)window.SonoraBichoEditor.aplicarNoResultado(p.b);const ms=[['Energia',x.energy],['Dançabilidade',x.dance],['Variedade',x.eclectic],['Intensidade',x.intensity],['Clima melancólico',x.melancholy],['Variação',x.variation],['Impacto',x.impact]];$('perfilMetrics').innerHTML=ms.map(m=>`<div class="perfil-metric"><label><span>${m[0]}</span><span>${Math.round(m[1]*100)}</span></label><div class="perfil-bar"><i style="--w:${Math.round(m[1]*100)}%"></i></div></div>`).join('');const ins=[];let title='Seu gosto tem mais de uma camada.';if(x.contrast>.5&&x.variation>.55){title='Suas escolhas gostam de contraste.';ins.push('Extremos diferentes convivem no seu conjunto, e isso deixa o perfil bem mais interessante.');}else if(x.variation>.62){title='Seu gosto muda de ideia com facilidade.';ins.push('Energia, ritmo e clima mudam bastante de uma faixa para outra.');}else if(x.impact>.74){title='Você gosta de música com peso e escala.';ins.push('Impacto e presença aparecem com força no conjunto.');}else if(x.eclectic>.72&&x.melancholy>.62){title='Você gosta de sentir, mas não gosta de ficar preso a um só lugar.';ins.push('Tem emoção nas suas escolhas, mas ela aparece em universos musicais diferentes.');}else if(x.dance>.72&&x.melancholy>.60){title='Você não precisa estar feliz para querer dançar.';ins.push('Ritmo e emoção caminham juntos por aqui — uma coisa não anula a outra.');}else if(x.intensity>.75&&x.acoustic>.55){title='Você gosta quando a música tem presença.';ins.push('Mesmo quando o clima muda, suas escolhas tendem a deixar alguma marca.');}else if(x.acoustic>.72&&x.melancholy>.62){title='Você parece gostar de músicas que ficam com você depois que acabam.';ins.push('Clima e textura pesam bastante nas suas escolhas.');}else if(x.eclectic>.70){title='Seu gosto parece ter mais portas do que uma playlist só consegue mostrar.';ins.push('Você transita entre estilos sem precisar escolher um único universo.');}else if(x.dance>.72){title='Quando a música encaixa, seu corpo parece saber antes de você.';ins.push('O ritmo aparece como uma parte importante da sua identidade musical.');}else if(x.intensity>.72){title='Você gosta de sentir que a música chegou de verdade.';ins.push('Presença e intensidade aparecem com força no conjunto.');}else if(x.melancholy>.68){title='Você não foge de músicas que têm alguma coisa para dizer.';ins.push('O lado emocional aparece bastante nas suas escolhas.');}else{title='Tem um jeito bem seu de escolher música.';ins.push('As suas escolhas formam uma mistura própria de clima, ritmo e intensidade.');}if(x.energy>.72&&x.melancholy>.58)ins.push('Energia alta não apagou o lado emocional — e esse contraste é uma das partes mais interessantes do seu perfil.');if(x.eclectic>.65)ins.push('O interessante é justamente a mistura: estilos diferentes acabam conversando no mesmo universo.');if(x.acoustic>.70)ins.push('Você também deixa espaço para timbres mais orgânicos e próximos.');if(x.intensity>.70)ins.push('Quando uma faixa te pega, parece que você prefere que ela tenha presença.');}
 async function recomendar(side){
  const box=$('perfilRecommendations');
  box.innerHTML='<div>procurando caminhos que tenham a sua cara...</div>';
@@ -15434,7 +15775,7 @@ function abrirArtistaRecomendado(nome){
  // O Perfil usa overflow:hidden no body + uma section fixa; se a classe
  // continuar por um instante, a pesquisa fica visualmente clicável,
  // mas a página inteira permanece travada.
- document.body.classList.remove('sonora-perfil-page','sonora-info-open','sonora-bichos-page','sonora-retro-page');
+ document.body.classList.remove('sonora-perfil-page','sonora-info-open','sonora-bichos-page','sonora-retro-page','sonora-radar-page');
  document.body.style.overflow='';
  document.documentElement.style.overflow='';
 
@@ -19750,6 +20091,380 @@ body.sonora-retro-page .sonora-novidade,
 body.sonora-retro-page .sonora-extra-actions,
 body.sonora-retro-page .sonora-share-card{display:none!important}
 </style>
+
+<!-- =====================================================
+     PÁGINA INTERNA · RADAR SONORA
+     Informativo musical. Itens reais, com fonte e link (nada inventado).
+     Para atualizar: edite RADAR_ITEMS abaixo OU defina, antes deste script,
+     window.SONORA_RADAR_FEED_URL = 'https://…/radar.json' (mesmo formato).
+====================================================== -->
+<section class="radar-page" id="radar-sonora" aria-hidden="true" aria-labelledby="radarTitle">
+  <div class="radar-shell">
+    <a class="radar-back" href="#inicio" data-profile-close>← Voltar ao início</a>
+    <div class="radar-kicker">RADAR · SONORA°</div>
+    <div class="radar-head">
+      <h2 id="radarTitle">Radar<br>Sonora</h2>
+      <p>Os acontecimentos que estão movimentando o mundo da música.<span id="radarUpdated"></span></p>
+    </div>
+
+    <div class="radar-filters" id="radarFilters" role="tablist" aria-label="Filtrar por categoria"></div>
+
+    <section class="radar-mine" id="radarMine" hidden>
+      <div class="radar-label">ACONTECENDO COM ARTISTAS QUE VOCÊ PESQUISOU</div>
+      <div class="radar-mine-row" id="radarMineRow"></div>
+    </section>
+
+    <div id="radarNow"></div>
+    <div class="radar-grid" id="radarGrid"></div>
+    <p class="radar-empty" id="radarEmpty" hidden>Nada relevante nesta categoria por enquanto. O Radar só mostra o que tem fonte confirmada.</p>
+    <p class="radar-foot">Cada card leva à fonte original. Imagens de capas e artistas vêm do catálogo da Apple.</p>
+  </div>
+</section>
+
+<style id="radar-sonora-style">
+@media(max-width:600px){nav{flex-wrap:wrap!important}nav .nav-links{flex:1 1 100%!important;width:100%!important;order:2;justify-content:space-between!important;flex-wrap:nowrap!important;gap:0 4px!important}nav .nav-links a{white-space:nowrap!important;font-size:10.5px!important;padding:5px 4px!important}}
+body.sonora-radar-page{overflow:hidden}
+body.sonora-radar-page > :not(nav):not(.radar-page):not(script):not(style){display:none!important}
+body.sonora-radar-page > nav{display:flex!important;position:fixed!important;inset:0 0 auto 0;z-index:1000!important;background:rgba(232,228,220,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+body.sonora-radar-page .sonora-novidade,body.sonora-radar-page .sonora-extra-actions,body.sonora-radar-page .sonora-share-card{display:none!important}
+.radar-page{display:none}
+body.sonora-radar-page > .radar-page{display:block!important;position:fixed!important;inset:0;z-index:10;width:100%;height:100vh;overflow-x:hidden;overflow-y:auto;box-sizing:border-box;padding:100px 0 90px;background:radial-gradient(circle at 12% 8%,rgba(220,174,181,.22),transparent 34%),radial-gradient(circle at 92% 30%,rgba(169,201,216,.26),transparent 36%),var(--fundo);color:var(--marrom-escuro);overscroll-behavior:contain}
+.radar-shell{width:min(1180px,92%);margin:0 auto}
+.radar-back{display:inline-block;color:var(--marrom);text-decoration:none;font-weight:700;margin:6px 0 34px}
+.radar-kicker,.radar-label{font-size:11px;letter-spacing:.16em;font-weight:800;color:#806c63}
+.radar-kicker{margin-bottom:12px}
+.radar-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:30px}
+.radar-head h2{font-family:"Space Grotesk",sans-serif;font-size:clamp(46px,8vw,92px);line-height:.9;letter-spacing:-.055em;margin:0;color:var(--marrom-escuro)}
+.radar-head p{max-width:420px;margin:0;font-size:17px;line-height:1.5;color:#6b5b54}
+.radar-head p small{display:block;margin-top:8px;font-size:12px;color:#8b7b73}
+.radar-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px}
+.radar-chip{border:1px solid rgba(89,70,61,.14);background:rgba(245,241,233,.7);color:var(--marrom);border-radius:999px;padding:10px 17px;font:700 12px "DM Sans",sans-serif;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.radar-chip:hover{border-color:rgba(89,70,61,.35)}
+.radar-chip[aria-selected="true"]{background:var(--marrom-escuro);color:var(--creme);border-color:var(--marrom-escuro)}
+.radar-mine{margin:0 0 30px;padding:20px 22px;border-radius:26px;background:rgba(169,201,216,.22)}
+.radar-mine-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.radar-mine-row button{border:0;border-radius:999px;background:rgba(255,255,255,.7);color:var(--marrom-escuro);padding:9px 14px;font:700 12px "DM Sans",sans-serif;cursor:pointer}
+
+/* destaque AGORA */
+.radar-now{position:relative;display:grid;grid-template-columns:1.1fr 1fr;min-height:420px;border-radius:34px;overflow:hidden;background:var(--creme);border:1px solid rgba(89,70,61,.1);margin-bottom:22px}
+.radar-now-art{position:relative;min-height:300px;background:linear-gradient(135deg,#dcaeb5,#a9c9d8);overflow:hidden}
+.radar-now-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.radar-now-art::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0) 60%,rgba(245,241,233,.35))}
+.radar-now-body{padding:38px 36px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.radar-now-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.16em;color:#806c63}
+.radar-now-tag i{width:8px;height:8px;border-radius:50%;background:#dcaeb5;animation:radarPulse 2.4s ease-in-out infinite}
+@keyframes radarPulse{50%{transform:scale(1.5);opacity:.45}}
+.radar-now-body h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:clamp(30px,3.6vw,48px);line-height:1.04;margin:0;letter-spacing:-.02em;color:var(--marrom-escuro)}
+.radar-now-body p{margin:0;font-size:15px;line-height:1.6;color:#6d5d56}
+
+/* grade editorial */
+.radar-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.radar-card{grid-column:span 2;display:flex;flex-direction:column;border-radius:28px;overflow:hidden;background:var(--creme);border:1px solid rgba(89,70,61,.1);animation:radarIn .5s ease both}
+.radar-card.wide{grid-column:span 3}
+@keyframes radarIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.radar-art{position:relative;aspect-ratio:16/10;background:linear-gradient(135deg,#dcaeb5,#a9c9d8);overflow:hidden}
+.radar-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.radar-card:hover .radar-art img{transform:scale(1.04)}
+.radar-initial{position:absolute;inset:0;display:grid;place-items:center;font:400 64px "DM Serif Display",Georgia,serif;color:rgba(255,255,255,.75)}
+.radar-cat{position:absolute;left:14px;top:14px;z-index:2;padding:6px 11px;border-radius:999px;background:rgba(245,241,233,.9);font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--marrom)}
+.radar-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:9px;flex:1}
+.radar-body h4{font-family:"Space Grotesk",sans-serif;font-size:19px;line-height:1.15;letter-spacing:-.02em;margin:0;color:var(--marrom-escuro)}
+.radar-body p{margin:0;font-size:13px;line-height:1.55;color:#6d5d56}
+.radar-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:auto;padding-top:8px;font-size:11px;color:#8b7b73}
+.radar-artist{border:0;background:none;padding:0;font:800 11px "DM Sans",sans-serif;letter-spacing:.04em;color:var(--marrom);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.radar-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.radar-btn{display:inline-block;border-radius:999px;padding:9px 14px;font:700 11px "DM Sans",sans-serif;text-decoration:none;border:1px solid rgba(89,70,61,.2);color:var(--marrom);background:transparent;cursor:pointer}
+.radar-btn.main{background:var(--marrom-escuro);color:var(--creme);border-color:var(--marrom-escuro)}
+.radar-empty,.radar-foot{margin:26px 0 0;font-size:12px;color:#8b7b73;text-align:center}
+@media(max-width:900px){
+  .radar-now{grid-template-columns:1fr}
+  .radar-now-art{min-height:240px;aspect-ratio:16/11}
+  .radar-now-art::after{background:linear-gradient(180deg,rgba(0,0,0,0) 60%,rgba(245,241,233,.3))}
+  .radar-now-body{padding:26px 22px 28px}
+  .radar-grid{grid-template-columns:1fr 1fr}
+  .radar-card,.radar-card.wide{grid-column:span 1}
+}
+@media(max-width:620px){
+  body.sonora-radar-page > .radar-page{padding-top:112px}
+  .radar-head{flex-direction:column;align-items:flex-start;gap:16px}
+  .radar-filters{flex-wrap:nowrap;overflow-x:auto;margin-right:-4vw;padding-right:4vw;scrollbar-width:none}
+  .radar-filters::-webkit-scrollbar{display:none}
+  .radar-chip{flex:0 0 auto}
+  .radar-grid{grid-template-columns:1fr;gap:14px}
+  .radar-card{flex-direction:row;border-radius:24px}
+  .radar-card .radar-art{flex:0 0 36%;aspect-ratio:auto;min-height:100%}
+  .radar-card .radar-cat{left:8px;top:8px;padding:4px 8px;font-size:8px}
+  .radar-body{padding:16px 16px 18px}
+  .radar-body h4{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){.radar-card,.radar-now-tag i{animation:none}.radar-art img{transition:none}}
+/* claro: toque de cor bem sutil (rosé + azul-acinzentado) para não ficar só branco */
+@media(prefers-color-scheme:light){
+  body.sonora-radar-page > .radar-page{background:radial-gradient(circle at 10% 6%,rgba(226,186,196,.34),transparent 38%),radial-gradient(circle at 94% 26%,rgba(176,208,222,.38),transparent 40%),radial-gradient(circle at 50% 100%,rgba(232,214,238,.30),transparent 45%),#ece6e0}
+  .radar-card,.radar-now{background:linear-gradient(160deg,#f8f2ec 0%,#f4ecee 55%,#eef0f2 100%)}
+  .radar-chip{background:rgba(250,244,240,.8)}
+}
+/* escuro: contraste forte entre texto e fundo */
+@media(prefers-color-scheme:dark){
+  #radar-sonora{color:#f6f0ea}
+  #radar-sonora .radar-head h2,#radar-sonora .radar-now-body h3,#radar-sonora .radar-body h4{color:#fffaf5!important}
+  #radar-sonora .radar-head p,#radar-sonora .radar-now-body p,#radar-sonora .radar-body p{color:#e6dde1!important}
+  #radar-sonora .radar-kicker,#radar-sonora .radar-label,#radar-sonora .radar-now-tag,#radar-sonora .radar-back{color:#e2d6e6!important}
+  #radar-sonora .radar-meta,#radar-sonora .radar-meta span,#radar-sonora .radar-foot,#radar-sonora .radar-empty,#radar-sonora .radar-head p small{color:#cdc2cb!important}
+  #radar-sonora .radar-now,#radar-sonora .radar-card{background:linear-gradient(160deg,rgba(52,43,63,.92),rgba(40,34,50,.92))!important;border-color:rgba(214,196,232,.22)!important;box-shadow:none!important}
+  #radar-sonora .radar-chip{background:rgba(255,255,255,.08)!important;color:#f6eff2!important;border-color:rgba(226,214,236,.28)!important}
+  #radar-sonora .radar-chip[aria-selected="true"]{background:#f6eef2!important;color:#241d2a!important;border-color:#f6eef2!important}
+  #radar-sonora .radar-artist{background:none!important;color:#f7d7e2!important;text-decoration:underline!important}
+  #radar-sonora a.radar-btn.main,#radar-sonora .radar-btn.main{background:#f6eef2!important;color:#241d2a!important;border-color:#f6eef2!important}
+  #radar-sonora .radar-btn:not(.main){color:#f6eff2!important;border-color:rgba(226,214,236,.35)!important;background:transparent!important}
+  #radar-sonora .radar-cat{background:rgba(20,17,26,.86)!important;color:#fbf3f6!important}
+  #radar-sonora .radar-mine{background:rgba(120,160,180,.2)!important}
+  #radar-sonora .radar-mine-row button{background:rgba(255,255,255,.1)!important;color:#fbf5f8!important}
+  #radar-sonora .radar-initial{color:rgba(255,255,255,.85)}
+}
+@media(prefers-color-scheme:dark){
+  body.sonora-radar-page > nav{background:rgba(20,17,26,.82)!important}
+  body.sonora-radar-page > .radar-page{background:radial-gradient(circle at 12% 8%,rgba(178,118,165,.14),transparent 34%),radial-gradient(circle at 92% 30%,rgba(110,150,170,.14),transparent 36%),#14111a!important;color:#f4eee8}
+  .radar-back,.radar-kicker,.radar-label,.radar-now-tag,.radar-meta,.radar-foot,.radar-empty,.radar-head p small{color:#cbbfd6!important}
+  .radar-head h2,.radar-now-body h3,.radar-body h4{color:#f6f0e9!important}
+  .radar-head p,.radar-now-body p,.radar-body p{color:#cfc6d3!important}
+  .radar-now,.radar-card{background:rgba(39,32,48,.72)!important;border-color:rgba(198,179,239,.14)!important}
+  .radar-chip,.radar-btn,.radar-mine-row button{background:rgba(39,32,48,.72);color:#f6f0e9;border-color:rgba(198,179,239,.2)}
+  .radar-chip[aria-selected="true"],.radar-btn.main{background:#f1e7ee;color:#2b2430;border-color:#f1e7ee}
+  .radar-artist{color:#e7dcec}
+  .radar-mine{background:rgba(110,150,170,.16)}
+  .radar-cat{background:rgba(20,17,26,.78);color:#f1e7ee}
+}
+</style>
+<style id="sonora-music-search-float">
+/* "Faixa específica" flutua sobre o fundo da página, igual à pesquisa de artista */
+.music-search-lower,.music-search-inner,
+.music-search-lower:hover{background:transparent!important;background-color:transparent!important;border:0!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border-radius:0!important}
+@media(prefers-color-scheme:dark){
+  .music-search-lower,body .music-search-lower,body .music-search-inner{background:transparent!important;background-color:transparent!important;border:0!important;box-shadow:none!important}
+}
+</style>
+
+<script id="radar-sonora-script">
+(function(){
+  'use strict';
+  /* categoria: lancamentos | albuns | eventos | noticias | curiosidades | artistas
+     dest:true = acontecimento em destaque (AGORA).
+     q = termo para buscar a capa no catálogo Apple. */
+  var RADAR_UPDATED='2026-10-23';
+  var RADAR_ITEMS=[
+    {id:'pitty-album',dest:true,cat:'lancamentos',artist:'Pitty',q:'Pitty Pitty',date:'2026-10-16',
+     title:'Pitty lança o sexto álbum de estúdio e sai em turnê nacional',
+     summary:'O disco “PITTY” chegou em 16 de outubro pela Deck. A turnê estreou em 17 de outubro, no Espaço Unimed (São Paulo), e passa por dez cidades brasileiras até dezembro.',
+     source:'Letras.mus.br',url:'https://www.letras.mus.br/noticias/pitty-anuncia-turne-para-divulgar-novo-album/',srcDate:'2026-08-24'},
+    {id:'marina-lisboa',cat:'eventos',artist:'Marina Sena',q:'Marina Sena',date:'2026-10-25',
+     title:'Marina Sena toca em Lisboa no domingo do segundo turno',
+     summary:'O show no Coliseu dos Recreios, às 21h, coincide com a votação no Brasil e gerou debate sobre o planejamento da turnê. Nenhuma fonte pública confirma quando a data foi fechada.',
+     source:'Quenty',url:'https://quenty.com.br/resumo/23-outubro-2026/show-de-marina-sena-em-lisboa-coincide-com-domingo-de-votacao-e-vira-polemica',srcDate:'2026-10-23'},
+    {id:'suede-album',cat:'noticias',artist:'Suede',q:'Suede Autofiction',date:'2026-10-23',
+     title:'Suede diz estar “bem avançado” no 11º álbum, que será “anarcho-punk”',
+     summary:'Na entrevista no tapete vermelho do Mercury Prize, em Newcastle, a banda disse que o disco fecha uma trilogia iniciada por “Autofiction” e seguida por “Antidepressants”.',
+     source:'Indie Rock Brasil',url:'https://indierockbrasil.com.br/2026/10/23/suede-esta-bem-avancado-em-novo-album-que-sera-o-disco-anarcho-punk-da-banda/',srcDate:'2026-10-23'},
+    {id:'suede-tour',cat:'eventos',artist:'Suede',q:'Suede Antidepressants',date:'2026-10-28',
+     title:'Suede e Manic Street Preachers começam turnê de arenas no Reino Unido',
+     summary:'A primeira data é em 28 de outubro, na OVO Arena, em Glasgow. A banda disse que uma ou duas músicas novas podem estrear nos shows.',
+     source:'Indie Rock Brasil',url:'https://indierockbrasil.com.br/2026/10/23/suede-esta-bem-avancado-em-novo-album-que-sera-o-disco-anarcho-punk-da-banda/',srcDate:'2026-10-23'},
+    {id:'lisa-ep',cat:'lancamentos',artist:'LISA',q:'LISA PRESS PLAY',date:'2026-10-23',
+     title:'LISA lança “PRESS PLAY”, seu primeiro EP solo',
+     summary:'O EP da integrante do BLACKPINK tem seis faixas e “Tarantino” como faixa de trabalho.',
+     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
+    {id:'ateez-drip',cat:'lancamentos',artist:'ATEEZ',q:'ATEEZ Drip',date:'2026-10-23',
+     title:'ATEEZ lança “Drip”, single do próximo miniálbum',
+     summary:'A faixa antecipa o 15º miniálbum, “GOLDEN HOUR : Part.6”, com trap e rap. O clipe saiu nesta sexta.',
+     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
+    {id:'kacey',cat:'lancamentos',artist:'Kacey Musgraves',q:'Kacey Musgraves Middle of Nowhere',date:'2026-10-23',
+     title:'Kacey Musgraves volta ao Texas em “Weekend In Texas”',
+     summary:'A faixa, com metais e referências texanas, antecipa o álbum “Middle of Nowhere Vol. 2: Tex Mex Tapes”.',
+     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
+    {id:'fike',cat:'lancamentos',artist:'Dominic Fike',q:'Dominic Fike',date:'2026-10-23',
+     title:'Dominic Fike apresenta “Pangea”, prévia do terceiro álbum',
+     summary:'Rap melódico e guitarras em menos de dois minutos e meio. O disco se chama “How To Quit Smoking”.',
+     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
+    {id:'paak-cordae',cat:'lancamentos',artist:'Anderson .Paak',q:'Anderson .Paak Cordae Heavy Is The Crown',date:'2026-10-23',
+     title:'Anderson .Paak e Cordae lançam “Heavy Is The Crown”',
+     summary:'A parceria da dupla, iniciada em 2019, vira um álbum de 11 músicas com produções de J. Cole e Swizz Beatz.',
+     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
+    {id:'tini-live',cat:'lancamentos',artist:'TINI',q:'TINI FUTTTURA',date:'2026-10-23',
+     title:'TINI lança o ao vivo “FUTTTURA LIVE” com 32 faixas',
+     summary:'O registro foi gravado na turnê “FUTTTURA” e reúne músicas de diferentes fases da carreira.',
+     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
+    {id:'yung-miami',cat:'artistas',artist:'Yung Miami',q:'Yung Miami Watch Dis',date:'2026-10-23',
+     title:'Yung Miami estreia em carreira solo após a separação do City Girls',
+     summary:'“Watch Dis!” tem 21 faixas e participações de Travis Scott e Quavo.',
+     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
+    {id:'legend-muse',cat:'curiosidades',artist:'John Legend',q:'John Legend Muse',date:'2026-10-23',
+     title:'O novo disco de John Legend foi todo produzido por Pharrell Williams',
+     summary:'“Muse” tem 16 faixas, com referências de soul, gospel, funk e hip-hop.',
+     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
+    {id:'mayer',cat:'curiosidades',artist:'John Mayer',q:'John Mayer Tom and Jerry',date:'2026-10-23',
+     title:'John Mayer lança seu primeiro single solo inédito desde 2021',
+     summary:'“Tom and Jerry” usa o desenho animado como metáfora para um romance de desencontros.',
+     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'}
+  ];
+  var CATS=[['todos','Todos'],['artistas','Artistas'],['lancamentos','Lançamentos'],['eventos','Eventos'],['noticias','Notícias'],['curiosidades','Curiosidades']];
+  var CAT_LABEL={artistas:'Artistas',lancamentos:'Lançamento',eventos:'Evento',noticias:'Notícia',curiosidades:'Curiosidade'};
+  var MESES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  var items=RADAR_ITEMS.slice(),filtro='todos',montado=false;
+  function $(id){return document.getElementById(id)}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function dataBR(iso,when){if(when)return when;var p=String(iso).split('-');if(p.length<3)return '';return parseInt(p[2],10)+' '+MESES[parseInt(p[1],10)-1]+' '+p[0]}
+  function safeUrl(u){return /^https?:\/\//i.test(u||'')?u:''}
+
+  /* ---- imagens ----
+     Notícia sobre lançamento/álbum/música -> capa (Apple Music).
+     Notícia sobre artista/evento -> foto do artista (Wikipédia), com a capa como reserva.
+     Sempre há reserva; se nada vier, o card mostra um degradê com a inicial. */
+  var TIPO_IMG={'pitty-album':'album','marina-lisboa':'artist','suede-album':'artist','suede-tour':'artist',
+    'lisa-ep':'album','ateez-drip':'album','kacey':'album','fike':'album','paak-cordae':'album','tini-live':'album',
+    'yung-miami':'album','legend-muse':'album','mayer':'album'};
+  var WIKI_Q={'suede-album':'Suede (band)','suede-tour':'Suede (band)','marina-lisboa':'Marina Sena'};
+  function norm(t){return String(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim()}
+  function tokenArtista(a){var w=norm(a).split(' ').filter(function(x){return x.length>=3});return w[0]||norm(a)}
+  var jpN=0;
+  function jsonpItunes(params){
+    return new Promise(function(res){
+      var cb='sonoraRadar_'+Date.now()+'_'+(jpN++),sc=document.createElement('script'),ok=false,t=setTimeout(function(){fim(null)},9000);
+      function fim(v){if(ok)return;ok=true;clearTimeout(t);try{delete window[cb]}catch(e){window[cb]=undefined}if(sc.parentNode)sc.parentNode.removeChild(sc);res(v||null)}
+      window[cb]=function(d){fim(d)};sc.onerror=function(){fim(null)};sc.async=true;
+      sc.src='https://itunes.apple.com/search?'+new URLSearchParams(Object.assign({media:'music',limit:8},params,{callback:cb})).toString();
+      document.body.appendChild(sc);
+    });
+  }
+  function grande(u){return u?u.replace(/\/\d+x\d+(bb)?\.(jpg|png)/,'/700x700bb.$2'):''}
+  function apple(it,entity){
+    return jsonpItunes({term:it.q||it.artist,entity:entity}).then(function(j){
+      var tk=tokenArtista(it.artist),r=(j&&j.results||[]).filter(function(x){return x.artworkUrl100&&norm(x.artistName).indexOf(tk)>-1})[0];
+      return r?grande(r.artworkUrl100):'';
+    });
+  }
+  var REGEX_MUSICA=/singer|band|rapper|musician|cantor|cantora|banda|m[uú]sic|group|duo|dj|compositor|songwriter|vocalist/i;
+  function wiki(it,lang){
+    var termo=WIKI_Q[it.id]||it.artist,url='https://'+lang+'.wikipedia.org/w/api.php?action=query&generator=search&gsrlimit=6&gsrsearch='+encodeURIComponent(termo)
+      +'&prop=pageimages|description&piprop=thumbnail&pithumbsize=900&format=json&origin=*';
+    return fetch(url).then(function(r){return r.json()}).then(function(j){
+      var pgs=j&&j.query&&j.query.pages?Object.keys(j.query.pages).map(function(k){return j.query.pages[k]}):[];
+      pgs.sort(function(a,b){return (a.index||99)-(b.index||99)});
+      var tk=tokenArtista(it.artist),r=pgs.filter(function(x){return x.thumbnail&&norm(x.title).indexOf(tk)>-1&&REGEX_MUSICA.test(x.description||'')})[0];
+      return r?r.thumbnail.source:'';
+    }).catch(function(){return ''});
+  }
+  function buscarImagem(it){
+    var tipo=TIPO_IMG[it.id]||(/lancamentos|curiosidades/.test(it.cat)?'album':'artist');
+    var passos=tipo==='album'
+      ?[function(){return apple(it,'album')},function(){return apple(it,'song')},function(){return wiki(it,'pt')},function(){return wiki(it,'en')}]
+      :[function(){return wiki(it,'pt')},function(){return wiki(it,'en')},function(){return apple(it,'album')}];
+    return passos.reduce(function(p,f){return p.then(function(u){return u||f().catch(function(){return ''})})},Promise.resolve(''));
+  }
+  function capa(it,cb){
+    var k='radar_img2_'+it.id,c=null;
+    try{c=sessionStorage.getItem(k)}catch(e){}
+    if(c){cb(c);return}
+    buscarImagem(it).then(function(u){if(u){try{sessionStorage.setItem(k,u)}catch(e){}}cb(u)});
+  }
+  function pintarCapa(box,it){
+    capa(it,function(u){
+      if(!u)return;
+      var im=new Image();im.alt='';im.referrerPolicy='no-referrer';
+      im.onload=function(){var f=box.querySelector('.radar-initial');if(f)f.remove();box.insertBefore(im,box.firstChild)};
+      im.src=u;
+    });
+  }
+  function artistaBtn(it){return it.artist?'<button type="button" class="radar-artist" data-artist="'+esc(it.artist)+'">'+esc(it.artist)+' · ver no Sonora</button>':''}
+  function fonteLink(it){var u=safeUrl(it.url);return u?'<a class="radar-btn main" href="'+esc(u)+'" target="_blank" rel="noopener noreferrer">Ler na fonte · '+esc(it.source||'')+'</a>':''}
+  function cardHtml(it,i,wide){
+    return '<article class="radar-card'+(wide?' wide':'')+'" data-id="'+esc(it.id)+'" style="animation-delay:'+Math.min(i*45,400)+'ms">'
+      +'<div class="radar-art"><span class="radar-cat">'+esc(CAT_LABEL[it.cat]||'')+'</span><span class="radar-initial">'+esc((it.artist||'S').charAt(0))+'</span></div>'
+      +'<div class="radar-body"><h4>'+esc(it.title)+'</h4><p>'+esc(it.summary)+'</p>'
+      +'<div class="radar-meta">'+artistaBtn(it)+'<span>'+esc(dataBR(it.date,it.when))+'</span></div>'
+      +'<div class="radar-actions">'+fonteLink(it)+'</div></div></article>';
+  }
+  function nowHtml(it){
+    return '<article class="radar-now" data-id="'+esc(it.id)+'"><div class="radar-now-art"><span class="radar-initial">'+esc((it.artist||'S').charAt(0))+'</span></div>'
+      +'<div class="radar-now-body"><span class="radar-now-tag"><i></i>AGORA · '+esc((CAT_LABEL[it.cat]||'').toUpperCase())+'</span>'
+      +'<h3>'+esc(it.title)+'</h3><p>'+esc(it.summary)+'</p>'
+      +'<div class="radar-meta">'+artistaBtn(it)+'<span>'+esc(dataBR(it.date,it.when))+'</span></div>'
+      +'<div class="radar-actions">'+fonteLink(it)+'</div></div></article>';
+  }
+  function filtrar(){return items.filter(function(it){return filtro==='todos'||it.cat===filtro})}
+  function render(){
+    var lista=filtrar(),now=$('radarNow'),grid=$('radarGrid');
+    var destaque=lista.filter(function(i){return i.dest})[0]||(filtro!=='todos'?lista[0]:null);
+    var resto=lista.filter(function(i){return i!==destaque});
+    now.innerHTML=destaque?nowHtml(destaque):'';
+    grid.innerHTML=resto.map(function(it,i){return cardHtml(it,i,resto.length>3&&(i%5===0||i%5===3)&&false)}).join('');
+    $('radarEmpty').hidden=lista.length>0;
+    [].forEach.call(document.querySelectorAll('#radar-sonora [data-id]'),function(el){
+      var it=items.filter(function(x){return x.id===el.getAttribute('data-id')})[0];
+      var box=el.querySelector('.radar-art,.radar-now-art');if(it&&box)pintarCapa(box,it);
+    });
+  }
+  function filtros(){
+    var box=$('radarFilters');
+    box.innerHTML=CATS.map(function(c){return '<button type="button" role="tab" class="radar-chip" data-cat="'+c[0]+'" aria-selected="'+(c[0]===filtro)+'">'+c[1]+'</button>'}).join('');
+    box.addEventListener('click',function(e){
+      var b=e.target.closest('.radar-chip');if(!b)return;
+      filtro=b.getAttribute('data-cat');
+      [].forEach.call(box.children,function(x){x.setAttribute('aria-selected',x===b)});
+      render();
+    });
+  }
+
+  /* ---- ligação com o resto do Sonora ---- */
+  function irParaArtista(nome){
+    var a=document.querySelector('a[href="#pesquisa"]');
+    if(a)a.click();else location.hash='#pesquisa';
+    setTimeout(function(){
+      try{if(typeof pesquisarSugestao==='function'){pesquisarSugestao(nome);return}}catch(e){}
+      var i=$('searchInput'),b=$('searchButton');if(i){i.value=nome}if(b)b.click();
+    },250);
+  }
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('#radar-sonora .radar-artist,#radar-sonora .radar-mine-row button');
+    if(b){e.preventDefault();irParaArtista(b.getAttribute('data-artist'))}
+  });
+
+  /* ---- preparado para personalização: artistas que o usuário já pesquisou ---- */
+  function pesquisados(){
+    var out=[];
+    try{var l=JSON.parse(localStorage.getItem('sonora_last_analysis')||'null');if(l&&l.termo)out.push(l.termo)}catch(e){}
+    [].forEach.call(document.querySelectorAll('#recentSearchesList button,#recentSearchesList [data-term]'),function(el){var t=(el.getAttribute('data-term')||el.textContent||'').trim();if(t)out.push(t)});
+    return out.map(function(s){return s.toLowerCase()});
+  }
+  function minhaArea(){
+    var ps=pesquisados(),row=$('radarMineRow'),box=$('radarMine');
+    if(!ps.length){box.hidden=true;return}
+    var vistos={},achados=items.filter(function(it){
+      var a=(it.artist||'').toLowerCase();
+      if(!a||vistos[a])return false;
+      var ok=ps.some(function(p){return p===a||a.indexOf(p)>-1||p.indexOf(a)>-1});
+      if(ok)vistos[a]=1;return ok;
+    });
+    if(!achados.length){box.hidden=true;return}
+    row.innerHTML=achados.map(function(it){return '<button type="button" data-artist="'+esc(it.artist)+'">'+esc(it.artist)+' · '+esc(it.title.length>60?it.title.slice(0,57)+'…':it.title)+'</button>'}).join('');
+    box.hidden=false;
+  }
+
+  /* feed externo opcional (mesmo formato de RADAR_ITEMS) */
+  function carregarFeed(){
+    var u=window.SONORA_RADAR_FEED_URL;if(!u)return;
+    fetch(u).then(function(r){return r.json()}).then(function(j){
+      if(Array.isArray(j)&&j.length){items=j.filter(function(x){return x&&x.id&&x.title&&x.cat&&safeUrl(x.url)});render();minhaArea()}
+    }).catch(function(){});
+  }
+  function montar(){
+    if(montado)return;montado=true;
+    var d=RADAR_UPDATED.split('-');
+    $('radarUpdated').innerHTML='<small>Atualizado em '+parseInt(d[2],10)+' '+MESES[parseInt(d[1],10)-1]+' '+d[0]+'</small>';
+    filtros();render();carregarFeed();
+  }
+  window.sonoraRenderRadar=function(){montar();minhaArea()};
+})();
+</script>
 
 </body>
 
