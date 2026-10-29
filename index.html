@@ -20251,60 +20251,88 @@ body.sonora-radar-page > .radar-page{display:block!important;position:fixed!impo
   /* categoria: lancamentos | albuns | eventos | noticias | curiosidades | artistas
      dest:true = acontecimento em destaque (AGORA).
      q = termo para buscar a capa no catálogo Apple. */
-  var RADAR_UPDATED='2026-10-23';
+  var RADAR_UPDATED='2026-10-29';
   var RADAR_ITEMS=[
     {id:'pitty-album',dest:true,cat:'lancamentos',artist:'Pitty',q:'Pitty Pitty',date:'2026-10-16',
      title:'Pitty lança o sexto álbum de estúdio e sai em turnê nacional',
      summary:'O disco “PITTY” chegou em 16 de outubro pela Deck. A turnê estreou em 17 de outubro, no Espaço Unimed (São Paulo), e passa por dez cidades brasileiras até dezembro.',
      source:'Letras.mus.br',url:'https://www.letras.mus.br/noticias/pitty-anuncia-turne-para-divulgar-novo-album/',srcDate:'2026-08-24'},
+    {id:'lolla-2027',cat:'eventos',artist:'Travis Scott',q:'Travis Scott',date:'2026-10-08',
+     title:'Lollapalooza Brasil 2027 anuncia Travis Scott, Charli XCX e The Killers',
+     summary:'O festival volta a Interlagos em 19, 20 e 21 de março, nos 15 anos do evento no Brasil. David Guetta e Queens of the Stone Age completam os headliners; Fontaines D.C., RAYE e The Prodigy também estão no line-up.',
+     source:'Canaltech',url:'https://canaltech.com.br/entretenimento/lollapalooza-2027-anuncia-travis-scott-charli-xcx-e-the-killers-veja-line-up/',srcDate:'2026-10-08'},
+    {id:'the-town-2027',cat:'eventos',artist:'Slipknot',q:'Slipknot',date:'2026-09-28',
+     title:'The Town 2027 abre o line-up com Slipknot e Marilyn Manson',
+     summary:'A terceira edição acontece em Interlagos, em 4, 5, 6, 11 e 12 de setembro de 2027. Slipknot é a atração principal da primeira noite, no palco Skyline.',
+     source:'IstoÉ',url:'https://istoe.com.br/the-town-2027-slipknot-marilyn-manson-atracoes',srcDate:'2026-09-28'},
+    {id:'grammy-latino',cat:'noticias',artist:'Anitta',q:'Anitta EQUILIBRIVM',date:'2026-09-16',
+     title:'Grammy Latino 2026: Anitta disputa Álbum do Ano com “EQUILIBRIVM”',
+     summary:'Ela concorre ao lado de Rosalía (“Lux”), Karol G (“Tropiocoqueta”), Milo J e outros. A 27ª cerimônia será em 12 de novembro, nos Estados Unidos.',
+     source:'Itatiaia',url:'https://www.itatiaia.com.br/entretenimento/grammy-latino-2026-veja-os-indicados-a-premiacao/',srcDate:'2026-09-16'},
     {id:'marina-lisboa',cat:'eventos',artist:'Marina Sena',q:'Marina Sena',date:'2026-10-25',
      title:'Marina Sena toca em Lisboa no domingo do segundo turno',
      summary:'O show no Coliseu dos Recreios, às 21h, coincide com a votação no Brasil e gerou debate sobre o planejamento da turnê. Nenhuma fonte pública confirma quando a data foi fechada.',
      source:'Quenty',url:'https://quenty.com.br/resumo/23-outubro-2026/show-de-marina-sena-em-lisboa-coincide-com-domingo-de-votacao-e-vira-polemica',srcDate:'2026-10-23'},
-    {id:'suede-album',cat:'noticias',artist:'Suede',q:'Suede Autofiction',date:'2026-10-23',
+    {id:'suede-album',cat:'noticias',artist:'Suede',q:'Suede Antidepressants',date:'2026-10-23',
      title:'Suede diz estar “bem avançado” no 11º álbum, que será “anarcho-punk”',
-     summary:'Na entrevista no tapete vermelho do Mercury Prize, em Newcastle, a banda disse que o disco fecha uma trilogia iniciada por “Autofiction” e seguida por “Antidepressants”.',
+     summary:'Na entrevista no tapete vermelho do Mercury Prize, em Newcastle, a banda disse que o disco fecha uma trilogia iniciada por “Autofiction” e seguida por “Antidepressants”, o 10º álbum, indicado ao prêmio.',
      source:'Indie Rock Brasil',url:'https://indierockbrasil.com.br/2026/10/23/suede-esta-bem-avancado-em-novo-album-que-sera-o-disco-anarcho-punk-da-banda/',srcDate:'2026-10-23'},
     {id:'suede-tour',cat:'eventos',artist:'Suede',q:'Suede Antidepressants',date:'2026-10-28',
-     title:'Suede e Manic Street Preachers começam turnê de arenas no Reino Unido',
-     summary:'A primeira data é em 28 de outubro, na OVO Arena, em Glasgow. A banda disse que uma ou duas músicas novas podem estrear nos shows.',
+     title:'Suede e Manic Street Preachers abrem turnê de arenas no Reino Unido',
+     summary:'A primeira data foi em 28 de outubro, na OVO Arena, em Glasgow. A banda disse que uma ou duas músicas novas podem estrear nos shows.',
      source:'Indie Rock Brasil',url:'https://indierockbrasil.com.br/2026/10/23/suede-esta-bem-avancado-em-novo-album-que-sera-o-disco-anarcho-punk-da-banda/',srcDate:'2026-10-23'},
+    {id:'fike',cat:'lancamentos',artist:'Dominic Fike',q:'Dominic Fike Pangea',date:'2026-10-23',
+     title:'Dominic Fike apresenta “Pangea”, prévia do terceiro álbum',
+     summary:'Rap melódico e guitarras em menos de dois minutos e meio. O disco, “How To Quit Smoking”, chega em 30 de outubro.',
+     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
     {id:'lisa-ep',cat:'lancamentos',artist:'LISA',q:'LISA PRESS PLAY',date:'2026-10-23',
      title:'LISA lança “PRESS PLAY”, seu primeiro EP solo',
-     summary:'O EP da integrante do BLACKPINK tem seis faixas e “Tarantino” como faixa de trabalho.',
+     summary:'O EP da integrante do BLACKPINK tem seis faixas e “Tarantino” como faixa de trabalho. Em novembro ela inicia uma residência em Las Vegas.',
      source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
     {id:'ateez-drip',cat:'lancamentos',artist:'ATEEZ',q:'ATEEZ Drip',date:'2026-10-23',
      title:'ATEEZ lança “Drip”, single do próximo miniálbum',
-     summary:'A faixa antecipa o 15º miniálbum, “GOLDEN HOUR : Part.6”, com trap e rap. O clipe saiu nesta sexta.',
+     summary:'A faixa, de trap e rap, antecipa o 15º miniálbum, “GOLDEN HOUR : Part.6”, previsto para 13 de novembro.',
      source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
-    {id:'kacey',cat:'lancamentos',artist:'Kacey Musgraves',q:'Kacey Musgraves Middle of Nowhere',date:'2026-10-23',
+    {id:'kacey',cat:'lancamentos',artist:'Kacey Musgraves',q:'Kacey Musgraves Weekend In Texas',date:'2026-10-23',
      title:'Kacey Musgraves volta ao Texas em “Weekend In Texas”',
-     summary:'A faixa, com metais e referências texanas, antecipa o álbum “Middle of Nowhere Vol. 2: Tex Mex Tapes”.',
+     summary:'A faixa, com metais e referências texanas, antecipa o álbum “Middle of Nowhere Vol. 2: Tex Mex Tapes”, que inclui uma versão de “Mi Tesoro”.',
      source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
-    {id:'fike',cat:'lancamentos',artist:'Dominic Fike',q:'Dominic Fike',date:'2026-10-23',
-     title:'Dominic Fike apresenta “Pangea”, prévia do terceiro álbum',
-     summary:'Rap melódico e guitarras em menos de dois minutos e meio. O disco se chama “How To Quit Smoking”.',
+    {id:'mayer',cat:'curiosidades',artist:'John Mayer',q:'John Mayer Tom and Jerry',date:'2026-10-23',
+     title:'John Mayer lança seu primeiro single solo inédito desde 2021',
+     summary:'“Tom and Jerry” usa o desenho animado como metáfora para um romance de desencontros. A faixa estreia o selo dele, o Sob Rock Records.',
      source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
     {id:'paak-cordae',cat:'lancamentos',artist:'Anderson .Paak',q:'Anderson .Paak Cordae Heavy Is The Crown',date:'2026-10-23',
      title:'Anderson .Paak e Cordae lançam “Heavy Is The Crown”',
      summary:'A parceria da dupla, iniciada em 2019, vira um álbum de 11 músicas com produções de J. Cole e Swizz Beatz.',
      source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
-    {id:'tini-live',cat:'lancamentos',artist:'TINI',q:'TINI FUTTTURA',date:'2026-10-23',
-     title:'TINI lança o ao vivo “FUTTTURA LIVE” com 32 faixas',
-     summary:'O registro foi gravado na turnê “FUTTTURA” e reúne músicas de diferentes fases da carreira.',
+    {id:'legend-muse',cat:'curiosidades',artist:'John Legend',q:'John Legend Muse',date:'2026-10-23',
+     title:'O novo disco de John Legend foi todo produzido por Pharrell Williams',
+     summary:'“Muse” tem 16 faixas, gravadas em sua maioria no estúdio de Pharrell em Paris, com referências de soul, gospel, funk e hip-hop.',
      source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
     {id:'yung-miami',cat:'artistas',artist:'Yung Miami',q:'Yung Miami Watch Dis',date:'2026-10-23',
      title:'Yung Miami estreia em carreira solo após a separação do City Girls',
      summary:'“Watch Dis!” tem 21 faixas e participações de Travis Scott e Quavo.',
      source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
-    {id:'legend-muse',cat:'curiosidades',artist:'John Legend',q:'John Legend Muse',date:'2026-10-23',
-     title:'O novo disco de John Legend foi todo produzido por Pharrell Williams',
-     summary:'“Muse” tem 16 faixas, com referências de soul, gospel, funk e hip-hop.',
+    {id:'girl-in-red',cat:'lancamentos',artist:'girl in red',q:'girl in red BLUE',date:'2026-10-23',
+     title:'girl in red lança o EP “BLUE”, sobre o fim de um relacionamento',
+     summary:'São quatro músicas; “Missing Person” é uma das faixas do EP.',
      source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
-    {id:'mayer',cat:'curiosidades',artist:'John Mayer',q:'John Mayer Tom and Jerry',date:'2026-10-23',
-     title:'John Mayer lança seu primeiro single solo inédito desde 2021',
-     summary:'“Tom and Jerry” usa o desenho animado como metáfora para um romance de desencontros.',
-     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'}
+    {id:'tini-live',cat:'lancamentos',artist:'TINI',q:'TINI FUTTTURA LIVE',date:'2026-10-23',
+     title:'TINI lança o ao vivo “FUTTTURA LIVE” com 32 faixas',
+     summary:'O registro foi gravado na turnê “FUTTTURA” e reúne músicas de toda a carreira, de “Violetta” em diante.',
+     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-internacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
+    {id:'tuyo-dez-vidas',cat:'lancamentos',artist:'Tuyo',q:'Tuyo Dez Vidas',date:'2026-10-23',
+     title:'Tuyo celebra dez anos com o álbum “Dez Vidas”',
+     summary:'São oito faixas que misturam regravações do próprio repertório, a inédita “Não Importa” e reinterpretações.',
+     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-nacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'semana de 17 a 23/10'},
+    {id:'jorge-mateus',cat:'lancamentos',artist:'Jorge & Mateus',q:'Jorge e Mateus Primavera',date:'2026-10-22',
+     title:'Jorge & Mateus lançam “Primavera”, primeira música nova após a turnê de 21 anos',
+     summary:'A canção, pela Som Livre, fala sobre reacender um relacionamento.',
+     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-nacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'22 out 2026'},
+    {id:'tz-matue',cat:'lancamentos',artist:'TZ da Coronel',q:'TZ da Coronel Matuê Mundo Fashion',date:'2026-10-21',
+     title:'TZ da Coronel e Matuê lançam “Mundo Fashion”',
+     summary:'A parceria é uma das primeiras prévias do álbum “Lado Mau”, de TZ, e saiu com clipe oficial.',
+     source:'Billboard Brasil',url:'https://billboard.com.br/lancamentos-nacionais-semana-23-outubro-2026/',srcDate:'2026-10-23',when:'21 out 2026'}
   ];
   var CATS=[['todos','Todos'],['artistas','Artistas'],['lancamentos','Lançamentos'],['eventos','Eventos'],['noticias','Notícias'],['curiosidades','Curiosidades']];
   var CAT_LABEL={artistas:'Artistas',lancamentos:'Lançamento',eventos:'Evento',noticias:'Notícia',curiosidades:'Curiosidade'};
@@ -20316,13 +20344,33 @@ body.sonora-radar-page > .radar-page{display:block!important;position:fixed!impo
   function safeUrl(u){return /^https?:\/\//i.test(u||'')?u:''}
 
   /* ---- imagens ----
-     Notícia sobre lançamento/álbum/música -> capa (Apple Music).
-     Notícia sobre artista/evento -> foto do artista (Wikipédia), com a capa como reserva.
-     Sempre há reserva; se nada vier, o card mostra um degradê com a inicial. */
-  var TIPO_IMG={'pitty-album':'album','marina-lisboa':'artist','suede-album':'artist','suede-tour':'artist',
-    'lisa-ep':'album','ateez-drip':'album','kacey':'album','fike':'album','paak-cordae':'album','tini-live':'album',
-    'yung-miami':'album','legend-muse':'album','mayer':'album'};
-  var WIKI_Q={'suede-album':'Suede (band)','suede-tour':'Suede (band)','marina-lisboa':'Marina Sena'};
+     Regra: a imagem tem de corresponder ao que o card diz.
+     'album'  -> capa do lançamento citado (Apple Music). Só vale se o NOME do disco/faixa bater.
+     'artist' -> foto do artista pela página EXATA da Wikipédia (sem busca aproximada).
+     Se o lançamento não for achado, usa a foto do próprio artista. Nunca usa imagem de outro artista.
+     Sem nada confirmado, o card mostra um degradê com a inicial. */
+  var IMG={
+    'pitty-album':{t:'album',alb:['pitty'],wiki:[['pt','Pitty']]},
+    'lolla-2027':{t:'artist',wiki:[['en','Travis Scott'],['pt','Travis Scott']]},
+    'the-town-2027':{t:'artist',wiki:[['en','Slipknot'],['pt','Slipknot']]},
+    'grammy-latino':{t:'album',alb:['equilibrivm'],wiki:[['pt','Anitta'],['en','Anitta']]},
+    'marina-lisboa':{t:'artist',wiki:[['pt','Marina Sena']]},
+    'suede-album':{t:'album',alb:['antidepressants'],wiki:[['en','Suede (band)']]},
+    'suede-tour':{t:'artist',wiki:[['en','Suede (band)']],alb:['antidepressants']},
+    'fike':{t:'album',alb:['pangea','how to quit smoking'],wiki:[['en','Dominic Fike']]},
+    'lisa-ep':{t:'album',alb:['press play'],wiki:[['en','Lisa (rapper)'],['pt','Lisa (cantora)']]},
+    'ateez-drip':{t:'album',alb:['drip','golden hour'],wiki:[['en','Ateez']]},
+    'kacey':{t:'album',alb:['weekend in texas','middle of nowhere'],wiki:[['en','Kacey Musgraves']]},
+    'mayer':{t:'album',alb:['tom and jerry'],wiki:[['en','John Mayer']]},
+    'paak-cordae':{t:'album',alb:['heavy is the crown'],wiki:[['en','Anderson .Paak']]},
+    'legend-muse':{t:'album',alb:['muse'],wiki:[['en','John Legend']]},
+    'yung-miami':{t:'album',alb:['watch dis'],wiki:[['en','Yung Miami']]},
+    'girl-in-red':{t:'album',alb:['blue','missing person'],wiki:[['en','Girl in Red']]},
+    'tini-live':{t:'album',alb:['futttura'],wiki:[['es','Tini Stoessel'],['en','Tini (singer)']]},
+    'tuyo-dez-vidas':{t:'album',alb:['dez vidas'],wiki:[['pt','Tuyo (banda)']]},
+    'jorge-mateus':{t:'album',alb:['primavera'],wiki:[['pt','Jorge & Mateus']]},
+    'tz-matue':{t:'album',alb:['mundo fashion'],wiki:[['pt','TZ da Coronel']]}
+  };
   function norm(t){return String(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim()}
   function tokenArtista(a){var w=norm(a).split(' ').filter(function(x){return x.length>=3});return w[0]||norm(a)}
   var jpN=0;
@@ -20331,37 +20379,48 @@ body.sonora-radar-page > .radar-page{display:block!important;position:fixed!impo
       var cb='sonoraRadar_'+Date.now()+'_'+(jpN++),sc=document.createElement('script'),ok=false,t=setTimeout(function(){fim(null)},9000);
       function fim(v){if(ok)return;ok=true;clearTimeout(t);try{delete window[cb]}catch(e){window[cb]=undefined}if(sc.parentNode)sc.parentNode.removeChild(sc);res(v||null)}
       window[cb]=function(d){fim(d)};sc.onerror=function(){fim(null)};sc.async=true;
-      sc.src='https://itunes.apple.com/search?'+new URLSearchParams(Object.assign({media:'music',limit:8},params,{callback:cb})).toString();
+      sc.src='https://itunes.apple.com/search?'+new URLSearchParams(Object.assign({media:'music',limit:15},params,{callback:cb})).toString();
       document.body.appendChild(sc);
     });
   }
   function grande(u){return u?u.replace(/\/\d+x\d+(bb)?\.(jpg|png)/,'/700x700bb.$2'):''}
+  /* capa do lançamento: artista confere E o nome do disco/faixa confere */
   function apple(it,entity){
+    var cfg=IMG[it.id]||{},alb=(cfg.alb||[]).map(norm);
     return jsonpItunes({term:it.q||it.artist,entity:entity}).then(function(j){
-      var tk=tokenArtista(it.artist),r=(j&&j.results||[]).filter(function(x){return x.artworkUrl100&&norm(x.artistName).indexOf(tk)>-1})[0];
+      var tk=tokenArtista(it.artist);
+      var r=(j&&j.results||[]).filter(function(x){
+        if(!x.artworkUrl100||norm(x.artistName).indexOf(tk)<0)return false;
+        if(!alb.length)return true;
+        var nomes=norm(x.collectionName)+' | '+norm(x.trackName);
+        return alb.some(function(k){return nomes.indexOf(k)>-1});
+      })[0];
       return r?grande(r.artworkUrl100):'';
     });
   }
-  var REGEX_MUSICA=/singer|band|rapper|musician|cantor|cantora|banda|m[uú]sic|group|duo|dj|compositor|songwriter|vocalist/i;
-  function wiki(it,lang){
-    var termo=WIKI_Q[it.id]||it.artist,url='https://'+lang+'.wikipedia.org/w/api.php?action=query&generator=search&gsrlimit=6&gsrsearch='+encodeURIComponent(termo)
-      +'&prop=pageimages|description&piprop=thumbnail&pithumbsize=900&format=json&origin=*';
+  /* foto do artista: página exata (titles=), seguindo redirecionamentos */
+  function wikiExata(lang,titulo){
+    var url='https://'+lang+'.wikipedia.org/w/api.php?action=query&redirects=1&titles='+encodeURIComponent(titulo)
+      +'&prop=pageimages&piprop=thumbnail&pithumbsize=900&format=json&origin=*';
     return fetch(url).then(function(r){return r.json()}).then(function(j){
       var pgs=j&&j.query&&j.query.pages?Object.keys(j.query.pages).map(function(k){return j.query.pages[k]}):[];
-      pgs.sort(function(a,b){return (a.index||99)-(b.index||99)});
-      var tk=tokenArtista(it.artist),r=pgs.filter(function(x){return x.thumbnail&&norm(x.title).indexOf(tk)>-1&&REGEX_MUSICA.test(x.description||'')})[0];
+      var r=pgs.filter(function(x){return x.thumbnail&&x.thumbnail.source})[0];
       return r?r.thumbnail.source:'';
     }).catch(function(){return ''});
   }
+  function fotoArtista(it){
+    var lista=(IMG[it.id]&&IMG[it.id].wiki)||[];
+    return lista.reduce(function(p,w){return p.then(function(u){return u||wikiExata(w[0],w[1])})},Promise.resolve(''));
+  }
   function buscarImagem(it){
-    var tipo=TIPO_IMG[it.id]||(/lancamentos|curiosidades/.test(it.cat)?'album':'artist');
-    var passos=tipo==='album'
-      ?[function(){return apple(it,'album')},function(){return apple(it,'song')},function(){return wiki(it,'pt')},function(){return wiki(it,'en')}]
-      :[function(){return wiki(it,'pt')},function(){return wiki(it,'en')},function(){return apple(it,'album')}];
+    var cfg=IMG[it.id]||{t:/lancamentos|curiosidades/.test(it.cat)?'album':'artist'};
+    var passos=cfg.t==='album'
+      ?[function(){return apple(it,'album')},function(){return apple(it,'song')},function(){return fotoArtista(it)}]
+      :[function(){return fotoArtista(it)},function(){return apple(it,'album')}];
     return passos.reduce(function(p,f){return p.then(function(u){return u||f().catch(function(){return ''})})},Promise.resolve(''));
   }
   function capa(it,cb){
-    var k='radar_img2_'+it.id,c=null;
+    var k='radar_img3_'+it.id,c=null;
     try{c=sessionStorage.getItem(k)}catch(e){}
     if(c){cb(c);return}
     buscarImagem(it).then(function(u){if(u){try{sessionStorage.setItem(k,u)}catch(e){}}cb(u)});
